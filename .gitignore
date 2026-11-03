@@ -1,0 +1,76 @@
+# =========================================================
+# Ryomen AI Agency — .gitignore
+# Goal: never commit secrets or client/lead data.
+# =========================================================
+
+# ---- Secrets & credentials ------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+credentials*.json
+service-account*.json
+client_secret*.json
+token*.json
+secrets/
+**/secrets/
+.netrc
+.npmrc
+.pypirc
+
+# ---- Client data (kept out of git by design) ------------
+# Each client lives in clients/<slug>/ — ignored.
+# Only the empty template is tracked.
+clients/*
+!clients/_template/
+!clients/_template/**
+!clients/README.md
+
+# ---- Lead / prospect data --------------------------------
+leads/data/
+leads/**/*.csv
+!leads/README.md
+
+# ---- Local exports & backups ----------------------------
+exports/
+backups/
+*.zip
+*.tar.gz
+
+# ---- Python ---------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ---- Node / web builds ----------------------------------
+node_modules/
+dist/
+build/
+.next/
+.vercel/
+.netlify/
+.cache/
+
+# ---- Claude Code local-only settings --------------------
+.claude/settings.local.json
+
+# ---- OS / editor ----------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+*.log
