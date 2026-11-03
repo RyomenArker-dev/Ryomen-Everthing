@@ -1,11 +1,23 @@
 {
   "version": 1,
   "skills": {
+    "60fps-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/60fps-animation/SKILL.md",
+      "computedHash": "d832ea4a0dc07c18483d4fd39352c65e4daa2f298998290730cf159df30f400e"
+    },
     "ab-testing": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/ab-testing/SKILL.md",
       "computedHash": "411f8b415f214ccd1bd731952ac741af7313e7de010ef602de4300d24b1c1b24"
+    },
+    "accessible-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/accessible-animation/SKILL.md",
+      "computedHash": "46695e422851b64f2b680924584ba9f7690309c109b6d98925ef3021b139167c"
     },
     "ad-creative": {
       "source": "coreyhaines31/marketingskills",
@@ -13,11 +25,23 @@
       "skillPath": "skills/ad-creative/SKILL.md",
       "computedHash": "62469b7b8e594424cd313527c6b45e0749242a27955b1f80dcfc7f0c12d13d2d"
     },
+    "ad-creative-video": {
+      "source": "iart-ai/ad-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ad-creative-video/SKILL.md",
+      "computedHash": "94c33e3435abd802773c4b7e6058f3d47456bc56354d87b1e6fc2b689757735d"
+    },
     "ads": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/ads/SKILL.md",
       "computedHash": "a61bbfab0fab52626d5c9ae54c1ea60408bad80d4b1028f6e1f1e459e8053023"
+    },
+    "after-effects": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/after-effects/SKILL.md",
+      "computedHash": "9db077d9664f5c45157c53b754d3c72bb346999a260c63d3d4892745a3eefd02"
     },
     "ai-seo": {
       "source": "coreyhaines31/marketingskills",
@@ -31,6 +55,24 @@
       "skillPath": "skills/analytics/SKILL.md",
       "computedHash": "5ffac703d3668127f5aa01dc65f34a0dd8b6b1080d40931414bbdd896278eebb"
     },
+    "animated-infographic": {
+      "source": "iart-ai/data-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/animated-infographic/SKILL.md",
+      "computedHash": "4f9770d38b1f9b2a62fb424971e85c7bf1e94153ed18ffcc283b4ed05c104b68"
+    },
+    "animation-principles": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/animation-principles/SKILL.md",
+      "computedHash": "140b00a44e08aa7649fb1cce1c48670ff2e76f3889fbac0b5311cc5bb818d7b7"
+    },
+    "ascii-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ascii-animation/SKILL.md",
+      "computedHash": "cc219b1851f713f76934a2738ccdcec37d4a266f1d20ecc346487290cc40d2fb"
+    },
     "aso": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -43,11 +85,47 @@
       "skillPath": "skills/attribution/SKILL.md",
       "computedHash": "5a6e2275aa5c0b85d69c8297054ca3589c131ac37be809c73615e08a6eeb8cb1"
     },
+    "audiogram": {
+      "source": "iart-ai/youtube-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/audiogram/SKILL.md",
+      "computedHash": "fc86a13a622c0177a364de1ced4161c894ab5a141ec859ce0e6f436baeeb57ec"
+    },
+    "beat-sync-editing": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/beat-sync-editing/SKILL.md",
+      "computedHash": "4089a0b65782c529ebd4fe9a576588fb51cf716573b4d683b0494e6554e61e03"
+    },
+    "brand-motion-guidelines": {
+      "source": "iart-ai/freelance-motion-skills",
+      "sourceType": "github",
+      "skillPath": "skills/brand-motion-guidelines/SKILL.md",
+      "computedHash": "50b10b1630764e7aa44eb1b6754711f3be4743d6cc6adf5c41872455d9f9c3b9"
+    },
+    "caption-animation": {
+      "source": "iart-ai/tiktok-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/caption-animation/SKILL.md",
+      "computedHash": "e42c4828d3c6115dfb4d8fd3c3fd485b8e6a89c35a8835eee6dae39fb83210a4"
+    },
+    "chart-animation": {
+      "source": "iart-ai/data-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/chart-animation/SKILL.md",
+      "computedHash": "51b5bd9e8f6a9f4bd6e14044634f10450f2f4cf8e5aca44dd246ae710d2135bc"
+    },
     "churn-prevention": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/churn-prevention/SKILL.md",
       "computedHash": "65285ecf0cb501577f13ba4e1fcc66e71d9a52c6746f08fc2e9e0502cede2e64"
+    },
+    "client-revisions": {
+      "source": "iart-ai/freelance-motion-skills",
+      "sourceType": "github",
+      "skillPath": "skills/client-revisions/SKILL.md",
+      "computedHash": "96ec764dde40a372743e06662e49a41c575240613f8e5b4b4ed596513fb91bd7"
     },
     "co-marketing": {
       "source": "coreyhaines31/marketingskills",
@@ -60,6 +138,12 @@
       "sourceType": "github",
       "skillPath": "skills/cold-email/SKILL.md",
       "computedHash": "e17b251dcb74c9af3b9e75cfe1fcc6546a5f73f7190d82ff37958bfb1e6ecd44"
+    },
+    "color-motion": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/color-motion/SKILL.md",
+      "computedHash": "7c05f7d35427d5fbe2fd1b5b6c0622252314a049797085fce085085cbf4c3e6e"
     },
     "community-marketing": {
       "source": "coreyhaines31/marketingskills",
@@ -103,6 +187,18 @@
       "skillPath": "skills/copywriting/SKILL.md",
       "computedHash": "fa83931a47fad42131875374585cab98c9fcf2c3299543bb5bae8828cf06ea08"
     },
+    "countdown-video": {
+      "source": "iart-ai/tiktok-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/countdown-video/SKILL.md",
+      "computedHash": "dafb9127ededa76d0df08be73adc46e18d6ec3955153f6ecfd0f928984ce95b2"
+    },
+    "creative-brief": {
+      "source": "iart-ai/freelance-motion-skills",
+      "sourceType": "github",
+      "skillPath": "skills/creative-brief/SKILL.md",
+      "computedHash": "7baf3d7784420dd4fe049c69bf1517d9c6f312cfa80fa88dabd0760512361230"
+    },
     "cro": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -114,6 +210,12 @@
       "sourceType": "github",
       "skillPath": "skills/customer-research/SKILL.md",
       "computedHash": "c1820bf42369971b9d5e43c5118bbf50402a7b6731b43cfa61d8fe56e0260da4"
+    },
+    "diagram-animation": {
+      "source": "iart-ai/explainer-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/diagram-animation/SKILL.md",
+      "computedHash": "875808a72e79967c35c1743af1f98d9904d83b5f278e13f248b65d63b7baff2a"
     },
     "directory-submissions": {
       "source": "coreyhaines31/marketingskills",
@@ -139,11 +241,35 @@
       "skillPath": "skills/events/SKILL.md",
       "computedHash": "f92f21a38255f8e472ef10286036543b53f08501750f01b66236c31a6a357c70"
     },
+    "explainer-video": {
+      "source": "iart-ai/explainer-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/explainer-video/SKILL.md",
+      "computedHash": "ab433063cdff431ee5d10d6ce8b4d2e1cb4b608fa6637c7d05d08580d1b1b08a"
+    },
     "free-tools": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/free-tools/SKILL.md",
       "computedHash": "b48e30fb2e941e1212afa6ec8a3130638de783d29a61ac917c6af5e67133047c"
+    },
+    "generative-illustration": {
+      "source": "iart-ai/generative-illustration-skills",
+      "sourceType": "github",
+      "skillPath": "skills/generative-illustration/SKILL.md",
+      "computedHash": "44b938cb23d71354896a7e5501b6c74aec80bb0add0413a3453c2b619f267c8d"
+    },
+    "glassmorphism": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/glassmorphism/SKILL.md",
+      "computedHash": "c98e77044561fea5e51116156d0ba600a56f9961ed18b498d72504d49aff7882"
+    },
+    "gsap-web": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-web/SKILL.md",
+      "computedHash": "11585ce3142acae8db34c9d0eb57e03834972f1095643266eb2c41b432564b1d"
     },
     "image": {
       "source": "coreyhaines31/marketingskills",
@@ -157,11 +283,35 @@
       "skillPath": "skills/influencer-marketing/SKILL.md",
       "computedHash": "65d83162f351e934fd045a81a43f10fb1fe77b77d53090daf06855d6e6bffd6f"
     },
+    "isometric-animation": {
+      "source": "iart-ai/explainer-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/isometric-animation/SKILL.md",
+      "computedHash": "3b7b114f3292526edb8f3da0436e2c722715e3cdc421d329c231fc8afe6f4dc5"
+    },
+    "javascript-animation": {
+      "source": "iart-ai/javascript-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/javascript-animation/SKILL.md",
+      "computedHash": "37ca00250a295b54d5bdfcb972dfc697cf5d64e4b217a3a1c59e2c961453b715"
+    },
+    "kinetic-typography": {
+      "source": "iart-ai/kinetic-typography-skills",
+      "sourceType": "github",
+      "skillPath": "skills/kinetic-typography/SKILL.md",
+      "computedHash": "1a59da2f9bf89dcdd23ac35248f7e40ae1586e670a10408edad8728169dfb415"
+    },
     "launch": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/launch/SKILL.md",
       "computedHash": "b46c65a3d55e1721a2e65bfe4fc6826ecdc1c6846b62ffee4fead2188f556243"
+    },
+    "launch-video": {
+      "source": "iart-ai/ad-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/launch-video/SKILL.md",
+      "computedHash": "a55b82d2ca76de5bb80a1217594b11d1bf1ae4485b487bcad7ab256e2f116790"
     },
     "lead-magnets": {
       "source": "coreyhaines31/marketingskills",
@@ -174,6 +324,36 @@
       "sourceType": "github",
       "skillPath": "skills/link-building/SKILL.md",
       "computedHash": "a8e9d0be1316305a8c91d7a58fd80bc329e0223539c4d47fa3a829d53bb61d33"
+    },
+    "logo-animation": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/logo-animation/SKILL.md",
+      "computedHash": "3bba34771ff84fa7e68dc8026e195aab411a82b01091c9427fc8f3c8e48e7d99"
+    },
+    "lottie-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/lottie-animation/SKILL.md",
+      "computedHash": "3b9838145f5af19d03014a5eca9041ae0ba267b77e312332a129f3fe40078f68"
+    },
+    "lower-thirds": {
+      "source": "iart-ai/lower-thirds-skills",
+      "sourceType": "github",
+      "skillPath": "skills/lower-thirds/SKILL.md",
+      "computedHash": "e72c9b665932bb33b891bdb853685bf7dd23e4b4237c12d5a34f62cfab8d74f6"
+    },
+    "manim": {
+      "source": "iart-ai/manim-skills",
+      "sourceType": "github",
+      "skillPath": "skills/manim/SKILL.md",
+      "computedHash": "77265df7e909015ebd246ab23fee008b861e1042bb53e1bfc1a6b03a18ff2bd5"
+    },
+    "map-animation": {
+      "source": "iart-ai/map-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/map-animation/SKILL.md",
+      "computedHash": "584fdd6a2ba764c37ce13ea384427a2edca27923fc0e982482c28265ac08ed79"
     },
     "marketing-council": {
       "source": "coreyhaines31/marketingskills",
@@ -205,6 +385,30 @@
       "skillPath": "skills/marketing-psychology/SKILL.md",
       "computedHash": "50d735eb0f5c36f379ed2200f21aeacc9b9ad85667b5d33ec6111857352a1340"
     },
+    "micro-interaction": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/micro-interaction/SKILL.md",
+      "computedHash": "f236bc97a9f4c0e9c9a045d0b591e3ca6b6b2aeb26e42b661c15211f652ac131"
+    },
+    "motion-art-direction": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-art-direction/SKILL.md",
+      "computedHash": "bcba09b729fd3d99b3b1a388c3aaac655a3771b26dc3e8d077a110dfdd9e1631"
+    },
+    "motion-background": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-background/SKILL.md",
+      "computedHash": "99a576ac6549791b410abbc48a18074fed9e7925cf3ee5392108c59ad9e25fa4"
+    },
+    "motion-pricing": {
+      "source": "iart-ai/freelance-motion-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-pricing/SKILL.md",
+      "computedHash": "1eb6067a1bbc39cf10b0e5a4ee05ad579de84d6ee618b0ad0d346467ce0668c4"
+    },
     "offers": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -216,6 +420,18 @@
       "sourceType": "github",
       "skillPath": "skills/onboarding/SKILL.md",
       "computedHash": "5606ee5c3f1cde7478febf0c957bf414fb2aa919327b4906009d77ee060d1882"
+    },
+    "page-transition-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/page-transition-animation/SKILL.md",
+      "computedHash": "62e103e2313433e77db26c67fdcae1c425030e1a51d0f5ffc0fb6fdac6d36132"
+    },
+    "particle-system": {
+      "source": "iart-ai/webgl-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/particle-system/SKILL.md",
+      "computedHash": "33e9c87a68ed4591c265cf2b88409ddd7026c7ca9ca3dbdc72113ac5144b5761"
     },
     "paywalls": {
       "source": "coreyhaines31/marketingskills",
@@ -229,6 +445,12 @@
       "skillPath": "skills/pdf/SKILL.md",
       "computedHash": "cfbc539377088ca7e44a813b30c306327385bbd973cd7a721e1743f60837dd62"
     },
+    "photo-slideshow": {
+      "source": "iart-ai/ecommerce-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/photo-slideshow/SKILL.md",
+      "computedHash": "ec1dc38355073f869c41d6eff2ae3a73323255392b31bcd99e7ff74a61044d55"
+    },
     "popups": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -240,6 +462,12 @@
       "sourceType": "github",
       "skillPath": "skills/pptx/SKILL.md",
       "computedHash": "82eaf5daede5a1779aa17ccf06597cb209a0c2bd41d3a2f18bd45e0301a387fb"
+    },
+    "presentation-video": {
+      "source": "iart-ai/data-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/presentation-video/SKILL.md",
+      "computedHash": "97e081c072be7e66c0e7d05f96e213fe440cb2a9f19976f31ac4db5539b6c078"
     },
     "pricing": {
       "source": "coreyhaines31/marketingskills",
@@ -259,6 +487,12 @@
       "skillPath": "skills/programmatic-seo/SKILL.md",
       "computedHash": "ed160b6c3692ff1d78c4cf2683d79d8960f5b99f479fce507b91ba712061a530"
     },
+    "promo-video": {
+      "source": "iart-ai/ecommerce-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/promo-video/SKILL.md",
+      "computedHash": "c36e454e50ace08d7bb5189ab325af57721c2ecb3f32deddd87afb9f5e704c3d"
+    },
     "prospecting": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -276,6 +510,12 @@
       "sourceType": "github",
       "skillPath": "skills/referrals/SKILL.md",
       "computedHash": "2f2480c93fbf8af8b7e2ca447d7ab18ae76329d3748c0e56906fa9e24add3743"
+    },
+    "remotion-video": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-video/SKILL.md",
+      "computedHash": "940885087443f4aa5d3baf6edb4ed25edafea2435b52922e120200b4c1af99ba"
     },
     "reverse-engineer-marketing": {
       "source": "coreyhaines31/marketingskills",
@@ -307,6 +547,24 @@
       "skillPath": "skills/seo-audit/SKILL.md",
       "computedHash": "9a94c66cb3098b03037f072b6f561cca75410c6d8611e50646baf9e8a5dabe8f"
     },
+    "shader-glsl": {
+      "source": "iart-ai/webgl-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/shader-glsl/SKILL.md",
+      "computedHash": "09eb08ac1e1a6fe69260fb70d0880adc1ebc62faf7aa304c5c8a49dc43ebfb91"
+    },
+    "short-form-video": {
+      "source": "iart-ai/tiktok-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/short-form-video/SKILL.md",
+      "computedHash": "893ea19615f3199159b9fe94f05e37a5e538e7e0c3af7f77f9f9bed7ff933423"
+    },
+    "shot-composition": {
+      "source": "iart-ai/motion-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/shot-composition/SKILL.md",
+      "computedHash": "9ff4551d175f951fb443a0680020871eb93c5ae07a0f36a2008ca98e5d0fa324"
+    },
     "signup": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -331,17 +589,83 @@
       "skillPath": "skills/social/SKILL.md",
       "computedHash": "24f96b1f5cdc0645f11342abd115daf81b80698a3a4eaca8862b15cdb22aab98"
     },
+    "soundtrack": {
+      "source": "iart-ai/javascript-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/soundtrack/SKILL.md",
+      "computedHash": "f61f31dba833b00dac585801b12ed0deb6623b6c1d3aa5dbb924db5f58528261"
+    },
+    "svg-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/svg-animation/SKILL.md",
+      "computedHash": "b6902577f093a1cd724052b94e633154cb42020b5001138185982fb4ce230404"
+    },
+    "talking-head": {
+      "source": "iart-ai/talking-head-skills",
+      "sourceType": "github",
+      "skillPath": "skills/talking-head/SKILL.md",
+      "computedHash": "398ec59e5605e588b811100297b89afe3dd881ae80c486d1649e069315e20526"
+    },
+    "talking-head-b-roll": {
+      "source": "iart-ai/b-roll-skills",
+      "sourceType": "github",
+      "skillPath": "skills/talking-head-b-roll/SKILL.md",
+      "computedHash": "cdd511056350a5888ebcfa470e0f0e1e14f14b85f0ff1855bfb6824644328f3f"
+    },
+    "testimonial-video": {
+      "source": "iart-ai/ad-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/testimonial-video/SKILL.md",
+      "computedHash": "0d71fa501ffc13fc979d4d93865785c16741c6b4041ccbb3926eaf0da0f486da"
+    },
+    "text-message-animation": {
+      "source": "iart-ai/text-message-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/text-message-animation/SKILL.md",
+      "computedHash": "753d105c3d28eb1f6fda181de099f7c57f9c2f7449cea1878db184b66783a899"
+    },
+    "threejs-animation": {
+      "source": "iart-ai/webgl-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-animation/SKILL.md",
+      "computedHash": "fc7bf12130f2996a2ab79c17b71381cc5f72581d4b46cc9663927c83b70ffe0e"
+    },
     "video": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/video/SKILL.md",
       "computedHash": "674e003eb8189d7081ea5864f68c596c764be9c82b801571bbef809cd302f9a7"
     },
+    "video-delivery-specs": {
+      "source": "iart-ai/freelance-motion-skills",
+      "sourceType": "github",
+      "skillPath": "skills/video-delivery-specs/SKILL.md",
+      "computedHash": "f71afa0e1e95d06a50b13612eb444f8e7532a260cb591ff4c58714a3ea6bfda9"
+    },
+    "whiteboard-animation": {
+      "source": "iart-ai/explainer-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/whiteboard-animation/SKILL.md",
+      "computedHash": "156ea47bbc08e224e42b9e7ea6a35db1a7e08f36294b862eedded3cee8f84d0c"
+    },
+    "wrapped-video": {
+      "source": "iart-ai/explainer-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/wrapped-video/SKILL.md",
+      "computedHash": "8d658c92da44ea452f2b26318ad9f4f24bbda3462719e011edcbbc8f4a4b5641"
+    },
     "xlsx": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/xlsx/SKILL.md",
       "computedHash": "f5945e6e76dc7c178375e5cdf3140959b30cbcd4570ec3dc62296812259fc38d"
+    },
+    "youtube-intro-outro": {
+      "source": "iart-ai/youtube-video-skills",
+      "sourceType": "github",
+      "skillPath": "skills/youtube-intro-outro/SKILL.md",
+      "computedHash": "048d7190bcd6ec26f8700328ee3b59c1d56856e4e5fe9a3b85c7e12e15e3a9fa"
     }
   }
 }

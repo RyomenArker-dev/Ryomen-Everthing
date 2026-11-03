@@ -19,8 +19,9 @@ Last updated: 2026-11-03. Only items under "Tested" were actually run.
 | GitHub Actions run on GitHub | Not observed from the session | GitHub → Actions → "Quality checks" after the push |
 | `.claude/settings.json` permission prompts | Rules are written, but this build ran under the session's own permission mode and was not re-tested in a fresh session | In a new session, ask Claude to run `git reset --hard` and confirm it asks first (then decline) |
 | Agents and skills triggering | Definitions are validated for structure only. Choosing them is up to Claude at runtime | Try the prompts in README "Quick start" |
-| Third-party skills (marketing, UI/UX Pro Max, docx/pdf/pptx/xlsx) | Installed and their scripts reviewed for risky behaviour, but not run | Use them on a test client |
+| Third-party skills (marketing, UI/UX Pro Max, docx/pdf/pptx/xlsx, iart-ai Motion Skills) | Installed and their scripts reviewed for risky behaviour, but not run | Use them on a test client |
 | Document skills that need LibreOffice / Python libs | Dependencies may be missing in a fresh environment | Ask Claude to produce a test PDF |
+| Motion Skills video rendering (Remotion/Manim/ffmpeg) | Skills installed and scripts reviewed (they run only ffmpeg/ffprobe; network calls only to ElevenLabs/fal.ai with your keys, and Hugging Face); nothing rendered yet. Upstream `product-demo-video` (ecommerce pack) was skipped by the installer because its SKILL.md has invalid YAML | Ask for a short logo animation on a test client |
 
 ## Not built yet (by design) 🚧
 - Any integration that sends, publishes or deploys (email, social, ads, hosting, CRM). See [ROADMAP.md](ROADMAP.md).
