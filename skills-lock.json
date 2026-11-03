@@ -121,6 +121,12 @@
       "skillPath": "skills/directory-submissions/SKILL.md",
       "computedHash": "2fecbd48717638d1c3516dc55b0c87707e0cedac99d95105c493327f2d38ee0b"
     },
+    "docx": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/docx/SKILL.md",
+      "computedHash": "59c70107f8eae818bdfca7da685a6e4111aa519638b667775b794cb74987ec47"
+    },
     "emails": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -217,11 +223,23 @@
       "skillPath": "skills/paywalls/SKILL.md",
       "computedHash": "de199e80ba21815b58c319934c0c605b45de8595def7dc478695949378b30aca"
     },
+    "pdf": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/pdf/SKILL.md",
+      "computedHash": "cfbc539377088ca7e44a813b30c306327385bbd973cd7a721e1743f60837dd62"
+    },
     "popups": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/popups/SKILL.md",
       "computedHash": "2917e676fb79292a0cc25367e7bca504de03aa4c4f96012e185ea5c86d08b768"
+    },
+    "pptx": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/pptx/SKILL.md",
+      "computedHash": "82eaf5daede5a1779aa17ccf06597cb209a0c2bd41d3a2f18bd45e0301a387fb"
     },
     "pricing": {
       "source": "coreyhaines31/marketingskills",
@@ -318,6 +336,12 @@
       "sourceType": "github",
       "skillPath": "skills/video/SKILL.md",
       "computedHash": "674e003eb8189d7081ea5864f68c596c764be9c82b801571bbef809cd302f9a7"
+    },
+    "xlsx": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/xlsx/SKILL.md",
+      "computedHash": "f5945e6e76dc7c178375e5cdf3140959b30cbcd4570ec3dc62296812259fc38d"
     }
   }
 }
