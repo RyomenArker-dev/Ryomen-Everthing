@@ -11,9 +11,9 @@
 <body>
 <canvas id="c" width="1080" height="1920"></canvas>
 <script>
-// "Who built it?" — a 30 s vertical explainer about the Antikythera mechanism.
+// "Who built it?" — a 32 s vertical explainer about the Antikythera mechanism.
 // Zero-asset: every pixel and every sound is computed. draw(frame) is a pure function of the frame.
-const W = 1080, H = 1920, FPS = 30, DUR = 30, FRAMES = FPS * DUR;
+const W = 1080, H = 1920, FPS = 30, DUR = 32, FRAMES = FPS * DUR;
 const cv = document.getElementById('c'); cv.width = W; cv.height = H;
 let ctx = cv.getContext('2d');
 
@@ -59,15 +59,17 @@ function glow(x, y, r, rgb, a) {
 // ---------- storyboard: the single source of truth ----------
 const BPM = 120, BEAT = 60 / BPM, b = n => n * BEAT;   // every cut on a beat
 const SCENES = [
-  { id: 'question', from: 0,     to: b(6),  head: 'A 2,000-YEAR-OLD COMPUTER?',      narr: 'Imagine finding a 2,000-year-old computer in the sea.' },
-  { id: 'wreck',    from: b(6),  to: b(14), head: 'DISCOVERED IN A SHIPWRECK',       narr: 'In 1901, sponge divers off Antikythera, Greece…' },
-  { id: 'gears',    from: b(14), to: b(24), head: 'GREEK DEVICE WITH GEARS',         narr: '…retrieved bronze gears from a shipwreck.' },
-  { id: 'museum',   from: b(24), to: b(36), head: 'TRACKS SUN, MOON & PLANETS',      narr: 'X-rays later showed the device could calculate the motions of the Sun, Moon and five planets.' },
-  { id: 'mesh',     from: b(36), to: b(48), head: 'UNRIVALED FOR OVER 1,000 YEARS',  narr: 'Nothing this sophisticated existed again for over a millennium.' },
-  { id: 'who',      from: b(48), to: DUR,   head: 'WHO BUILT IT?',                   narr: 'Who built this celestial calculator?' },
+  { id: 'question', from: 0,     to: b(9),  vo: .35,  head: 'A 2,000-YEAR-OLD COMPUTER?',      narr: 'Imagine finding a 2,000-year-old computer in the sea.' },
+  { id: 'wreck',    from: b(9),  to: b(18), vo: .05, head: 'DISCOVERED IN A SHIPWRECK',       narr: 'In 1901, sponge divers off Antikythera, Greece…' },
+  { id: 'gears',    from: b(18), to: b(26), vo: .3,  head: 'GREEK DEVICE WITH GEARS',         narr: '…retrieved bronze gears from a shipwreck.' },
+  { id: 'museum',   from: b(26), to: b(40), vo: .4,  head: 'TRACKS SUN, MOON & PLANETS',      narr: 'X-rays later showed the device could calculate the motions of the Sun, Moon and five planets.' },
+  { id: 'mesh',     from: b(40), to: b(51), vo: .4,  head: 'UNRIVALED FOR OVER 1,000 YEARS',  narr: 'Nothing this sophisticated existed again for over a millennium.' },
+  { id: 'who',      from: b(51), to: DUR,   vo: .5,    head: 'WHO BUILT IT?',                   narr: 'Who built this celestial calculator?' },
 ];
 // visible actions with a sound: [seconds, sound]
-const EVENTS = [[b(6), 'plunge'], [b(24) + 1.2, 'xray'], [b(36), 'gears'], [b(48) + 3.4, 'bell']];
+const SC = id => SCENES.find(s => s.id === id);
+// the voiceover (mixed in after render, see make_voiceover.sh) starts at scene.from + scene.vo; subtitles appear with it
+const EVENTS = [[SC('wreck').from, 'plunge'], [SC('museum').from + 1.2, 'xray'], [SC('mesh').from, 'gears'], [SC('who').from + 3.4, 'bell']];
 
 // ---------- text ----------
 function wrapLines(text, font, maxW) {
@@ -93,7 +95,7 @@ function textBlock(id, text, { font, size, y, lh, col = PARCH, spacing = '0px', 
   claim(id, 'text', W / 2 - maxw / 2, y - lh / 2, maxw, lh * lines.length);
 }
 function sceneText(sc, lt, len, o = {}) {
-  const hIn = o.headAt ?? .25, nIn = o.narrAt ?? .55;
+  const hIn = o.headAt ?? .25, nIn = o.narrAt ?? sc.vo ?? .55;
   const out = 1 - prog(lt, len - .3, len - .02);
   textBlock(sc.id + '-head', sc.head, { font: HEAD, size: o.headSize ?? 84, y: o.headY ?? 250, lh: (o.headSize ?? 84) * 1.15, spacing: '3px', p: prog(lt, hIn, hIn + 1.1), out: o.holdEnd ? 1 : out });
   textBlock(sc.id + '-narr', sc.narr, { font: NARR, size: 58, y: o.narrY ?? 1530, lh: 76, maxW: 960, col: 'rgba(241,230,204,.93)', p: prog(lt, nIn, nIn + 1.3), out: o.holdEnd ? 1 : out, stagger: .25 });
@@ -209,7 +211,7 @@ function fragment(cx, cy, r, rot, o = {}) {
 // ---------- underwater world (scenes 2-3, one continuous descent) ----------
 const SEABED = 500;
 const sandY = x => SEABED + Math.sin(x * .011) * 14 + Math.sin(x * .031 + 1) * 6;
-const DIVERS = [ { x: -230, start: b(6), end: b(6) + 4.4, y0: -1400, y1: 268 }, { x: 40, start: b(6) + .5, end: b(6) + 5.2, y0: -1460, y1: 250 } ];
+const DIVERS = [ { x: -230, start: b(9), end: b(9) + 4.2, y0: -1400, y1: 268 }, { x: 40, start: b(9) + .5, end: b(9) + 4.4, y0: -1460, y1: 250 } ];
 function diverY(d, t) { return lerp(d.y0, d.y1, ease(prog(t, d.start, d.end))); }
 function diver(x, y, t, seed) {   // hard-hat diver silhouette: round helmet, suit, weighted boots
   const sway = Math.sin(t * 1.3 + seed) * .06, col = '#071a22';
@@ -286,18 +288,19 @@ function sQuestion(lt, t, sc) {
   ctx.fillStyle = '#0a1330'; ctx.beginPath(); ctx.arc(858, 607, 36, 0, TAU); ctx.fill();
   const sh = prog(lt, 1.1, 1.7); if (sh > 0 && sh < 1) { const x = lerp(160, 760, sh), y = lerp(520, 900, sh); const lg = ctx.createLinearGradient(x - 180, y - 114, x, y);
     lg.addColorStop(0, 'rgba(255,255,255,0)'); lg.addColorStop(1, `rgba(255,250,235,${.9 * Math.sin(sh * Math.PI)})`); ctx.strokeStyle = lg; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - 180, y - 114); ctx.lineTo(x, y); ctx.stroke(); }   // shooting star
-  const rise = ease(prog(lt, 2.1, 3.0)), sy = H - rise * 1500;                 // tilt down: the sea comes up into frame
+  const rise = ease(prog(lt, sc.to - sc.from - .9, sc.to - sc.from)), sy = H - rise * 1500;                 // tilt down: the sea comes up into frame
   if (rise > 0) {
     const sg = ctx.createLinearGradient(0, sy, 0, H); sg.addColorStop(0, '#0d2340'); sg.addColorStop(1, '#03101c'); ctx.fillStyle = sg; ctx.fillRect(0, sy, W, H - sy);
     for (let i = 0; i < 30; i++) { const y = sy + 8 + i * i * 1.4, w = 30 + i * 6; ctx.fillStyle = `rgba(220,230,255,${.35 - i * .01})`; ctx.fillRect(840 - w / 2 + Math.sin(t * 3 + i) * 6, y, w, 2); }
   }
-  sceneText(sc, lt, sc.to - sc.from, { headAt: .35, narrAt: .7 });
+  sceneText(sc, lt, sc.to - sc.from, { headAt: .35 });
   ctx.fillStyle = `rgba(0,0,0,${1 - easeOut(prog(lt, 0, .8))})`; ctx.fillRect(0, 0, W, H);            // from black
 }
 function waterCam(t) {
-  if (t < b(14)) { const p = ease(prog(t, b(6), b(14))); return { cx: 0, cy: lerp(-1150, -60, p), k: 1 }; }
-  const p = ease(prog(t, b(14), b(14) + 3.6)), drift = prog(t, b(14) + 3.6, b(24)) * .15;
-  return { cx: lerp(0, 300, p), cy: lerp(-60, SEABED - 60, p), k: lerp(1, 2.55, p) + drift };
+  const w = SC('wreck'), g = SC('gears');
+  if (t < g.from) { const p = ease(prog(t, w.from, g.from)); return { cx: 0, cy: lerp(-1150, 80, p), k: 1 }; }
+  const p = ease(prog(t, g.from, g.from + 3)), drift = prog(t, g.from + 3, g.to) * .15;
+  return { cx: lerp(0, 300, p), cy: lerp(80, SEABED - 60, p), k: lerp(1, 2.55, p) + drift };
 }
 function sWater(lt, t, sc) {
   const glint = sc.id === 'gears' ? prog(lt, 2.6, 4.2) : 0;
@@ -310,7 +313,7 @@ function sWater(lt, t, sc) {
   }
   const vg = ctx.createRadialGradient(W / 2, H / 2, H * .25, W / 2, H / 2, H * .75); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,10,15,.55)');
   ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
-  sceneText(sc, lt, sc.to - sc.from, sc.id === 'gears' ? { narrAt: 1.9 } : {});
+  sceneText(sc, lt, sc.to - sc.from);
 }
 const FX = 540, FY = 880, FR = 215;     // museum fragment
 function sMuseum(lt, t, sc) {
@@ -395,7 +398,7 @@ function sMesh(lt, t, sc) {
   ctx.fillStyle = '#20232e'; ctx.beginPath(); ctx.arc(GC.x + Math.cos(ma) * 380, GC.y + Math.sin(ma) * 380, 13, -Math.PI / 2, Math.PI / 2); ctx.fill();
   ctx.restore(); ctx.globalAlpha = 1;
   claim('gears', 'keep', GC.x - 300, GC.y - 470, 600, 760);
-  sceneText(sc, lt, len, { headAt: .5, narrAt: .8 });
+  sceneText(sc, lt, len, { headAt: .5 });
 }
 // the question mark the stars gather into
 const QPTS = (() => { const p = []; const cx = 540, cy = 690, r = 200;
@@ -406,7 +409,7 @@ function sWho(lt, t, sc) {
   const len = sc.to - sc.from, fade = 1 - easeOut(prog(lt, 0, 1.3));
   starMap(t, lt, 1, { ring: fade });
   if (fade > 0) {
-    const gs = gearTrain(lt + b(48) - b(36));
+    const gs = gearTrain(lt + SC('who').from - SC('mesh').from);
     gs.slice().reverse().forEach(g => bronzeGear(g.x, g.y, g.r, g.n, g.rot, { alpha: fade }));
   }
   // stars travel into the shape of a question mark, then join up like a constellation
@@ -420,7 +423,7 @@ function sWho(lt, t, sc) {
   if (line > 0) { const n = Math.max(2, Math.round(QPTS.length * line)); ctx.save(); ctx.strokeStyle = 'rgba(255,236,200,.55)'; ctx.lineWidth = 3; ctx.shadowColor = 'rgba(255,220,160,.8)'; ctx.shadowBlur = 14;
     ctx.beginPath(); QPTS.slice(0, n).forEach((q, i) => i ? ctx.lineTo(...q) : ctx.moveTo(...q)); ctx.stroke(); ctx.restore(); }
   claim('question-mark', 'keep', 300, 450, 480, 830);
-  sceneText(sc, lt, len, { headAt: 3.4, narrAt: .8, headY: 1420, headSize: 104, narrY: 1590, holdEnd: true });
+  sceneText(sc, lt, len, { headAt: 3.4, headY: 1420, headSize: 104, narrY: 1590, holdEnd: true });
   ctx.fillStyle = `rgba(0,0,0,${prog(lt, len - .6, len)})`; ctx.fillRect(0, 0, W, H);       // fade out
 }
 
@@ -459,7 +462,7 @@ window.SCORE = ac => {
   sub.connect(sg); sg.connect(out); sub.start(0); sub.stop(DUR);
   // clockwork: tick-tock on every beat
   const TICK = [.7, .45, .5, .65, .9, .9];
-  for (let k = 1; k * BEAT < b(51); k++) {
+  for (let k = 1; k * BEAT < SC('who').from + 1.5; k++) {
     const tt = k * BEAT, si = SCENES.findIndex(s => tt >= s.from && tt < s.to), wet2 = si === 1 || si === 2;
     const src = ac.createBufferSource(); src.buffer = noise; const bp = ac.createBiquadFilter(); bp.type = 'bandpass';
     bp.frequency.value = (k % 2 ? 3200 : 2300) * (wet2 ? .35 : 1); bp.Q.value = 2.2;
