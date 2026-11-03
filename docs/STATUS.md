@@ -22,6 +22,11 @@ Last updated: 2026-11-03. Only items under "Tested" were actually run.
 | Third-party skills (marketing, UI/UX Pro Max, docx/pdf/pptx/xlsx, iart-ai Motion Skills) | Installed and their scripts reviewed for risky behaviour, but not run | Use them on a test client |
 | Document skills that need LibreOffice / Python libs | Dependencies may be missing in a fresh environment | Ask Claude to produce a test PDF |
 | Motion Skills video rendering (Remotion/Manim/ffmpeg) | Skills installed and scripts reviewed (they run only ffmpeg/ffprobe; network calls only to ElevenLabs/fal.ai with your keys, and Hugging Face); nothing rendered yet. Upstream `product-demo-video` (ecommerce pack) was skipped by the installer because its SKILL.md has invalid YAML | Ask for a short logo animation on a test client |
+| Ghost Editor (`kurbaitaev/ghost-editor`) | Trial install in one cloud session only, under `~/.claude/skills`, **not in this repo**, so it's gone when that session ends. On Linux its `doctor.sh` core checks passed (ffmpeg with libvpx/libass, Node, HyperFrames, Whisper CPU, OpenCV). Of its 3 test files, one failed a pixel-tolerance test (`test_cutout_fx`) and two ran no tests. Never run end to end, because no talking-head recording was available. The author supports Apple-silicon Macs only. | Give it a short phone recording of you talking, in a session where it's reinstalled |
+| MotionClone (`blixvip/MotionClone`) | Not installed. It's a Windows desktop app that uses a ChatGPT/Codex account, not a Claude Code skill | — |
+
+## Content made with the workspace
+- `content/antikythera-mechanism/`: 30 s vertical explainer video. Rendered and checked: the asset audit, the layout check (no text collisions) and the sound sync (5/5 cuts on the beat) all passed. See its README.
 
 ## Not built yet (by design) 🚧
 - Any integration that sends, publishes or deploys (email, social, ads, hosting, CRM). See [ROADMAP.md](ROADMAP.md).

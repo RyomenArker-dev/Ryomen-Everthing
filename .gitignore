@@ -74,3 +74,7 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+
+# ---- Render by-products (the .mp4 is kept) -----------
+content/**/*.wav
+content/**/*.cues.json

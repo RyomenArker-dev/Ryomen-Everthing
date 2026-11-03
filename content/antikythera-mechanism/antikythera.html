@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Antikythera Mechanism</title>
+<style>
+  html,body{margin:0;background:#05070f;display:grid;place-items:center;height:100vh}
+  canvas{height:min(100vh,177.7vw);width:auto}
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// "Who built it?" — a 30 s vertical explainer about the Antikythera mechanism.
+// Zero-asset: every pixel and every sound is computed. draw(frame) is a pure function of the frame.
+const W = 1080, H = 1920, FPS = 30, DUR = 30, FRAMES = FPS * DUR;
+const cv = document.getElementById('c'); cv.width = W; cv.height = H;
+let ctx = cv.getContext('2d');
+
+// LOOK — night sky, deep sea, corroded bronze. Serif type for an ancient object.
+const NIGHT = '#060a1a', DEEP = '#0c1a3c', PARCH = '#f1e6cc', GOLD = '#e9b65c',
+      BRONZE_L = '#d7a05a', BRONZE_D = '#7c4f22', VERD = '#4e9883', VERD_D = '#2b5f52', XRAY = '#8fe6ff';
+const HEAD = '700 {s}px Caladea, "Liberation Serif", Georgia, "Times New Roman", serif';
+const NARR = 'italic 400 {s}px Caladea, "Liberation Serif", Georgia, "Times New Roman", serif';
+
+// ---------- math ----------
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const ease = t => { t = clamp(t); return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+const easeOut = t => 1 - Math.pow(1 - clamp(t), 3);
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const TAU = Math.PI * 2;
+function hash2(a, b) {
+  let n = Math.imul(a | 0, 374761393) + Math.imul(b | 0, 668265263);
+  n = Math.imul(n ^ (n >>> 13), 1274126177);
+  return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
+}
+function vnoise(x, y) {
+  const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+  const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+  return lerp(lerp(hash2(xi, yi), hash2(xi + 1, yi), u), lerp(hash2(xi, yi + 1), hash2(xi + 1, yi + 1), u), v);
+}
+function rng(seed) { let a = seed | 0; return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+// ---------- camera + layout registry ----------
+function withCamera(cam, fn) { ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(cam.k, cam.k); ctx.translate(-cam.cx, -cam.cy); fn(); ctx.restore(); }
+let LAYOUT = [];
+function claim(id, kind, x, y, w, h) {
+  const m = ctx.getTransform(), P = [[x, y], [x + w, y], [x, y + h], [x + w, y + h]].map(([a, c]) => [m.a * a + m.c * c + m.e, m.b * a + m.d * c + m.f]);
+  const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
+  LAYOUT.push({ id, kind, x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) });
+}
+function glow(x, y, r, rgb, a) {
+  if (a <= 0 || r <= 0) return;
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(${rgb},${a})`); g.addColorStop(1, `rgba(${rgb},0)`);
+  ctx.fillStyle = g; ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
+}
+
+// ---------- storyboard: the single source of truth ----------
+const BPM = 120, BEAT = 60 / BPM, b = n => n * BEAT;   // every cut on a beat
+const SCENES = [
+  { id: 'question', from: 0,     to: b(6),  head: 'A 2,000-YEAR-OLD COMPUTER?',      narr: 'Imagine finding a 2,000-year-old computer in the sea.' },
+  { id: 'wreck',    from: b(6),  to: b(14), head: 'DISCOVERED IN A SHIPWRECK',       narr: 'In 1901, sponge divers off Antikythera, Greece…' },
+  { id: 'gears',    from: b(14), to: b(24), head: 'GREEK DEVICE WITH GEARS',         narr: '…retrieved bronze gears from a shipwreck.' },
+  { id: 'museum',   from: b(24), to: b(36), head: 'TRACKS SUN, MOON & PLANETS',      narr: 'X-rays later showed the device could calculate the motions of the Sun, Moon and five planets.' },
+  { id: 'mesh',     from: b(36), to: b(48), head: 'UNRIVALED FOR OVER 1,000 YEARS',  narr: 'Nothing this sophisticated existed again for over a millennium.' },
+  { id: 'who',      from: b(48), to: DUR,   head: 'WHO BUILT IT?',                   narr: 'Who built this celestial calculator?' },
+];
+// visible actions with a sound: [seconds, sound]
+const EVENTS = [[b(6), 'plunge'], [b(24) + 1.2, 'xray'], [b(36), 'gears'], [b(48) + 3.4, 'bell']];
+
+// ---------- text ----------
+function wrapLines(text, font, maxW) {
+  ctx.font = font; const words = text.split(' '), lines = []; let cur = '';
+  for (const w of words) { const test = cur ? cur + ' ' + w : w; if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; } else cur = test; }
+  if (cur) lines.push(cur); return lines;
+}
+function textBlock(id, text, { font, size, y, lh, col = PARCH, spacing = '0px', p = 1, out = 1, maxW = 940, stagger = .18 }) {
+  if (p <= 0 || out <= 0) return;
+  const f = font.replace('{s}', size);
+  ctx.save(); ctx.letterSpacing = spacing;
+  const lines = wrapLines(text, f, maxW);
+  ctx.font = f; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.shadowColor = 'rgba(0,0,0,.75)'; ctx.shadowBlur = 22;
+  let maxw = 0;
+  lines.forEach((ln, i) => {
+    const q = easeOut(prog(p, i * stagger, i * stagger + .6));
+    ctx.globalAlpha = q * out; ctx.fillStyle = col;
+    ctx.fillText(ln, W / 2, y + i * lh + (1 - q) * 18);
+    maxw = Math.max(maxw, ctx.measureText(ln).width);
+  });
+  ctx.restore();
+  claim(id, 'text', W / 2 - maxw / 2, y - lh / 2, maxw, lh * lines.length);
+}
+function sceneText(sc, lt, len, o = {}) {
+  const hIn = o.headAt ?? .25, nIn = o.narrAt ?? .55;
+  const out = 1 - prog(lt, len - .3, len - .02);
+  textBlock(sc.id + '-head', sc.head, { font: HEAD, size: o.headSize ?? 84, y: o.headY ?? 250, lh: (o.headSize ?? 84) * 1.15, spacing: '3px', p: prog(lt, hIn, hIn + 1.1), out: o.holdEnd ? 1 : out });
+  textBlock(sc.id + '-narr', sc.narr, { font: NARR, size: 58, y: o.narrY ?? 1530, lh: 76, maxW: 960, col: 'rgba(241,230,204,.93)', p: prog(lt, nIn, nIn + 1.3), out: o.holdEnd ? 1 : out, stagger: .25 });
+}
+
+// ---------- sky ----------
+const STARS = (() => { const r = rng(11), s = []; for (let i = 0; i < 420; i++) s.push({ x: r() * W, y: r() * H, m: Math.pow(r(), 3), ph: r() * TAU, sp: .6 + r() * 2 }); return s; })();
+function sky(t, o = {}) {
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, NIGHT); g.addColorStop(1, DEEP);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  glow(W * .5, H * .45, 900, '60,90,170', .18);                     // faint galactic haze
+  ctx.save(); const k = o.zoom || 1; ctx.translate(W / 2, H / 2); ctx.scale(k, k); ctx.rotate(o.rot || 0); ctx.translate(-W / 2, -H / 2);
+  for (const s of STARS) {
+    const tw = .55 + .45 * Math.sin(t * s.sp + s.ph), r = .7 + s.m * 2.6;
+    ctx.globalAlpha = (.35 + .65 * s.m) * tw * (o.alpha ?? 1);
+    ctx.fillStyle = s.m > .5 ? '#fff3d6' : '#cfdcff'; ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, TAU); ctx.fill();
+    if (s.m > .65) { ctx.globalAlpha *= .5; glow(s.x, s.y, r * 7, '255,240,210', .35); }
+  }
+  ctx.restore(); ctx.globalAlpha = 1;
+}
+const CONST = (() => { const r = rng(5), out = []; for (let c = 0; c < 7; c++) { let x = 80 + r() * 920, y = 120 + r() * 1650; const pts = [[x, y]];
+  for (let i = 0; i < 3 + (r() * 3 | 0); i++) { x += (r() - .5) * 220; y += (r() - .5) * 220; pts.push([x, y]); } out.push(pts); } return out; })();
+function constellations(a) {
+  if (a <= 0) return; ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = 'rgba(160,190,255,.35)'; ctx.lineWidth = 1.5;
+  for (const pts of CONST) { ctx.beginPath(); pts.forEach((p, i) => i ? ctx.lineTo(...p) : ctx.moveTo(...p)); ctx.stroke();
+    ctx.fillStyle = '#e7eeff'; for (const p of pts) { ctx.beginPath(); ctx.arc(p[0], p[1], 3, 0, TAU); ctx.fill(); } }
+  ctx.restore();
+}
+function zodiacRing(cx, cy, r, rot, a) {   // the calendar dials: 12 signs and 365 days
+  if (a <= 0) return; ctx.save(); ctx.globalAlpha = a; ctx.translate(cx, cy); ctx.rotate(rot);
+  ctx.strokeStyle = 'rgba(233,182,92,.55)'; ctx.lineWidth = 2;
+  for (const rr of [r, r - 34, r - 62]) { ctx.beginPath(); ctx.arc(0, 0, rr, 0, TAU); ctx.stroke(); }
+  for (let i = 0; i < 12; i++) { const an = i / 12 * TAU; ctx.beginPath(); ctx.moveTo(Math.cos(an) * (r - 34), Math.sin(an) * (r - 34)); ctx.lineTo(Math.cos(an) * r, Math.sin(an) * r); ctx.stroke();
+    ctx.fillStyle = 'rgba(233,182,92,.7)'; ctx.beginPath(); ctx.arc(Math.cos(an + .26) * (r - 17), Math.sin(an + .26) * (r - 17), 4, 0, TAU); ctx.fill(); }
+  ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(233,182,92,.35)';
+  for (let i = 0; i < 365; i++) { const an = i / 365 * TAU, l = i % 5 ? 8 : 16; ctx.beginPath(); ctx.moveTo(Math.cos(an) * (r - 62), Math.sin(an) * (r - 62)); ctx.lineTo(Math.cos(an) * (r - 62 + l), Math.sin(an) * (r - 62 + l)); ctx.stroke(); }
+  ctx.restore();
+}
+
+// ---------- gears ----------
+function gearPath(cx, cy, r, n, rot, toothH) {
+  const h = toothH ?? Math.max(5, r * .085), path = new Path2D();
+  for (let i = 0; i < n; i++) {
+    const a = rot + i / n * TAU, s = TAU / n;
+    const pts = [[a, r - h], [a + s * .18, r + h], [a + s * .45, r + h], [a + s * .63, r - h]];
+    pts.forEach(([an, rr], j) => { const x = cx + Math.cos(an) * rr, y = cy + Math.sin(an) * rr; (i === 0 && j === 0) ? path.moveTo(x, y) : path.lineTo(x, y); });
+  }
+  path.closePath();
+  const spokes = 4, wIn = r * .28, wOut = r * .78, gap = .2;              // four windows between cross spokes, like the main wheel
+  for (let k = 0; k < spokes; k++) {
+    const a0 = rot + k / spokes * TAU + gap, a1 = rot + (k + 1) / spokes * TAU - gap, sub = new Path2D();
+    sub.arc(cx, cy, wOut, a0, a1); sub.arc(cx, cy, wIn, a1 - .05, a0 + .05, true); sub.closePath(); path.addPath(sub);
+  }
+  return path;
+}
+function bronzeGear(cx, cy, r, n, rot, o = {}) {
+  const p = gearPath(cx, cy, r, n, rot);
+  ctx.save(); ctx.globalAlpha = o.alpha ?? 1;
+  const g = ctx.createRadialGradient(cx - r * .3, cy - r * .35, r * .1, cx, cy, r * 1.1);
+  g.addColorStop(0, BRONZE_L); g.addColorStop(.6, '#a8733a'); g.addColorStop(1, BRONZE_D);
+  ctx.shadowColor = 'rgba(0,0,0,.55)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 10;
+  ctx.fillStyle = g; ctx.fill(p, 'evenodd');
+  ctx.shadowColor = 'transparent'; ctx.strokeStyle = 'rgba(60,35,12,.9)'; ctx.lineWidth = 2.5; ctx.stroke(p);
+  ctx.strokeStyle = 'rgba(255,220,160,.35)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx, cy, r * .86, Math.PI * 1.05, Math.PI * 1.6); ctx.stroke();
+  ctx.fillStyle = '#5a3a18'; ctx.beginPath(); ctx.arc(cx, cy, r * .13, 0, TAU); ctx.fill();
+  ctx.fillStyle = BRONZE_L; ctx.beginPath(); ctx.arc(cx, cy, r * .07, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+// meshing: phase so a tooth of gear B sits in a gap of gear A at the contact angle
+function meshPhase(A, B, theta) {
+  const sA = TAU / A.n, sB = TAU / B.n, f1 = (((theta - A.rot) / sA - .315) % 1 + 1) % 1;   // .315 = tooth centre within one pitch
+  return theta + Math.PI - (.5 - f1 + .315) * sB;
+}
+function meshed(A, B, th, aRot0, aRot) { return -(aRot - aRot0) * A.n / B.n + meshPhase({ ...A, rot: aRot0 }, B, th); }
+
+// ---------- the fragment (same object on the seabed and in the museum) ----------
+function fragmentOutline(cx, cy, r, rot) {
+  const pts = [];
+  for (let i = 0; i < 64; i++) {
+    const a = i / 64 * TAU, keep = ((a + 0.6) % TAU) < 3.9;               // one side broken away
+    const rr = keep ? r * (1.13 + (vnoise(i * .7, 3) - .5) * .06) : r * (.42 + vnoise(i * .55, 9) * .38);
+    pts.push([cx + Math.cos(a + rot) * rr, cy + Math.sin(a + rot) * rr]);
+  }
+  const p = new Path2D(); pts.forEach((q, i) => i ? p.lineTo(...q) : p.moveTo(...q)); p.closePath(); return p;
+}
+function fragment(cx, cy, r, rot, o = {}) {
+  const outline = fragmentOutline(cx, cy, r, rot);
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = r * .25; ctx.shadowOffsetY = r * .06;
+  ctx.fillStyle = VERD_D; ctx.fill(outline); ctx.shadowColor = 'transparent';
+  ctx.clip(outline);
+  const g = ctx.createRadialGradient(cx - r * .3, cy - r * .3, r * .1, cx, cy, r * 1.2);
+  g.addColorStop(0, '#6fae95'); g.addColorStop(1, VERD_D); ctx.fillStyle = g; ctx.fillRect(cx - r * 1.3, cy - r * 1.3, r * 2.6, r * 2.6);
+  // the gear inside the crust: teeth and spokes still visible
+  const gp = gearPath(cx, cy, r * .9, 48, rot + .2, r * .07);
+  ctx.fillStyle = 'rgba(30,70,58,.65)'; ctx.fill(gp, 'evenodd');
+  ctx.strokeStyle = 'rgba(160,215,190,.45)'; ctx.lineWidth = Math.max(1.2, r * .012); ctx.stroke(gp);
+  // corrosion crust: mottled patches, some exposed bronze
+  const rr = rng(77);
+  for (let i = 0; i < 140; i++) {
+    const a = rr() * TAU, d = Math.sqrt(rr()) * r * 1.1, s = r * (.02 + rr() * .07);
+    const c = rr(); ctx.fillStyle = c < .55 ? 'rgba(120,190,160,.35)' : c < .85 ? 'rgba(25,55,45,.45)' : 'rgba(180,120,60,.55)';
+    ctx.beginPath(); ctx.ellipse(cx + Math.cos(a) * d, cy + Math.sin(a) * d, s, s * (.6 + rr() * .6), rr() * 3, 0, TAU); ctx.fill();
+  }
+  if (o.glint) { const gx = cx - r * 1.4 + o.glint * r * 2.8; const lg = ctx.createLinearGradient(gx - r * .3, 0, gx + r * .3, 0);
+    lg.addColorStop(0, 'rgba(255,240,200,0)'); lg.addColorStop(.5, 'rgba(255,240,200,.35)'); lg.addColorStop(1, 'rgba(255,240,200,0)');
+    ctx.fillStyle = lg; ctx.fillRect(cx - r * 1.4, cy - r * 1.4, r * 2.8, r * 2.8); }
+  if (o.xray) o.xray(outline);
+  ctx.restore();
+  ctx.save(); ctx.strokeStyle = 'rgba(10,30,25,.8)'; ctx.lineWidth = Math.max(1.5, r * .015); ctx.stroke(outline); ctx.restore();
+}
+
+// ---------- underwater world (scenes 2-3, one continuous descent) ----------
+const SEABED = 500;
+const sandY = x => SEABED + Math.sin(x * .011) * 14 + Math.sin(x * .031 + 1) * 6;
+const DIVERS = [ { x: -230, start: b(6), end: b(6) + 4.4, y0: -1400, y1: 268 }, { x: 40, start: b(6) + .5, end: b(6) + 5.2, y0: -1460, y1: 250 } ];
+function diverY(d, t) { return lerp(d.y0, d.y1, ease(prog(t, d.start, d.end))); }
+function diver(x, y, t, seed) {   // hard-hat diver silhouette: round helmet, suit, weighted boots
+  const sway = Math.sin(t * 1.3 + seed) * .06, col = '#071a22';
+  ctx.save(); ctx.translate(x, y); ctx.rotate(sway);
+  ctx.strokeStyle = 'rgba(10,30,36,.9)'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(0, -36);           // air hose to the surface
+  ctx.bezierCurveTo(40, -300, -60, -700, 20 * Math.sin(t + seed), -2200); ctx.stroke();
+  ctx.fillStyle = col;
+  ctx.beginPath(); ctx.ellipse(0, 105, 46, 72, 0, 0, TAU); ctx.fill();                                     // suit
+  ctx.beginPath(); ctx.roundRect(-46, 70, 30, 110, 14); ctx.fill(); ctx.beginPath(); ctx.roundRect(16, 70, 30, 110, 14); ctx.fill();   // arms
+  const step = Math.sin(t * 2 + seed) * 8;
+  ctx.beginPath(); ctx.roundRect(-36, 150, 30, 82 + step, 12); ctx.fill(); ctx.beginPath(); ctx.roundRect(6, 150, 30, 82 - step, 12); ctx.fill(); // legs
+  ctx.beginPath(); ctx.ellipse(-22, 236 + step, 24, 12, 0, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.ellipse(22, 236 - step, 24, 12, 0, 0, TAU); ctx.fill(); // boots
+  ctx.beginPath(); ctx.arc(0, 0, 40, 0, TAU); ctx.fill();                                                     // helmet
+  ctx.fillStyle = 'rgba(120,200,210,.28)'; ctx.beginPath(); ctx.arc(12, 2, 15, 0, TAU); ctx.fill();          // faceplate glint
+  ctx.strokeStyle = 'rgba(120,200,210,.22)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, 0, 40, -2.4, -1.1); ctx.stroke(); // rim light
+  ctx.restore();
+  for (let i = 0; i < 9; i++) {                                                                              // bubbles
+    const ph = (t * .9 + i / 9 + seed * .13) % 1, by = y - 40 - ph * 420, bx = x + Math.sin(ph * 11 + i) * 14;
+    ctx.globalAlpha = (1 - ph) * .7; ctx.strokeStyle = '#bfefff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(bx, by, 3 + (i % 3) * 2.5, 0, TAU); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+function amphora(x, y, rot, s) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s); ctx.fillStyle = '#4b3530';
+  ctx.beginPath(); ctx.ellipse(0, 0, 34, 70, 0, 0, TAU); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(-11, -112, 22, 50, 6); ctx.fill(); ctx.beginPath(); ctx.ellipse(0, 76, 9, 16, 0, 0, TAU); ctx.fill();
+  ctx.strokeStyle = '#4b3530'; ctx.lineWidth = 7; ctx.beginPath(); ctx.arc(-18, -82, 14, 1.2, 4.2); ctx.stroke(); ctx.beginPath(); ctx.arc(18, -82, 14, -1.1, 1.9); ctx.stroke();
+  ctx.fillStyle = 'rgba(140,200,210,.12)'; ctx.beginPath(); ctx.ellipse(-12, -14, 10, 40, 0, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+function underwater(t, o = {}) {
+  const g = ctx.createLinearGradient(0, -1700, 0, 900);
+  g.addColorStop(0, '#2d8aa0'); g.addColorStop(.25, '#14566c'); g.addColorStop(.7, '#0a2c3c'); g.addColorStop(1, '#04141c');
+  ctx.fillStyle = g; ctx.fillRect(-2000, -2600, 4000, 4000);
+  const air = ctx.createLinearGradient(0, -2600, 0, -1520); air.addColorStop(0, NIGHT); air.addColorStop(1, '#14284a');   // night air above the surface
+  ctx.fillStyle = air; ctx.fillRect(-2000, -2600, 4000, 1080);
+  // surface shimmer
+  ctx.fillStyle = 'rgba(190,240,255,.25)';
+  for (let i = 0; i < 26; i++) { const x = -900 + i * 72 + Math.sin(t * 1.4 + i) * 20; ctx.beginPath(); ctx.ellipse(x, -1520 + Math.sin(t * 2 + i * .7) * 6, 30, 5, 0, 0, TAU); ctx.fill(); }
+  // light shafts from the surface
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < 6; i++) {
+    const x = -700 + i * 260 + Math.sin(t * .4 + i * 1.7) * 40, wv = 70 + 40 * Math.sin(i * 2.1);
+    const lg = ctx.createLinearGradient(0, -1520, 0, 500); lg.addColorStop(0, `rgba(170,235,255,${.16 + .05 * Math.sin(t * .9 + i)})`); lg.addColorStop(1, 'rgba(170,235,255,0)');
+    ctx.fillStyle = lg; ctx.beginPath(); ctx.moveTo(x, -1520); ctx.lineTo(x + wv, -1520); ctx.lineTo(x + wv + 330, 520); ctx.lineTo(x + 220, 520); ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+  // marine snow
+  ctx.fillStyle = 'rgba(210,240,240,.5)';
+  for (let i = 0; i < 260; i++) { const x = hash2(i, 1) * 1900 - 950 + Math.sin(t * .5 + i) * 8, y = ((hash2(i, 2) * 2400 + t * (8 + hash2(i, 3) * 14)) % 2400) - 1700;
+    ctx.globalAlpha = .25 + hash2(i, 4) * .5; ctx.beginPath(); ctx.arc(x, y, .8 + hash2(i, 5) * 1.8, 0, TAU); ctx.fill(); }
+  ctx.globalAlpha = 1;
+  // the wreck: ribs of the hull standing out of the sand, amphorae
+  ctx.strokeStyle = '#1b1712'; ctx.lineCap = 'round';
+  for (let i = 0; i < 7; i++) { const x = -470 + i * 62, h = 150 + Math.sin(i * 1.9) * 40 - (i > 4 ? 60 : 0);
+    ctx.lineWidth = 16; ctx.beginPath(); ctx.moveTo(x, sandY(x) + 10); ctx.quadraticCurveTo(x - 30, sandY(x) - h * .6, x + 12, sandY(x) - h); ctx.stroke(); }
+  ctx.lineWidth = 12; ctx.beginPath(); ctx.moveTo(-500, sandY(-500) - 30); ctx.lineTo(-90, sandY(-90) - 6); ctx.stroke();
+  amphora(-330, SEABED - 26, 1.25, .9); amphora(-180, SEABED - 40, -.35, 1); amphora(-40, SEABED - 22, 1.5, .85); amphora(130, SEABED - 34, .5, .8);
+  // the fragments, resting against the sand
+  fragment(300, SEABED - 34, 66, .3, { glint: o.glint }); fragment(392, SEABED - 6, 30, 2.1);
+  // divers
+  DIVERS.forEach((d, i) => diver(d.x, diverY(d, t), t, i * 3.1));
+  // seabed in front (covers the lower edge of the fragments)
+  const sg = ctx.createLinearGradient(0, SEABED - 20, 0, 900); sg.addColorStop(0, '#3c4a42'); sg.addColorStop(1, '#0d1714');
+  ctx.fillStyle = sg; ctx.beginPath(); ctx.moveTo(-2000, 2000);
+  for (let x = -2000; x <= 2000; x += 20) ctx.lineTo(x, sandY(x)); ctx.lineTo(2000, 2000); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = 'rgba(200,220,190,.08)'; for (let i = 0; i < 40; i++) { const x = -900 + i * 47; ctx.beginPath(); ctx.ellipse(x, sandY(x) + 26 + (i % 3) * 30, 30, 4, 0, 0, TAU); ctx.fill(); }
+}
+
+// ---------- scenes (lt = time since the scene started) ----------
+function sQuestion(lt, t, sc) {
+  sky(t, { zoom: 1 + .05 * lt });
+  glow(840, 620, 170, '220,230,255', .22); ctx.fillStyle = '#e9eefc'; ctx.beginPath(); ctx.arc(840, 620, 40, 0, TAU); ctx.fill(); claim('moon', 'keep', 800, 580, 80, 80);       // moon
+  ctx.fillStyle = '#0a1330'; ctx.beginPath(); ctx.arc(858, 607, 36, 0, TAU); ctx.fill();
+  const sh = prog(lt, 1.1, 1.7); if (sh > 0 && sh < 1) { const x = lerp(160, 760, sh), y = lerp(520, 900, sh); const lg = ctx.createLinearGradient(x - 180, y - 114, x, y);
+    lg.addColorStop(0, 'rgba(255,255,255,0)'); lg.addColorStop(1, `rgba(255,250,235,${.9 * Math.sin(sh * Math.PI)})`); ctx.strokeStyle = lg; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - 180, y - 114); ctx.lineTo(x, y); ctx.stroke(); }   // shooting star
+  const rise = ease(prog(lt, 2.1, 3.0)), sy = H - rise * 1500;                 // tilt down: the sea comes up into frame
+  if (rise > 0) {
+    const sg = ctx.createLinearGradient(0, sy, 0, H); sg.addColorStop(0, '#0d2340'); sg.addColorStop(1, '#03101c'); ctx.fillStyle = sg; ctx.fillRect(0, sy, W, H - sy);
+    for (let i = 0; i < 30; i++) { const y = sy + 8 + i * i * 1.4, w = 30 + i * 6; ctx.fillStyle = `rgba(220,230,255,${.35 - i * .01})`; ctx.fillRect(840 - w / 2 + Math.sin(t * 3 + i) * 6, y, w, 2); }
+  }
+  sceneText(sc, lt, sc.to - sc.from, { headAt: .35, narrAt: .7 });
+  ctx.fillStyle = `rgba(0,0,0,${1 - easeOut(prog(lt, 0, .8))})`; ctx.fillRect(0, 0, W, H);            // from black
+}
+function waterCam(t) {
+  if (t < b(14)) { const p = ease(prog(t, b(6), b(14))); return { cx: 0, cy: lerp(-1150, -60, p), k: 1 }; }
+  const p = ease(prog(t, b(14), b(14) + 3.6)), drift = prog(t, b(14) + 3.6, b(24)) * .15;
+  return { cx: lerp(0, 300, p), cy: lerp(-60, SEABED - 60, p), k: lerp(1, 2.55, p) + drift };
+}
+function sWater(lt, t, sc) {
+  const glint = sc.id === 'gears' ? prog(lt, 2.6, 4.2) : 0;
+  withCamera(waterCam(t), () => { underwater(t, { glint }); if (sc.id === 'gears') claim('fragment', 'keep', 300 - 70, SEABED - 104, 140, 104); });
+  if (sc.id === 'wreck') {                                                         // the plunge: bubbles burst up past the camera
+    const p = prog(lt, 0, 1.2);
+    if (p < 1) for (let i = 0; i < 70; i++) { const x = hash2(i, 7) * W, y = H + 100 - (p * (1.2 + hash2(i, 8)) * H * 1.3) + hash2(i, 9) * 300, r = 4 + hash2(i, 10) * 18;
+      ctx.globalAlpha = (1 - p) * .8; ctx.strokeStyle = '#d6f6ff'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  }
+  const vg = ctx.createRadialGradient(W / 2, H / 2, H * .25, W / 2, H / 2, H * .75); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,10,15,.55)');
+  ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+  sceneText(sc, lt, sc.to - sc.from, sc.id === 'gears' ? { narrAt: 1.9 } : {});
+}
+const FX = 540, FY = 880, FR = 215;     // museum fragment
+function sMuseum(lt, t, sc) {
+  const len = sc.to - sc.from, push = ease(prog(lt, len - .7, len)), k = 1 + push * .9;
+  ctx.save(); ctx.translate(FX, FY); ctx.scale(k, k); ctx.translate(-FX, -FY);
+  ctx.fillStyle = '#07080d'; ctx.fillRect(-200, -200, W + 400, H + 400);
+  const cone = ctx.createLinearGradient(0, 0, 0, 1400); cone.addColorStop(0, 'rgba(255,225,170,.20)'); cone.addColorStop(1, 'rgba(255,225,170,0)');
+  ctx.fillStyle = cone; ctx.beginPath(); ctx.moveTo(470, -100); ctx.lineTo(610, -100); ctx.lineTo(900, 1250); ctx.lineTo(180, 1250); ctx.closePath(); ctx.fill();
+  glow(FX, FY, 520, '255,210,150', .12);
+  // plinth and mount
+  ctx.fillStyle = '#1a1714'; ctx.fillRect(300, 1190, 480, 260); ctx.fillStyle = '#2a2520'; ctx.fillRect(285, 1172, 510, 26);
+  ctx.fillStyle = '#3a342c'; ctx.fillRect(532, 1080, 16, 96);
+  // glass case
+  ctx.strokeStyle = 'rgba(200,220,235,.25)'; ctx.lineWidth = 3; ctx.strokeRect(250, 560, 580, 612);
+  ctx.fillStyle = 'rgba(200,220,235,.05)'; ctx.beginPath(); ctx.moveTo(250, 560); ctx.lineTo(400, 560); ctx.lineTo(250, 900); ctx.closePath(); ctx.fill();
+  // the fragment; the X-ray scan reveals the gear train inside
+  const scan = prog(lt, 1.2, 3.4), scanY = lerp(FY - FR * 1.2, FY + FR * 1.2, scan);
+  fragment(FX, FY, FR, .3, { xray: outline => {
+    if (scan <= 0) return;
+    ctx.save(); ctx.beginPath(); ctx.rect(FX - FR * 1.3, FY - FR * 1.3, FR * 2.6, scanY - (FY - FR * 1.3)); ctx.clip();
+    ctx.fillStyle = 'rgba(6,22,48,.88)'; ctx.fillRect(FX - FR * 1.3, FY - FR * 1.3, FR * 2.6, FR * 2.6);
+    ctx.shadowColor = XRAY; ctx.shadowBlur = 12; ctx.strokeStyle = XRAY; ctx.lineWidth = 2.5;
+    const spin = (lt - 1.2) * .25;
+    ctx.stroke(gearPath(FX, FY, FR * .9, 48, .5 + spin, FR * .06));
+    ctx.stroke(gearPath(FX + 70, FY - 60, 62, 18, -spin * 2.6, 6));
+    ctx.stroke(gearPath(FX - 80, FY + 70, 48, 14, -spin * 3.4, 5));
+    ctx.stroke(gearPath(FX + 40, FY + 110, 30, 10, spin * 4, 4));
+    ctx.restore();
+  } });
+  if (scan > 0 && scan < 1) { ctx.fillStyle = 'rgba(143,230,255,.9)'; ctx.fillRect(FX - FR * 1.25, scanY - 2, FR * 2.5, 4); glow(FX, scanY, 260, '143,230,255', .18); }
+  claim('fragment', 'keep', FX - FR * 1.15, FY - FR * 1.15, FR * 2.3, FR * 2.3);
+  // what it computed: the Sun, the Moon and five planets on their dial
+  const ring = easeOut(prog(lt, 3.3, 4.3));
+  if (ring > 0) {
+    ctx.save(); ctx.strokeStyle = 'rgba(233,182,92,.5)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(FX, FY, 330, -Math.PI / 2, -Math.PI / 2 + ring * TAU); ctx.stroke();
+    const bodies = [{ c: '255,200,90', r: 20, sp: .45, a0: 0 }, { c: '220,225,240', r: 14, sp: 1.2, a0: 1.3 },
+      { c: '200,170,140', r: 7, sp: .9, a0: 2.2 }, { c: '255,240,200', r: 9, sp: .7, a0: 3.0 }, { c: '230,110,80', r: 8, sp: .5, a0: 3.9 },
+      { c: '235,200,150', r: 11, sp: .35, a0: 4.7 }, { c: '220,200,120', r: 10, sp: .25, a0: 5.5 }];
+    bodies.forEach((bd, i) => {
+      const a = bd.a0 + lt * bd.sp * .5, x = FX + Math.cos(a) * 330, y = FY + Math.sin(a) * 330, al = easeOut(prog(lt, 3.5 + i * .12, 3.9 + i * .12));
+      if (al <= 0) return; ctx.globalAlpha = al; glow(x, y, bd.r * 4, bd.c, .45);
+      ctx.fillStyle = `rgb(${bd.c})`; ctx.beginPath(); ctx.arc(x, y, bd.r, 0, TAU); ctx.fill();
+      if (i === 1) { ctx.fillStyle = 'rgba(10,12,20,.75)'; ctx.beginPath(); ctx.arc(x + 6, y - 2, bd.r, 0, TAU); ctx.fill(); }   // moon phase
+    });
+    ctx.restore();
+  }
+  ctx.restore();
+  ctx.fillStyle = `rgba(4,6,14,${push})`; ctx.fillRect(0, 0, W, H);                      // push into the gears
+  sceneText(sc, lt, len);
+}
+// gear train for the star map: one world for scenes 5 and 6
+const GC = { x: 540, y: 980 };
+function gearTrain(lt) {
+  const spin = .5 * lt + .12 * lt * lt;                                           // winds up
+  const G1 = { x: GC.x, y: GC.y, r: 240, n: 60, rot: spin };
+  const th2 = -.72, G2 = { x: GC.x + Math.cos(th2) * 352, y: GC.y + Math.sin(th2) * 352, r: 112, n: 28 };
+  const g2r0 = meshed(G1, G2, th2, 0, 0); G2.rot = meshed(G1, G2, th2, 0, spin);
+  const th3 = 2.5, G3 = { x: GC.x + Math.cos(th3) * 324, y: GC.y + Math.sin(th3) * 324, r: 84, n: 21 };
+  G3.rot = meshed(G1, G3, th3, 0, spin);
+  const th4 = -1.75, G4 = { x: G2.x + Math.cos(th4) * 172, y: G2.y + Math.sin(th4) * 172, r: 60, n: 15 };
+  G4.rot = meshed(G2, G4, th4, g2r0, G2.rot);
+  return [G1, G2, G3, G4];
+}
+function starMap(t, lt, a, o = {}) {
+  sky(t, { rot: t * .004 });
+  constellations(a * .9);
+  zodiacRing(GC.x, GC.y, 470, -t * .03, a * (o.ring ?? 1));
+}
+function sMesh(lt, t, sc) {
+  const len = sc.to - sc.from, inA = easeOut(prog(lt, 0, .8));
+  starMap(t, lt, inA);
+  const gs = gearTrain(lt);
+  ctx.save(); ctx.translate(GC.x, GC.y); const k = lerp(1.25, 1, inA); ctx.scale(k, k); ctx.translate(-GC.x, -GC.y);
+  gs.slice().reverse().forEach(g => bronzeGear(g.x, g.y, g.r, g.n, g.rot, { alpha: inA }));
+  // pointers: the Sun and the Moon on the zodiac dial
+  const sa = -Math.PI / 2 + lt * .55, ma = -Math.PI / 2 + lt * 1.9;
+  ctx.globalAlpha = inA; ctx.strokeStyle = GOLD; ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.moveTo(GC.x, GC.y); ctx.lineTo(GC.x + Math.cos(sa) * 430, GC.y + Math.sin(sa) * 430); ctx.stroke();
+  glow(GC.x + Math.cos(sa) * 430, GC.y + Math.sin(sa) * 430, 60, '255,200,90', .6); ctx.fillStyle = GOLD; ctx.beginPath(); ctx.arc(GC.x + Math.cos(sa) * 430, GC.y + Math.sin(sa) * 430, 16, 0, TAU); ctx.fill();
+  ctx.strokeStyle = '#d9dce8'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(GC.x, GC.y); ctx.lineTo(GC.x + Math.cos(ma) * 380, GC.y + Math.sin(ma) * 380); ctx.stroke();
+  ctx.fillStyle = '#e8ebf5'; ctx.beginPath(); ctx.arc(GC.x + Math.cos(ma) * 380, GC.y + Math.sin(ma) * 380, 13, 0, TAU); ctx.fill();
+  ctx.fillStyle = '#20232e'; ctx.beginPath(); ctx.arc(GC.x + Math.cos(ma) * 380, GC.y + Math.sin(ma) * 380, 13, -Math.PI / 2, Math.PI / 2); ctx.fill();
+  ctx.restore(); ctx.globalAlpha = 1;
+  claim('gears', 'keep', GC.x - 300, GC.y - 470, 600, 760);
+  sceneText(sc, lt, len, { headAt: .5, narrAt: .8 });
+}
+// the question mark the stars gather into
+const QPTS = (() => { const p = []; const cx = 540, cy = 690, r = 200;
+  for (let i = 0; i <= 13; i++) { const a = lerp(Math.PI * 1.05, Math.PI * 2.32, i / 13); p.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
+  const [ex, ey] = p[p.length - 1]; p.push([lerp(ex, 540, .5), lerp(ey, 1000, .45)]); p.push([540, 1010]); p.push([540, 1100]); return p; })();
+const QDOT = [540, 1240];
+function sWho(lt, t, sc) {
+  const len = sc.to - sc.from, fade = 1 - easeOut(prog(lt, 0, 1.3));
+  starMap(t, lt, 1, { ring: fade });
+  if (fade > 0) {
+    const gs = gearTrain(lt + b(48) - b(36));
+    gs.slice().reverse().forEach(g => bronzeGear(g.x, g.y, g.r, g.n, g.rot, { alpha: fade }));
+  }
+  // stars travel into the shape of a question mark, then join up like a constellation
+  const all = [...QPTS, QDOT];
+  all.forEach((q, i) => {
+    const sx = hash2(i, 41) * W, sy = hash2(i, 42) * H * .9 + 60, p = ease(prog(lt, .6 + i * .07, 2.4 + i * .07));
+    const x = lerp(sx, q[0], p), y = lerp(sy, q[1], p), big = i === all.length - 1 ? 1.7 : 1, tw = .8 + .2 * Math.sin(t * 3 + i);
+    glow(x, y, 40 * big, '255,236,200', .45 * tw); ctx.fillStyle = '#fff6e2'; ctx.beginPath(); ctx.arc(x, y, 6 * big, 0, TAU); ctx.fill();
+  });
+  const line = prog(lt, 2.9, 3.9);
+  if (line > 0) { const n = Math.max(2, Math.round(QPTS.length * line)); ctx.save(); ctx.strokeStyle = 'rgba(255,236,200,.55)'; ctx.lineWidth = 3; ctx.shadowColor = 'rgba(255,220,160,.8)'; ctx.shadowBlur = 14;
+    ctx.beginPath(); QPTS.slice(0, n).forEach((q, i) => i ? ctx.lineTo(...q) : ctx.moveTo(...q)); ctx.stroke(); ctx.restore(); }
+  claim('question-mark', 'keep', 300, 450, 480, 830);
+  sceneText(sc, lt, len, { headAt: 3.4, narrAt: .8, headY: 1420, headSize: 104, narrY: 1590, holdEnd: true });
+  ctx.fillStyle = `rgba(0,0,0,${prog(lt, len - .6, len)})`; ctx.fillRect(0, 0, W, H);       // fade out
+}
+
+const RENDER = { question: sQuestion, wreck: sWater, gears: sWater, museum: sMuseum, mesh: sMesh, who: sWho };
+function draw(frame) {
+  const t = frame / FPS; LAYOUT = [];
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.filter = 'none'; ctx.globalCompositeOperation = 'source-over';
+  const sc = SCENES.find(s => t >= s.from && t < s.to) || SCENES[SCENES.length - 1];
+  RENDER[sc.id](t - sc.from, t, sc);
+  window.LAYOUT = LAYOUT;
+}
+window.draw = draw; window.FRAMES = FRAMES; window.FPS = FPS;
+window.CUES = SCENES.slice(1).map(s => s.from);
+
+// ---------- soundtrack, written for this film ----------
+// D minor modal: a chord per scene (the cut lands on the chord change), a clockwork tick on every beat
+// (the mechanism), muffled underwater, a break before the final question and a low bell on it.
+window.SCORE = ac => {
+  const out = ac.createGain(); out.gain.setValueAtTime(.9, 0); out.gain.setValueAtTime(.9, DUR - 2.2); out.gain.linearRampToValueAtTime(0, DUR);
+  const comp = ac.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 3; out.connect(comp); comp.connect(ac.destination);
+  const dl = ac.createDelay(1); dl.delayTime.value = .375; const fb = ac.createGain(); fb.gain.value = .38; const wet = ac.createGain(); wet.gain.value = .3;
+  dl.connect(fb); fb.connect(dl); dl.connect(wet); wet.connect(out);
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+  const noise = (() => { const buf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), d = buf.getChannelData(0), r = rng(3); for (let i = 0; i < d.length; i++) d[i] = r() * 2 - 1; return buf; })();
+  const CHORDS = [[50, 57, 62, 65], [46, 53, 58, 62], [43, 50, 55, 58], [41, 48, 53, 57], [48, 55, 60, 64], [50, 57, 62, 65]];
+  const CUT = [1500, 650, 750, 1700, 2300, 1300];
+  SCENES.forEach((s, i) => {
+    const t0 = Math.max(0, s.from - .02), t1 = s.to + .9, lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = CUT[i]; lp.Q.value = .5;
+    const env = ac.createGain(); env.gain.setValueAtTime(0, t0); env.gain.linearRampToValueAtTime(.03, t0 + (i === 0 ? 1.2 : .25));
+    env.gain.setValueAtTime(.03, s.to); env.gain.linearRampToValueAtTime(0, t1);
+    lp.connect(env); env.connect(out); env.connect(dl);
+    CHORDS[i].forEach((m, j) => [-6, 6].forEach(det => { const o = ac.createOscillator(); o.type = j ? 'sawtooth' : 'triangle'; o.frequency.value = mtof(m); o.detune.value = det;
+      const g = ac.createGain(); g.gain.value = j ? .32 : .6; o.connect(g); g.connect(lp); o.start(t0); o.stop(t1 + .1); }));
+  });
+  const sub = ac.createOscillator(); sub.frequency.value = mtof(38); const sg = ac.createGain(); sg.gain.setValueAtTime(0, 0); sg.gain.linearRampToValueAtTime(.12, 1.5);
+  sub.connect(sg); sg.connect(out); sub.start(0); sub.stop(DUR);
+  // clockwork: tick-tock on every beat
+  const TICK = [.7, .45, .5, .65, .9, .9];
+  for (let k = 1; k * BEAT < b(51); k++) {
+    const tt = k * BEAT, si = SCENES.findIndex(s => tt >= s.from && tt < s.to), wet2 = si === 1 || si === 2;
+    const src = ac.createBufferSource(); src.buffer = noise; const bp = ac.createBiquadFilter(); bp.type = 'bandpass';
+    bp.frequency.value = (k % 2 ? 3200 : 2300) * (wet2 ? .35 : 1); bp.Q.value = 2.2;
+    const g = ac.createGain(); g.gain.setValueAtTime(TICK[si] * (k % 2 ? 1 : .8), tt); g.gain.exponentialRampToValueAtTime(.0005, tt + .06);
+    src.connect(bp); bp.connect(g); g.connect(out); src.start(tt, hash2(k, 1) * 1.5, .08);
+  }
+  const bell = (tt, m, gain, dec) => [1, 2.76, 5.4, 8.93].forEach((p, i) => { const o = ac.createOscillator(); o.frequency.value = mtof(m) * p;
+    const g = ac.createGain(); g.gain.setValueAtTime(0, tt); g.gain.linearRampToValueAtTime(gain / (i + 1), tt + .01); g.gain.exponentialRampToValueAtTime(.0001, tt + dec / (i * .6 + 1));
+    o.connect(g); g.connect(out); g.connect(dl); o.start(tt); o.stop(tt + dec + .1); });
+  SCENES.slice(1).forEach((s, i) => bell(s.from, CHORDS[i + 1][0] + 12, .045, 2.2));     // a soft bell marks each cut
+  // events
+  for (const [tt, kind] of EVENTS) {
+    if (kind === 'plunge' || kind === 'xray') {
+      const src = ac.createBufferSource(); src.buffer = noise; const f = ac.createBiquadFilter(); const g = ac.createGain();
+      if (kind === 'plunge') { f.type = 'lowpass'; f.frequency.setValueAtTime(2500, tt); f.frequency.exponentialRampToValueAtTime(200, tt + 1.2);
+        g.gain.setValueAtTime(0, tt); g.gain.linearRampToValueAtTime(.09, tt + .05); g.gain.exponentialRampToValueAtTime(.001, tt + 1.4); src.start(tt, 0, 1.5); }
+      else { f.type = 'bandpass'; f.Q.value = 8; f.frequency.setValueAtTime(500, tt); f.frequency.exponentialRampToValueAtTime(4500, tt + 2.2);
+        g.gain.setValueAtTime(0, tt); g.gain.linearRampToValueAtTime(.05, tt + .3); g.gain.setValueAtTime(.05, tt + 2); g.gain.linearRampToValueAtTime(0, tt + 2.3); src.start(tt, .3, 1.9); }
+      src.connect(f); f.connect(g); g.connect(out);
+    }
+    if (kind === 'bell') bell(tt, 38 + 12, .16, 4.5);
+  }
+};
+
+// live preview when opened directly (render.mjs loads the page with ?render)
+if (!new URLSearchParams(location.search).has('render')) {
+  let start = performance.now();
+  const loop = () => { draw(Math.floor((performance.now() - start) / 1000 * FPS) % FRAMES); requestAnimationFrame(loop); };
+  loop();
+  addEventListener('click', () => { const ac = new AudioContext(); window.SCORE(ac); start = performance.now() + 50; }, { once: true });
+}
+</script>
+</body>
+</html>
