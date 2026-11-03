@@ -78,3 +78,4 @@ Thumbs.db
 # ---- Render by-products (the .mp4 is kept) -----------
 content/**/*.wav
 content/**/*.cues.json
+!content/**/voiceover/*.wav
