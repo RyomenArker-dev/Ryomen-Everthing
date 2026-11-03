@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TODO: unique title (≤ 60 chars) and description (≤ 155 chars) per page -->
+  <title>Business Name — What you do in your area</title>
+  <meta name="description" content="TODO: one sentence describing what the business offers, for whom, and where.">
+  <meta property="og:title" content="Business Name — What you do in your area">
+  <meta property="og:description" content="TODO: same as meta description.">
+  <meta property="og:type" content="website">
+  <!-- TODO: og:image and og:url once the site has a domain -->
+  <meta name="theme-color" content="#1d3557">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Business Name home">Business Name</a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#process">How it works</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a class="button button-small" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container hero-inner">
+        <p class="eyebrow">TODO: who this is for · location</p>
+        <h1>TODO: headline that states the main benefit for the customer</h1>
+        <p class="lead">TODO: one or two sentences explaining what you offer and why it matters. Use only claims you can support.</p>
+        <div class="actions">
+          <a class="button" href="#contact">TODO: primary action</a>
+          <a class="button button-ghost" href="#services">See services</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section" aria-labelledby="services-title">
+      <div class="container">
+        <h2 id="services-title">Services</h2>
+        <ul class="cards" role="list">
+          <li class="card">
+            <h3>TODO: Service one</h3>
+            <p>TODO: what the customer gets and the result they care about.</p>
+          </li>
+          <li class="card">
+            <h3>TODO: Service two</h3>
+            <p>TODO: what the customer gets and the result they care about.</p>
+          </li>
+          <li class="card">
+            <h3>TODO: Service three</h3>
+            <p>TODO: what the customer gets and the result they care about.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="process" class="section section-alt" aria-labelledby="process-title">
+      <div class="container">
+        <h2 id="process-title">How it works</h2>
+        <ol class="steps">
+          <li><h3>Get in touch</h3><p>TODO: what happens first.</p></li>
+          <li><h3>TODO: step two</h3><p>TODO: what happens next.</p></li>
+          <li><h3>TODO: step three</h3><p>TODO: the outcome.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container narrow">
+        <h2 id="about-title">About</h2>
+        <p>TODO: short, true story of the business. Add real reviews or testimonials only with written permission, quoted exactly.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-alt" aria-labelledby="contact-title">
+      <div class="container narrow">
+        <h2 id="contact-title">Contact</h2>
+        <p>TODO: business email / phone / address (only published business details).</p>
+        <!-- The form is intentionally not connected. Choose a form handler with the owner
+             (approval required) and then set action/method. -->
+        <form class="contact-form" action="#" method="post" aria-describedby="form-note">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button class="button" type="submit" disabled>Send message</button>
+          <p id="form-note" class="note">Form not connected yet — TODO: choose a form handler.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© TODO: year Business Name</p>
+      <p><a href="#top">Back to top</a></p>
+    </div>
+  </footer>
+</body>
+</html>
