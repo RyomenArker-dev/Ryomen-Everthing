@@ -13,6 +13,7 @@ approved by the owner before use (CLAUDE.md S6). Never write keys here.
 | Google Search Console | SEO data | Free | Client | Not connected | Owner exports data manually |
 | Google Business Profile | Local SEO | Free | Client | Not connected | |
 | PageSpeed Insights (web) | Performance checks | Free | — | Manual use | |
-| ElevenLabs | Voice / transcription in some motion skills | Paid | Owner | Not approved | Only with owner approval (S6) and consent (S10) |
+| ElevenLabs | Text-to-speech voiceovers (stock voices) | Paid (credits per character) | Owner | **Approved by owner 2026-11-06**, in use | Key stored only as a cloud-environment network secret for api.elevenlabs.io (Text to Speech permission). Voice cloning still needs consent (S10) |
+| Kokoro (ONNX) | Free offline text-to-speech fallback | Free, open source | — | Used once, not installed permanently | Reinstall per session if needed |
 | fal.ai | Talking-head video generation (`talking-head` skill) | Paid | Owner | Not approved | Only with owner approval (S6) and consent (S10) |
 | Remotion | Video rendering in some motion skills | Free for individuals/small teams; company licence above that — check current terms | Owner | Not installed | Installed per project, with approval |

@@ -26,7 +26,7 @@ Last updated: 2026-11-03. Only items under "Tested" were actually run.
 | MotionClone (`blixvip/MotionClone`) | Not installed. It's a Windows desktop app that uses a ChatGPT/Codex account, not a Claude Code skill | — |
 
 ## Content made with the workspace
-- `content/antikythera-mechanism/`: 32 s vertical explainer video with a Kokoro voiceover (open-source, offline). Rendered and checked: the asset audit, the layout check and the sound sync (5/5 cuts on the beat) passed, and Whisper's transcript of the final MP4 matches the script. Kokoro was installed only in that session's `~/.venvs/media`, so `make_voiceover.sh` re-mixes the saved clips but regenerating them needs Kokoro reinstalled. See its README.
+- `content/antikythera-mechanism/`: 32 s vertical explainer video with an ElevenLabs voiceover (stock voice "George"; the earlier free Kokoro version is kept as a fallback). Rendered and checked: the asset audit, the layout check and the sound sync (5/5 cuts on the beat) passed, and Whisper's transcript of the final MP4 matches the script. Regenerating the voice needs the ElevenLabs key saved on the cloud environment (it is), or Kokoro reinstalled for the free version. See its README.
 
 ## Not built yet (by design) 🚧
 - Any integration that sends, publishes or deploys (email, social, ads, hosting, CRM). See [ROADMAP.md](ROADMAP.md).
