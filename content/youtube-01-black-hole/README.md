@@ -11,6 +11,7 @@ A long-form YouTube documentary (16:9, 1920×1080, 30 fps, about 6 min 52 s) mad
 | `script.json` | Script 01 split into 7 scenes and 68 narration lines |
 | `timeline.json` | Scene times, line times and per-word times (word times come from Whisper) |
 | `voiceover/` | The narration: Kokoro voice `bm_george` at 0.92 speed (open source, offline). `generate_voice.py` makes it. |
+| `thumbnail.jpg` | YouTube thumbnail, 1280×720 (140 KB): "THERE IS NO ESCAPE." over the black hole. Drawn by `thumbnail.js` with the film's own code. |
 | `make_video.sh` | Renders the film and score, then mixes the voice on top and lowers the music under it |
 
 ## Suggested YouTube details (from the doc)
