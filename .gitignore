@@ -79,3 +79,8 @@ Thumbs.db
 content/**/*.wav
 content/**/*.cues.json
 !content/**/voiceover/*.wav
+
+# ---- Long-form video renders (too large for git; rebuild with make_video.sh) ----
+content/youtube-*/**/*.mp4
+content/youtube-*/*.mp4
+content/youtube-*/voiceover/*.wav

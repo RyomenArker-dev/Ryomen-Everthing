@@ -1,0 +1,4049 @@
+{
+ "duration": 412.203,
+ "title_gap": [
+  37.297,
+  41.497
+ ],
+ "scenes": [
+  {
+   "n": 1,
+   "title": "The hook",
+   "from": 0,
+   "to": 41.497
+  },
+  {
+   "n": 2,
+   "title": "What is a black hole?",
+   "from": 41.497,
+   "to": 100.076
+  },
+  {
+   "n": 3,
+   "title": "Approaching the event horizon",
+   "from": 100.076,
+   "to": 170.56
+  },
+  {
+   "n": 4,
+   "title": "Spaghettification",
+   "from": 170.56,
+   "to": 239.562
+  },
+  {
+   "n": 5,
+   "title": "What happens to time?",
+   "from": 239.562,
+   "to": 293.867
+  },
+  {
+   "n": 6,
+   "title": "What lies inside?",
+   "from": 293.867,
+   "to": 359.562
+  },
+  {
+   "n": 7,
+   "title": "The ending",
+   "from": 359.562,
+   "to": 412.203
+  }
+ ],
+ "lines": [
+  {
+   "i": 0,
+   "scene": 0,
+   "text": "Imagine travelling through space when suddenly, you encounter something so powerful that not even light can escape it.",
+   "t0": 1.2,
+   "t1": 8.976,
+   "wt": [
+    [
+     "Imagine",
+     1.2
+    ],
+    [
+     "travelling",
+     1.72
+    ],
+    [
+     "through",
+     2.44
+    ],
+    [
+     "space",
+     2.96
+    ],
+    [
+     "when",
+     3.36
+    ],
+    [
+     "suddenly,",
+     3.68
+    ],
+    [
+     "you",
+     4.34
+    ],
+    [
+     "encounter",
+     4.6
+    ],
+    [
+     "something",
+     5.25
+    ],
+    [
+     "so",
+     5.9
+    ],
+    [
+     "powerful",
+     6.1
+    ],
+    [
+     "that",
+     6.69
+    ],
+    [
+     "not",
+     7.02
+    ],
+    [
+     "even",
+     7.28
+    ],
+    [
+     "light",
+     7.6
+    ],
+    [
+     "can",
+     8.0
+    ],
+    [
+     "escape",
+     8.26
+    ],
+    [
+     "it.",
+     8.71
+    ]
+   ]
+  },
+  {
+   "i": 1,
+   "scene": 0,
+   "text": "A black hole.",
+   "t0": 9.426,
+   "t1": 10.551,
+   "wt": [
+    [
+     "A",
+     9.44
+    ],
+    [
+     "black",
+     9.54
+    ],
+    [
+     "hole.",
+     9.84
+    ]
+   ]
+  },
+  {
+   "i": 2,
+   "scene": 0,
+   "text": "You might think you would instantly disappear. But what if I told you that falling into a black hole could be even stranger than simply being destroyed?",
+   "t0": 11.351,
+   "t1": 20.963,
+   "wt": [
+    [
+     "You",
+     11.18
+    ],
+    [
+     "might",
+     11.46
+    ],
+    [
+     "think",
+     11.64
+    ],
+    [
+     "you",
+     11.94
+    ],
+    [
+     "would",
+     12.16
+    ],
+    [
+     "instantly",
+     12.32
+    ],
+    [
+     "disappear.",
+     12.9
+    ],
+    [
+     "But",
+     14.16
+    ],
+    [
+     "what",
+     14.42
+    ],
+    [
+     "if",
+     14.58
+    ],
+    [
+     "I",
+     14.72
+    ],
+    [
+     "told",
+     14.92
+    ],
+    [
+     "you",
+     15.14
+    ],
+    [
+     "that",
+     15.44
+    ],
+    [
+     "falling",
+     15.64
+    ],
+    [
+     "into",
+     16.02
+    ],
+    [
+     "a",
+     16.32
+    ],
+    [
+     "black",
+     16.5
+    ],
+    [
+     "hole",
+     16.76
+    ],
+    [
+     "could",
+     17.18
+    ],
+    [
+     "be",
+     17.66
+    ],
+    [
+     "even",
+     17.84
+    ],
+    [
+     "stranger",
+     18.14
+    ],
+    [
+     "than",
+     18.6
+    ],
+    [
+     "simply",
+     19.38
+    ],
+    [
+     "being",
+     19.78
+    ],
+    [
+     "destroyed?",
+     20.06
+    ]
+   ]
+  },
+  {
+   "i": 3,
+   "scene": 0,
+   "text": "Time would behave differently. Light would bend around you. And depending on the size of the black hole, the experience could be dramatically different.",
+   "t0": 21.763,
+   "t1": 31.332,
+   "wt": [
+    [
+     "Time",
+     21.84
+    ],
+    [
+     "would",
+     22.06
+    ],
+    [
+     "behave",
+     22.28
+    ],
+    [
+     "differently.",
+     22.74
+    ],
+    [
+     "Light",
+     24.1
+    ],
+    [
+     "would",
+     24.28
+    ],
+    [
+     "bend",
+     24.58
+    ],
+    [
+     "around",
+     24.9
+    ],
+    [
+     "you.",
+     25.24
+    ],
+    [
+     "And",
+     25.98
+    ],
+    [
+     "depending",
+     26.2
+    ],
+    [
+     "on",
+     26.5
+    ],
+    [
+     "the",
+     26.78
+    ],
+    [
+     "size",
+     26.96
+    ],
+    [
+     "of",
+     27.3
+    ],
+    [
+     "the",
+     27.52
+    ],
+    [
+     "black",
+     27.64
+    ],
+    [
+     "hole,",
+     27.86
+    ],
+    [
+     "the",
+     28.72
+    ],
+    [
+     "experience",
+     28.8
+    ],
+    [
+     "could",
+     29.44
+    ],
+    [
+     "be",
+     29.72
+    ],
+    [
+     "dramatically",
+     29.92
+    ],
+    [
+     "different.",
+     30.48
+    ]
+   ]
+  },
+  {
+   "i": 4,
+   "scene": 0,
+   "text": "So, what would actually happen if you fell into one?",
+   "t0": 31.782,
+   "t1": 34.971,
+   "wt": [
+    [
+     "So,",
+     31.72
+    ],
+    [
+     "what",
+     32.06
+    ],
+    [
+     "would",
+     32.26
+    ],
+    [
+     "actually",
+     32.4
+    ],
+    [
+     "happen",
+     32.86
+    ],
+    [
+     "if",
+     33.28
+    ],
+    [
+     "you",
+     33.82
+    ],
+    [
+     "fell",
+     33.96
+    ],
+    [
+     "into",
+     34.22
+    ],
+    [
+     "one?",
+     34.48
+    ]
+   ]
+  },
+  {
+   "i": 5,
+   "scene": 0,
+   "text": "Let's find out.",
+   "t0": 35.771,
+   "t1": 36.997,
+   "wt": [
+    [
+     "Let's",
+     35.68
+    ],
+    [
+     "find",
+     36.16
+    ],
+    [
+     "out.",
+     36.38
+    ]
+   ]
+  },
+  {
+   "i": 6,
+   "scene": 1,
+   "text": "A black hole is a region of space where gravity becomes so incredibly strong that nothing, not even light, can escape once it crosses a particular boundary.",
+   "t0": 41.497,
+   "t1": 52.883,
+   "wt": [
+    [
+     "A",
+     41.5
+    ],
+    [
+     "black",
+     41.64
+    ],
+    [
+     "hole",
+     42.08
+    ],
+    [
+     "is",
+     42.44
+    ],
+    [
+     "a",
+     42.66
+    ],
+    [
+     "region",
+     42.8
+    ],
+    [
+     "of",
+     43.31
+    ],
+    [
+     "space",
+     43.53
+    ],
+    [
+     "where",
+     43.96
+    ],
+    [
+     "gravity",
+     44.4
+    ],
+    [
+     "becomes",
+     44.98
+    ],
+    [
+     "so",
+     45.56
+    ],
+    [
+     "incredibly",
+     45.78
+    ],
+    [
+     "strong",
+     46.57
+    ],
+    [
+     "that",
+     47.08
+    ],
+    [
+     "nothing,",
+     47.44
+    ],
+    [
+     "not",
+     48.1
+    ],
+    [
+     "even",
+     48.39
+    ],
+    [
+     "light,",
+     48.75
+    ],
+    [
+     "can",
+     49.26
+    ],
+    [
+     "escape",
+     49.55
+    ],
+    [
+     "once",
+     50.05
+    ],
+    [
+     "it",
+     50.42
+    ],
+    [
+     "crosses",
+     50.63
+    ],
+    [
+     "a",
+     51.21
+    ],
+    [
+     "particular",
+     51.36
+    ],
+    [
+     "boundary.",
+     52.16
+    ]
+   ]
+  },
+  {
+   "i": 7,
+   "scene": 1,
+   "text": "But black holes don't simply appear out of nowhere.",
+   "t0": 53.333,
+   "t1": 56.76,
+   "wt": [
+    [
+     "But",
+     53.2
+    ],
+    [
+     "black",
+     53.44
+    ],
+    [
+     "holes",
+     53.72
+    ],
+    [
+     "don't",
+     54.18
+    ],
+    [
+     "simply",
+     54.94
+    ],
+    [
+     "appear",
+     55.14
+    ],
+    [
+     "out",
+     55.64
+    ],
+    [
+     "of",
+     55.94
+    ],
+    [
+     "nowhere.",
+     56.12
+    ]
+   ]
+  },
+  {
+   "i": 8,
+   "scene": 1,
+   "text": "Some form when extremely massive stars run out of the fuel supporting them against gravity.",
+   "t0": 57.21,
+   "t1": 63.737,
+   "wt": [
+    [
+     "Some",
+     57.22
+    ],
+    [
+     "form",
+     57.44
+    ],
+    [
+     "when",
+     57.9
+    ],
+    [
+     "extremely",
+     58.3
+    ],
+    [
+     "massive",
+     58.82
+    ],
+    [
+     "stars",
+     59.38
+    ],
+    [
+     "run",
+     59.92
+    ],
+    [
+     "out",
+     60.4
+    ],
+    [
+     "of",
+     60.62
+    ],
+    [
+     "the",
+     60.76
+    ],
+    [
+     "fuel",
+     60.88
+    ],
+    [
+     "supporting",
+     61.8
+    ],
+    [
+     "them",
+     62.22
+    ],
+    [
+     "against",
+     62.52
+    ],
+    [
+     "gravity.",
+     62.98
+    ]
+   ]
+  },
+  {
+   "i": 9,
+   "scene": 1,
+   "text": "The star's core collapses under its own weight, compressing enormous amounts of matter into an incredibly small region.",
+   "t0": 64.187,
+   "t1": 72.422,
+   "wt": [
+    [
+     "The",
+     64.1
+    ],
+    [
+     "star's",
+     64.3
+    ],
+    [
+     "core",
+     64.76
+    ],
+    [
+     "collapses",
+     65.08
+    ],
+    [
+     "under",
+     65.74
+    ],
+    [
+     "its",
+     66.16
+    ],
+    [
+     "own",
+     66.34
+    ],
+    [
+     "weight,",
+     66.58
+    ],
+    [
+     "compressing",
+     67.48
+    ],
+    [
+     "enormous",
+     67.92
+    ],
+    [
+     "amounts",
+     68.56
+    ],
+    [
+     "of",
+     69.0
+    ],
+    [
+     "matter",
+     69.26
+    ],
+    [
+     "into",
+     69.62
+    ],
+    [
+     "an",
+     70.28
+    ],
+    [
+     "incredibly",
+     70.5
+    ],
+    [
+     "small",
+     71.1
+    ],
+    [
+     "region.",
+     71.68
+    ]
+   ]
+  },
+  {
+   "i": 10,
+   "scene": 1,
+   "text": "The result can be a black hole.",
+   "t0": 72.872,
+   "t1": 75.145,
+   "wt": [
+    [
+     "The",
+     72.8
+    ],
+    [
+     "result",
+     73.0
+    ],
+    [
+     "can",
+     73.42
+    ],
+    [
+     "be",
+     73.88
+    ],
+    [
+     "a",
+     74.08
+    ],
+    [
+     "black",
+     74.24
+    ],
+    [
+     "hole.",
+     74.5
+    ]
+   ]
+  },
+  {
+   "i": 11,
+   "scene": 1,
+   "text": "And here's something fascinating.",
+   "t0": 75.945,
+   "t1": 78.407,
+   "wt": [
+    [
+     "And",
+     75.84
+    ],
+    [
+     "here's",
+     76.08
+    ],
+    [
+     "something",
+     76.54
+    ],
+    [
+     "fascinating.",
+     77.18
+    ]
+   ]
+  },
+  {
+   "i": 12,
+   "scene": 1,
+   "text": "A black hole isn't necessarily a cosmic vacuum cleaner. From a sufficient distance, its gravity behaves like the gravity of any other object with the same mass.",
+   "t0": 79.207,
+   "t1": 90.595,
+   "wt": [
+    [
+     "A",
+     79.06
+    ],
+    [
+     "black",
+     79.3
+    ],
+    [
+     "hole",
+     79.56
+    ],
+    [
+     "isn't",
+     79.92
+    ],
+    [
+     "necessarily",
+     80.4
+    ],
+    [
+     "a",
+     81.06
+    ],
+    [
+     "cosmic",
+     81.54
+    ],
+    [
+     "vacuum",
+     81.9
+    ],
+    [
+     "cleaner.",
+     82.4
+    ],
+    [
+     "From",
+     82.86
+    ],
+    [
+     "a",
+     83.62
+    ],
+    [
+     "sufficient",
+     83.76
+    ],
+    [
+     "distance,",
+     84.22
+    ],
+    [
+     "its",
+     85.36
+    ],
+    [
+     "gravity",
+     85.48
+    ],
+    [
+     "behaves",
+     85.98
+    ],
+    [
+     "like",
+     86.52
+    ],
+    [
+     "the",
+     86.88
+    ],
+    [
+     "gravity",
+     87.08
+    ],
+    [
+     "of",
+     87.52
+    ],
+    [
+     "any",
+     87.88
+    ],
+    [
+     "other",
+     88.12
+    ],
+    [
+     "object",
+     88.42
+    ],
+    [
+     "with",
+     88.9
+    ],
+    [
+     "the",
+     89.5
+    ],
+    [
+     "same",
+     89.7
+    ],
+    [
+     "mass.",
+     89.98
+    ]
+   ]
+  },
+  {
+   "i": 13,
+   "scene": 1,
+   "text": "You could theoretically orbit one without falling inside.",
+   "t0": 91.045,
+   "t1": 94.722,
+   "wt": [
+    [
+     "You",
+     91.02
+    ],
+    [
+     "could",
+     91.16
+    ],
+    [
+     "theoretically",
+     91.34
+    ],
+    [
+     "orbit",
+     91.92
+    ],
+    [
+     "one",
+     92.46
+    ],
+    [
+     "without",
+     92.88
+    ],
+    [
+     "falling",
+     93.46
+    ],
+    [
+     "inside.",
+     93.92
+    ]
+   ]
+  },
+  {
+   "i": 14,
+   "scene": 1,
+   "text": "The real danger begins when you get too close.",
+   "t0": 95.172,
+   "t1": 98.476,
+   "wt": [
+    [
+     "The",
+     95.12
+    ],
+    [
+     "real",
+     95.28
+    ],
+    [
+     "danger",
+     95.58
+    ],
+    [
+     "begins",
+     96.12
+    ],
+    [
+     "when",
+     96.76
+    ],
+    [
+     "you",
+     97.22
+    ],
+    [
+     "get",
+     97.38
+    ],
+    [
+     "too",
+     97.56
+    ],
+    [
+     "close.",
+     97.86
+    ]
+   ]
+  },
+  {
+   "i": 15,
+   "scene": 2,
+   "text": "As you approach a black hole, something extraordinary happens.",
+   "t0": 100.076,
+   "t1": 104.102,
+   "wt": [
+    [
+     "As",
+     100.06
+    ],
+    [
+     "you",
+     100.2
+    ],
+    [
+     "approach",
+     100.36
+    ],
+    [
+     "a",
+     100.7
+    ],
+    [
+     "black",
+     100.98
+    ],
+    [
+     "hole,",
+     101.24
+    ],
+    [
+     "something",
+     102.16
+    ],
+    [
+     "extraordinary",
+     102.4
+    ],
+    [
+     "happens.",
+     103.2
+    ]
+   ]
+  },
+  {
+   "i": 16,
+   "scene": 2,
+   "text": "Its gravity bends the path of light.",
+   "t0": 104.552,
+   "t1": 107.242,
+   "wt": [
+    [
+     "Its",
+     104.48
+    ],
+    [
+     "gravity",
+     104.7
+    ],
+    [
+     "bends",
+     105.28
+    ],
+    [
+     "the",
+     105.92
+    ],
+    [
+     "path",
+     106.18
+    ],
+    [
+     "of",
+     106.44
+    ],
+    [
+     "light.",
+     106.72
+    ]
+   ]
+  },
+  {
+   "i": 17,
+   "scene": 2,
+   "text": "This phenomenon is called gravitational lensing.",
+   "t0": 108.042,
+   "t1": 111.453,
+   "wt": [
+    [
+     "This",
+     108.04
+    ],
+    [
+     "phenomenon",
+     108.39
+    ],
+    [
+     "is",
+     109.16
+    ],
+    [
+     "called",
+     109.36
+    ],
+    [
+     "gravitational",
+     109.85
+    ],
+    [
+     "lensing.",
+     110.83
+    ]
+   ]
+  },
+  {
+   "i": 18,
+   "scene": 2,
+   "text": "The stars behind the black hole appear distorted, stretched and sometimes duplicated into strange glowing rings.",
+   "t0": 111.903,
+   "t1": 120.066,
+   "wt": [
+    [
+     "The",
+     111.9
+    ],
+    [
+     "stars",
+     112.19
+    ],
+    [
+     "behind",
+     112.63
+    ],
+    [
+     "the",
+     113.13
+    ],
+    [
+     "black",
+     113.42
+    ],
+    [
+     "hole",
+     113.85
+    ],
+    [
+     "appear",
+     114.21
+    ],
+    [
+     "distorted,",
+     114.72
+    ],
+    [
+     "stretched",
+     115.51
+    ],
+    [
+     "and",
+     116.24
+    ],
+    [
+     "sometimes",
+     116.53
+    ],
+    [
+     "duplicated",
+     117.25
+    ],
+    [
+     "into",
+     118.04
+    ],
+    [
+     "strange",
+     118.4
+    ],
+    [
+     "glowing",
+     118.98
+    ],
+    [
+     "rings.",
+     119.56
+    ]
+   ]
+  },
+  {
+   "i": 19,
+   "scene": 2,
+   "text": "You are approaching a boundary known as the event horizon.",
+   "t0": 120.516,
+   "t1": 124.381,
+   "wt": [
+    [
+     "You",
+     120.44
+    ],
+    [
+     "are",
+     120.64
+    ],
+    [
+     "approaching",
+     120.78
+    ],
+    [
+     "a",
+     121.2
+    ],
+    [
+     "boundary",
+     121.5
+    ],
+    [
+     "known",
+     121.84
+    ],
+    [
+     "as",
+     122.36
+    ],
+    [
+     "the",
+     122.98
+    ],
+    [
+     "event",
+     123.14
+    ],
+    [
+     "horizon.",
+     123.5
+    ]
+   ]
+  },
+  {
+   "i": 20,
+   "scene": 2,
+   "text": "Think of it as the point of no return.",
+   "t0": 124.831,
+   "t1": 127.842,
+   "wt": [
+    [
+     "Think",
+     124.94
+    ],
+    [
+     "of",
+     125.06
+    ],
+    [
+     "it",
+     125.28
+    ],
+    [
+     "as",
+     125.48
+    ],
+    [
+     "the",
+     125.7
+    ],
+    [
+     "point",
+     125.9
+    ],
+    [
+     "of",
+     126.22
+    ],
+    [
+     "no",
+     126.72
+    ],
+    [
+     "return.",
+     127.04
+    ]
+   ]
+  },
+  {
+   "i": 21,
+   "scene": 2,
+   "text": "Once you cross it, escaping would require travelling faster than light, something our current understanding of physics does not allow.",
+   "t0": 128.642,
+   "t1": 137.084,
+   "wt": [
+    [
+     "Once",
+     128.58
+    ],
+    [
+     "you",
+     128.84
+    ],
+    [
+     "cross",
+     129.04
+    ],
+    [
+     "it,",
+     129.24
+    ],
+    [
+     "escaping",
+     130.06
+    ],
+    [
+     "would",
+     130.32
+    ],
+    [
+     "require",
+     130.72
+    ],
+    [
+     "travelling",
+     131.2
+    ],
+    [
+     "faster",
+     131.72
+    ],
+    [
+     "than",
+     132.14
+    ],
+    [
+     "light,",
+     132.58
+    ],
+    [
+     "something",
+     133.42
+    ],
+    [
+     "our",
+     133.76
+    ],
+    [
+     "current",
+     134.06
+    ],
+    [
+     "understanding",
+     134.4
+    ],
+    [
+     "of",
+     134.96
+    ],
+    [
+     "physics",
+     135.26
+    ],
+    [
+     "does",
+     135.56
+    ],
+    [
+     "not",
+     136.22
+    ],
+    [
+     "allow.",
+     136.46
+    ]
+   ]
+  },
+  {
+   "i": 22,
+   "scene": 2,
+   "text": "But here's the strange part.",
+   "t0": 137.534,
+   "t1": 139.467,
+   "wt": [
+    [
+     "But",
+     137.44
+    ],
+    [
+     "here's",
+     137.64
+    ],
+    [
+     "the",
+     138.06
+    ],
+    [
+     "strange",
+     138.46
+    ],
+    [
+     "part.",
+     138.8
+    ]
+   ]
+  },
+  {
+   "i": 23,
+   "scene": 2,
+   "text": "If someone watched you falling from a safe distance, they wouldn't experience your journey the way you do.",
+   "t0": 140.267,
+   "t1": 146.473,
+   "wt": [
+    [
+     "If",
+     140.14
+    ],
+    [
+     "someone",
+     140.38
+    ],
+    [
+     "watched",
+     140.76
+    ],
+    [
+     "you",
+     141.08
+    ],
+    [
+     "falling",
+     141.36
+    ],
+    [
+     "from",
+     141.7
+    ],
+    [
+     "a",
+     142.0
+    ],
+    [
+     "safe",
+     142.14
+    ],
+    [
+     "distance,",
+     142.4
+    ],
+    [
+     "they",
+     143.34
+    ],
+    [
+     "wouldn't",
+     143.58
+    ],
+    [
+     "experience",
+     143.88
+    ],
+    [
+     "your",
+     144.48
+    ],
+    [
+     "journey",
+     144.78
+    ],
+    [
+     "the",
+     145.2
+    ],
+    [
+     "way",
+     145.6
+    ],
+    [
+     "you",
+     145.78
+    ],
+    [
+     "do.",
+     146.04
+    ]
+   ]
+  },
+  {
+   "i": 24,
+   "scene": 2,
+   "text": "They would see your light becoming increasingly redshifted and dimmer.",
+   "t0": 146.923,
+   "t1": 151.553,
+   "wt": [
+    [
+     "They",
+     146.8
+    ],
+    [
+     "would",
+     147.06
+    ],
+    [
+     "see",
+     147.24
+    ],
+    [
+     "your",
+     147.46
+    ],
+    [
+     "light",
+     147.68
+    ],
+    [
+     "becoming",
+     148.0
+    ],
+    [
+     "increasingly",
+     148.78
+    ],
+    [
+     "redshifted",
+     149.62
+    ],
+    [
+     "and",
+     150.44
+    ],
+    [
+     "dimmer.",
+     151.08
+    ]
+   ]
+  },
+  {
+   "i": 25,
+   "scene": 2,
+   "text": "You would appear to slow down as you approached the event horizon, eventually becoming practically invisible.",
+   "t0": 152.003,
+   "t1": 158.984,
+   "wt": [
+    [
+     "You",
+     151.9
+    ],
+    [
+     "would",
+     152.12
+    ],
+    [
+     "appear",
+     152.24
+    ],
+    [
+     "to",
+     152.54
+    ],
+    [
+     "slow",
+     152.78
+    ],
+    [
+     "down",
+     153.06
+    ],
+    [
+     "as",
+     153.52
+    ],
+    [
+     "you",
+     154.08
+    ],
+    [
+     "approached",
+     154.22
+    ],
+    [
+     "the",
+     154.6
+    ],
+    [
+     "event",
+     154.88
+    ],
+    [
+     "horizon,",
+     155.2
+    ],
+    [
+     "eventually",
+     156.54
+    ],
+    [
+     "becoming",
+     156.86
+    ],
+    [
+     "practically",
+     157.48
+    ],
+    [
+     "invisible.",
+     158.1
+    ]
+   ]
+  },
+  {
+   "i": 26,
+   "scene": 2,
+   "text": "But from your own perspective, you would cross the event horizon in finite time.",
+   "t0": 159.434,
+   "t1": 164.881,
+   "wt": [
+    [
+     "But",
+     159.34
+    ],
+    [
+     "from",
+     159.58
+    ],
+    [
+     "your",
+     159.74
+    ],
+    [
+     "own",
+     159.98
+    ],
+    [
+     "perspective,",
+     160.3
+    ],
+    [
+     "you",
+     161.2
+    ],
+    [
+     "would",
+     161.58
+    ],
+    [
+     "cross",
+     161.7
+    ],
+    [
+     "the",
+     161.92
+    ],
+    [
+     "event",
+     162.16
+    ],
+    [
+     "horizon",
+     162.46
+    ],
+    [
+     "in",
+     163.08
+    ],
+    [
+     "finite",
+     163.6
+    ],
+    [
+     "time.",
+     164.12
+    ]
+   ]
+  },
+  {
+   "i": 27,
+   "scene": 2,
+   "text": "You might not even notice the exact moment you cross it.",
+   "t0": 165.331,
+   "t1": 168.96,
+   "wt": [
+    [
+     "You",
+     165.34
+    ],
+    [
+     "might",
+     165.44
+    ],
+    [
+     "not",
+     165.6
+    ],
+    [
+     "even",
+     165.84
+    ],
+    [
+     "notice",
+     166.14
+    ],
+    [
+     "the",
+     166.62
+    ],
+    [
+     "exact",
+     167.14
+    ],
+    [
+     "moment",
+     167.56
+    ],
+    [
+     "you",
+     168.02
+    ],
+    [
+     "cross",
+     168.34
+    ],
+    [
+     "it.",
+     168.56
+    ]
+   ]
+  },
+  {
+   "i": 28,
+   "scene": 3,
+   "text": "Now comes the terrifying part.",
+   "t0": 170.56,
+   "t1": 172.929,
+   "wt": [
+    [
+     "Now",
+     170.64
+    ],
+    [
+     "comes",
+     170.84
+    ],
+    [
+     "the",
+     171.26
+    ],
+    [
+     "terrifying",
+     171.68
+    ],
+    [
+     "part.",
+     172.2
+    ]
+   ]
+  },
+  {
+   "i": 29,
+   "scene": 3,
+   "text": "The difference in gravitational force between your head and feet can become enormous.",
+   "t0": 173.729,
+   "t1": 179.417,
+   "wt": [
+    [
+     "The",
+     173.54
+    ],
+    [
+     "difference",
+     173.84
+    ],
+    [
+     "in",
+     174.22
+    ],
+    [
+     "gravitational",
+     174.66
+    ],
+    [
+     "force",
+     175.24
+    ],
+    [
+     "between",
+     175.94
+    ],
+    [
+     "your",
+     176.52
+    ],
+    [
+     "head",
+     176.78
+    ],
+    [
+     "and",
+     177.02
+    ],
+    [
+     "feet",
+     177.24
+    ],
+    [
+     "can",
+     177.58
+    ],
+    [
+     "become",
+     178.16
+    ],
+    [
+     "enormous.",
+     178.54
+    ]
+   ]
+  },
+  {
+   "i": 30,
+   "scene": 3,
+   "text": "Your feet, being slightly closer to the black hole, experience stronger gravity than your head.",
+   "t0": 179.867,
+   "t1": 185.914,
+   "wt": [
+    [
+     "Your",
+     179.78
+    ],
+    [
+     "feet,",
+     180.04
+    ],
+    [
+     "being",
+     180.38
+    ],
+    [
+     "slightly",
+     180.8
+    ],
+    [
+     "closer",
+     181.14
+    ],
+    [
+     "to",
+     181.6
+    ],
+    [
+     "the",
+     181.84
+    ],
+    [
+     "black",
+     181.98
+    ],
+    [
+     "hole,",
+     182.2
+    ],
+    [
+     "experience",
+     182.62
+    ],
+    [
+     "stronger",
+     183.52
+    ],
+    [
+     "gravity",
+     184.08
+    ],
+    [
+     "than",
+     184.68
+    ],
+    [
+     "your",
+     185.22
+    ],
+    [
+     "head.",
+     185.44
+    ]
+   ]
+  },
+  {
+   "i": 31,
+   "scene": 3,
+   "text": "This difference is called a tidal force.",
+   "t0": 186.364,
+   "t1": 189.334,
+   "wt": [
+    [
+     "This",
+     186.34
+    ],
+    [
+     "difference",
+     186.56
+    ],
+    [
+     "is",
+     186.98
+    ],
+    [
+     "called",
+     187.5
+    ],
+    [
+     "a",
+     187.9
+    ],
+    [
+     "tidal",
+     188.26
+    ],
+    [
+     "force.",
+     188.6
+    ]
+   ]
+  },
+  {
+   "i": 32,
+   "scene": 3,
+   "text": "It can stretch your body vertically while compressing it horizontally.",
+   "t0": 189.784,
+   "t1": 194.208,
+   "wt": [
+    [
+     "It",
+     189.64
+    ],
+    [
+     "can",
+     189.88
+    ],
+    [
+     "stretch",
+     190.1
+    ],
+    [
+     "your",
+     190.4
+    ],
+    [
+     "body",
+     190.72
+    ],
+    [
+     "vertically",
+     190.98
+    ],
+    [
+     "while",
+     191.66
+    ],
+    [
+     "compressing",
+     192.24
+    ],
+    [
+     "it",
+     192.76
+    ],
+    [
+     "horizontally.",
+     193.1
+    ]
+   ]
+  },
+  {
+   "i": 33,
+   "scene": 3,
+   "text": "Scientists call this phenomenon spaghettification.",
+   "t0": 194.658,
+   "t1": 197.875,
+   "wt": [
+    [
+     "Scientists",
+     195.2
+    ],
+    [
+     "call",
+     195.2
+    ],
+    [
+     "this",
+     195.66
+    ],
+    [
+     "phenomenon",
+     195.94
+    ],
+    [
+     "spaghettification.",
+     196.42
+    ]
+   ]
+  },
+  {
+   "i": 34,
+   "scene": 3,
+   "text": "Yes, that's actually the scientific nickname.",
+   "t0": 198.325,
+   "t1": 201.267,
+   "wt": [
+    [
+     "Yes,",
+     198.28
+    ],
+    [
+     "that's",
+     198.86
+    ],
+    [
+     "actually",
+     199.12
+    ],
+    [
+     "the",
+     199.6
+    ],
+    [
+     "scientific",
+     199.9
+    ],
+    [
+     "nickname.",
+     200.44
+    ]
+   ]
+  },
+  {
+   "i": 35,
+   "scene": 3,
+   "text": "In a smaller black hole, these forces could become fatal before you even reach the event horizon.",
+   "t0": 201.717,
+   "t1": 208.283,
+   "wt": [
+    [
+     "In",
+     201.66
+    ],
+    [
+     "a",
+     201.82
+    ],
+    [
+     "smaller",
+     201.98
+    ],
+    [
+     "black",
+     202.34
+    ],
+    [
+     "hole,",
+     202.66
+    ],
+    [
+     "these",
+     203.5
+    ],
+    [
+     "forces",
+     203.8
+    ],
+    [
+     "could",
+     204.3
+    ],
+    [
+     "become",
+     204.56
+    ],
+    [
+     "fatal",
+     204.9
+    ],
+    [
+     "before",
+     205.36
+    ],
+    [
+     "you",
+     206.04
+    ],
+    [
+     "even",
+     206.28
+    ],
+    [
+     "reach",
+     206.62
+    ],
+    [
+     "the",
+     206.9
+    ],
+    [
+     "event",
+     207.14
+    ],
+    [
+     "horizon.",
+     207.46
+    ]
+   ]
+  },
+  {
+   "i": 36,
+   "scene": 3,
+   "text": "But surprisingly, a supermassive black hole can be different.",
+   "t0": 208.733,
+   "t1": 212.665,
+   "wt": [
+    [
+     "But",
+     208.64
+    ],
+    [
+     "surprisingly,",
+     208.84
+    ],
+    [
+     "a",
+     210.08
+    ],
+    [
+     "supermassive",
+     210.24
+    ],
+    [
+     "black",
+     210.84
+    ],
+    [
+     "hole",
+     211.22
+    ],
+    [
+     "can",
+     211.56
+    ],
+    [
+     "be",
+     211.82
+    ],
+    [
+     "different.",
+     212.04
+    ]
+   ]
+  },
+  {
+   "i": 37,
+   "scene": 3,
+   "text": "Because its event horizon is much larger, the tidal forces at that boundary can be relatively weaker.",
+   "t0": 213.115,
+   "t1": 220.138,
+   "wt": [
+    [
+     "Because",
+     213.0
+    ],
+    [
+     "its",
+     213.4
+    ],
+    [
+     "event",
+     213.64
+    ],
+    [
+     "horizon",
+     213.98
+    ],
+    [
+     "is",
+     214.54
+    ],
+    [
+     "much",
+     214.86
+    ],
+    [
+     "larger,",
+     215.06
+    ],
+    [
+     "the",
+     216.04
+    ],
+    [
+     "tidal",
+     216.26
+    ],
+    [
+     "forces",
+     216.6
+    ],
+    [
+     "at",
+     217.14
+    ],
+    [
+     "that",
+     217.4
+    ],
+    [
+     "boundary",
+     217.56
+    ],
+    [
+     "can",
+     218.1
+    ],
+    [
+     "be",
+     218.66
+    ],
+    [
+     "relatively",
+     218.88
+    ],
+    [
+     "weaker.",
+     219.36
+    ]
+   ]
+  },
+  {
+   "i": 38,
+   "scene": 3,
+   "text": "You could theoretically cross the event horizon of a sufficiently massive black hole without immediately noticing anything unusual.",
+   "t0": 220.588,
+   "t1": 229.611,
+   "wt": [
+    [
+     "You",
+     220.58
+    ],
+    [
+     "could",
+     220.7
+    ],
+    [
+     "theoretically",
+     220.9
+    ],
+    [
+     "cross",
+     221.44
+    ],
+    [
+     "the",
+     221.94
+    ],
+    [
+     "event",
+     222.24
+    ],
+    [
+     "horizon",
+     222.54
+    ],
+    [
+     "of",
+     223.32
+    ],
+    [
+     "a",
+     223.82
+    ],
+    [
+     "sufficiently",
+     223.98
+    ],
+    [
+     "massive",
+     224.46
+    ],
+    [
+     "black",
+     225.16
+    ],
+    [
+     "hole",
+     225.42
+    ],
+    [
+     "without",
+     225.86
+    ],
+    [
+     "immediately",
+     226.66
+    ],
+    [
+     "noticing",
+     227.24
+    ],
+    [
+     "anything",
+     227.88
+    ],
+    [
+     "unusual.",
+     228.64
+    ]
+   ]
+  },
+  {
+   "i": 39,
+   "scene": 3,
+   "text": "But that doesn't mean you would survive the journey.",
+   "t0": 230.061,
+   "t1": 233.483,
+   "wt": [
+    [
+     "But",
+     229.94
+    ],
+    [
+     "that",
+     230.16
+    ],
+    [
+     "doesn't",
+     230.4
+    ],
+    [
+     "mean",
+     230.8
+    ],
+    [
+     "you",
+     231.16
+    ],
+    [
+     "would",
+     231.78
+    ],
+    [
+     "survive",
+     231.98
+    ],
+    [
+     "the",
+     232.54
+    ],
+    [
+     "journey.",
+     232.86
+    ]
+   ]
+  },
+  {
+   "i": 40,
+   "scene": 3,
+   "text": "Eventually, the tidal forces would become devastating.",
+   "t0": 233.933,
+   "t1": 237.962,
+   "wt": [
+    [
+     "Eventually,",
+     234.1
+    ],
+    [
+     "the",
+     234.82
+    ],
+    [
+     "tidal",
+     235.16
+    ],
+    [
+     "forces",
+     235.52
+    ],
+    [
+     "would",
+     236.06
+    ],
+    [
+     "become",
+     236.56
+    ],
+    [
+     "devastating.",
+     236.94
+    ]
+   ]
+  },
+  {
+   "i": 41,
+   "scene": 4,
+   "text": "Black holes also reveal something extraordinary about time.",
+   "t0": 239.562,
+   "t1": 243.788,
+   "wt": [
+    [
+     "Black",
+     239.6
+    ],
+    [
+     "holes",
+     239.8
+    ],
+    [
+     "also",
+     240.14
+    ],
+    [
+     "reveal",
+     240.96
+    ],
+    [
+     "something",
+     241.34
+    ],
+    [
+     "extraordinary",
+     241.84
+    ],
+    [
+     "about",
+     242.6
+    ],
+    [
+     "time.",
+     243.12
+    ]
+   ]
+  },
+  {
+   "i": 42,
+   "scene": 4,
+   "text": "According to Einstein's theory of general relativity, gravity affects the passage of time.",
+   "t0": 244.238,
+   "t1": 250.733,
+   "wt": [
+    [
+     "According",
+     244.14
+    ],
+    [
+     "to",
+     244.58
+    ],
+    [
+     "Einstein's",
+     244.92
+    ],
+    [
+     "theory",
+     245.72
+    ],
+    [
+     "of",
+     246.02
+    ],
+    [
+     "general",
+     246.32
+    ],
+    [
+     "relativity,",
+     246.8
+    ],
+    [
+     "gravity",
+     248.54
+    ],
+    [
+     "affects",
+     248.54
+    ],
+    [
+     "the",
+     249.18
+    ],
+    [
+     "passage",
+     249.48
+    ],
+    [
+     "of",
+     249.82
+    ],
+    [
+     "time.",
+     250.14
+    ]
+   ]
+  },
+  {
+   "i": 43,
+   "scene": 4,
+   "text": "The stronger the gravitational field, the more slowly time passes relative to a distant observer.",
+   "t0": 251.183,
+   "t1": 258.171,
+   "wt": [
+    [
+     "The",
+     251.08
+    ],
+    [
+     "stronger",
+     251.28
+    ],
+    [
+     "the",
+     251.66
+    ],
+    [
+     "gravitational",
+     252.0
+    ],
+    [
+     "field,",
+     252.6
+    ],
+    [
+     "the",
+     253.7
+    ],
+    [
+     "more",
+     253.88
+    ],
+    [
+     "slowly",
+     254.08
+    ],
+    [
+     "time",
+     254.56
+    ],
+    [
+     "passes",
+     255.02
+    ],
+    [
+     "relative",
+     255.64
+    ],
+    [
+     "to",
+     256.2
+    ],
+    [
+     "a",
+     256.82
+    ],
+    [
+     "distant",
+     256.96
+    ],
+    [
+     "observer.",
+     257.34
+    ]
+   ]
+  },
+  {
+   "i": 44,
+   "scene": 4,
+   "text": "Imagine you are falling towards a black hole while your friend watches from far away.",
+   "t0": 258.621,
+   "t1": 263.99,
+   "wt": [
+    [
+     "Imagine",
+     258.64
+    ],
+    [
+     "you",
+     259.02
+    ],
+    [
+     "are",
+     259.44
+    ],
+    [
+     "falling",
+     259.56
+    ],
+    [
+     "towards",
+     259.92
+    ],
+    [
+     "a",
+     260.32
+    ],
+    [
+     "black",
+     260.54
+    ],
+    [
+     "hole",
+     260.8
+    ],
+    [
+     "while",
+     261.2
+    ],
+    [
+     "your",
+     261.8
+    ],
+    [
+     "friend",
+     262.02
+    ],
+    [
+     "watches",
+     262.32
+    ],
+    [
+     "from",
+     262.74
+    ],
+    [
+     "far",
+     263.06
+    ],
+    [
+     "away.",
+     263.42
+    ]
+   ]
+  },
+  {
+   "i": 45,
+   "scene": 4,
+   "text": "Your friend would see your clock running increasingly slowly as you approach the event horizon.",
+   "t0": 264.44,
+   "t1": 270.657,
+   "wt": [
+    [
+     "Your",
+     264.34
+    ],
+    [
+     "friend",
+     264.6
+    ],
+    [
+     "would",
+     264.92
+    ],
+    [
+     "see",
+     265.16
+    ],
+    [
+     "your",
+     265.4
+    ],
+    [
+     "clock",
+     265.64
+    ],
+    [
+     "running",
+     265.98
+    ],
+    [
+     "increasingly",
+     266.66
+    ],
+    [
+     "slowly",
+     267.4
+    ],
+    [
+     "as",
+     268.14
+    ],
+    [
+     "you",
+     268.74
+    ],
+    [
+     "approach",
+     268.9
+    ],
+    [
+     "the",
+     269.2
+    ],
+    [
+     "event",
+     269.52
+    ],
+    [
+     "horizon.",
+     269.84
+    ]
+   ]
+  },
+  {
+   "i": 46,
+   "scene": 4,
+   "text": "But you wouldn't feel your own time slowing down.",
+   "t0": 271.107,
+   "t1": 274.429,
+   "wt": [
+    [
+     "But",
+     270.94
+    ],
+    [
+     "you",
+     271.2
+    ],
+    [
+     "wouldn't",
+     271.34
+    ],
+    [
+     "feel",
+     271.64
+    ],
+    [
+     "your",
+     272.02
+    ],
+    [
+     "own",
+     272.58
+    ],
+    [
+     "time",
+     272.82
+    ],
+    [
+     "slowing",
+     273.2
+    ],
+    [
+     "down.",
+     273.62
+    ]
+   ]
+  },
+  {
+   "i": 47,
+   "scene": 4,
+   "text": "Your heartbeat would seem normal. Your thoughts would continue. Your clock would tick normally from your perspective.",
+   "t0": 274.879,
+   "t1": 281.663,
+   "wt": [
+    [
+     "Your",
+     274.94
+    ],
+    [
+     "heartbeat",
+     275.04
+    ],
+    [
+     "would",
+     275.5
+    ],
+    [
+     "seem",
+     275.78
+    ],
+    [
+     "normal.",
+     276.12
+    ],
+    [
+     "Your",
+     277.08
+    ],
+    [
+     "thoughts",
+     277.2
+    ],
+    [
+     "would",
+     277.58
+    ],
+    [
+     "continue.",
+     277.82
+    ],
+    [
+     "Your",
+     279.0
+    ],
+    [
+     "clock",
+     279.12
+    ],
+    [
+     "would",
+     279.4
+    ],
+    [
+     "tick",
+     279.64
+    ],
+    [
+     "normally",
+     279.86
+    ],
+    [
+     "from",
+     280.26
+    ],
+    [
+     "your",
+     280.58
+    ],
+    [
+     "perspective.",
+     280.82
+    ]
+   ]
+  },
+  {
+   "i": 48,
+   "scene": 4,
+   "text": "This is one of the strangest consequences of relativity.",
+   "t0": 282.113,
+   "t1": 286.46,
+   "wt": [
+    [
+     "This",
+     282.14
+    ],
+    [
+     "is",
+     282.32
+    ],
+    [
+     "one",
+     282.58
+    ],
+    [
+     "of",
+     282.86
+    ],
+    [
+     "the",
+     283.22
+    ],
+    [
+     "strangest",
+     283.38
+    ],
+    [
+     "consequences",
+     284.12
+    ],
+    [
+     "of",
+     285.16
+    ],
+    [
+     "relativity.",
+     285.56
+    ]
+   ]
+  },
+  {
+   "i": 49,
+   "scene": 4,
+   "text": "Time isn't experienced at exactly the same rate everywhere in the universe.",
+   "t0": 286.91,
+   "t1": 292.267,
+   "wt": [
+    [
+     "Time",
+     287.02
+    ],
+    [
+     "isn't",
+     287.24
+    ],
+    [
+     "experienced",
+     287.78
+    ],
+    [
+     "at",
+     288.5
+    ],
+    [
+     "exactly",
+     289.0
+    ],
+    [
+     "the",
+     289.52
+    ],
+    [
+     "same",
+     289.9
+    ],
+    [
+     "rate",
+     290.16
+    ],
+    [
+     "everywhere",
+     290.52
+    ],
+    [
+     "in",
+     290.98
+    ],
+    [
+     "the",
+     291.52
+    ],
+    [
+     "universe.",
+     291.64
+    ]
+   ]
+  },
+  {
+   "i": 50,
+   "scene": 5,
+   "text": "So, what happens after crossing the event horizon?",
+   "t0": 293.867,
+   "t1": 297.42,
+   "wt": [
+    [
+     "So,",
+     293.94
+    ],
+    [
+     "what",
+     294.14
+    ],
+    [
+     "happens",
+     294.42
+    ],
+    [
+     "after",
+     294.8
+    ],
+    [
+     "crossing",
+     295.5
+    ],
+    [
+     "the",
+     295.92
+    ],
+    [
+     "event",
+     296.22
+    ],
+    [
+     "horizon?",
+     296.54
+    ]
+   ]
+  },
+  {
+   "i": 51,
+   "scene": 5,
+   "text": "According to classical general relativity, everything inside eventually moves towards a region called the singularity.",
+   "t0": 298.22,
+   "t1": 306.813,
+   "wt": [
+    [
+     "According",
+     298.16
+    ],
+    [
+     "to",
+     298.6
+    ],
+    [
+     "classical",
+     298.94
+    ],
+    [
+     "general",
+     299.34
+    ],
+    [
+     "relativity,",
+     299.88
+    ],
+    [
+     "everything",
+     300.68
+    ],
+    [
+     "inside",
+     301.64
+    ],
+    [
+     "eventually",
+     302.46
+    ],
+    [
+     "moves",
+     303.24
+    ],
+    [
+     "towards",
+     303.9
+    ],
+    [
+     "a",
+     304.28
+    ],
+    [
+     "region",
+     304.56
+    ],
+    [
+     "called",
+     304.96
+    ],
+    [
+     "the",
+     305.62
+    ],
+    [
+     "singularity.",
+     305.78
+    ]
+   ]
+  },
+  {
+   "i": 52,
+   "scene": 5,
+   "text": "A singularity is where our mathematical description predicts that density and spacetime curvature become infinite.",
+   "t0": 307.263,
+   "t1": 315.581,
+   "wt": [
+    [
+     "A",
+     307.26
+    ],
+    [
+     "singularity",
+     307.38
+    ],
+    [
+     "is",
+     308.3
+    ],
+    [
+     "where",
+     308.8
+    ],
+    [
+     "our",
+     309.0
+    ],
+    [
+     "mathematical",
+     309.18
+    ],
+    [
+     "description",
+     309.7
+    ],
+    [
+     "predicts",
+     310.5
+    ],
+    [
+     "that",
+     311.26
+    ],
+    [
+     "density",
+     311.82
+    ],
+    [
+     "and",
+     312.3
+    ],
+    [
+     "spacetime",
+     312.78
+    ],
+    [
+     "curvature",
+     313.36
+    ],
+    [
+     "become",
+     314.08
+    ],
+    [
+     "infinite.",
+     314.82
+    ]
+   ]
+  },
+  {
+   "i": 53,
+   "scene": 5,
+   "text": "But there's a problem.",
+   "t0": 316.031,
+   "t1": 317.631,
+   "wt": [
+    [
+     "But",
+     316.0
+    ],
+    [
+     "there's",
+     316.12
+    ],
+    [
+     "a",
+     316.62
+    ],
+    [
+     "problem.",
+     316.86
+    ]
+   ]
+  },
+  {
+   "i": 54,
+   "scene": 5,
+   "text": "Our current theories of gravity and quantum mechanics don't fit together perfectly under these extreme conditions.",
+   "t0": 318.431,
+   "t1": 326.055,
+   "wt": [
+    [
+     "Our",
+     318.38
+    ],
+    [
+     "current",
+     318.6
+    ],
+    [
+     "theories",
+     318.94
+    ],
+    [
+     "of",
+     319.4
+    ],
+    [
+     "gravity",
+     319.7
+    ],
+    [
+     "and",
+     320.22
+    ],
+    [
+     "quantum",
+     320.64
+    ],
+    [
+     "mechanics",
+     320.96
+    ],
+    [
+     "don't",
+     321.62
+    ],
+    [
+     "fit",
+     322.42
+    ],
+    [
+     "together",
+     322.58
+    ],
+    [
+     "perfectly",
+     322.98
+    ],
+    [
+     "under",
+     323.58
+    ],
+    [
+     "these",
+     324.28
+    ],
+    [
+     "extreme",
+     324.58
+    ],
+    [
+     "conditions.",
+     325.1
+    ]
+   ]
+  },
+  {
+   "i": 55,
+   "scene": 5,
+   "text": "This means we don't have a complete understanding of what truly happens at the centre of a black hole.",
+   "t0": 326.505,
+   "t1": 333.322,
+   "wt": [
+    [
+     "This",
+     326.4
+    ],
+    [
+     "means",
+     326.68
+    ],
+    [
+     "we",
+     327.02
+    ],
+    [
+     "don't",
+     327.42
+    ],
+    [
+     "have",
+     327.64
+    ],
+    [
+     "a",
+     327.78
+    ],
+    [
+     "complete",
+     327.94
+    ],
+    [
+     "understanding",
+     328.34
+    ],
+    [
+     "of",
+     329.08
+    ],
+    [
+     "what",
+     329.76
+    ],
+    [
+     "truly",
+     329.96
+    ],
+    [
+     "happens",
+     330.32
+    ],
+    [
+     "at",
+     330.8
+    ],
+    [
+     "the",
+     331.24
+    ],
+    [
+     "centre",
+     331.42
+    ],
+    [
+     "of",
+     331.7
+    ],
+    [
+     "a",
+     332.38
+    ],
+    [
+     "black",
+     332.54
+    ],
+    [
+     "hole.",
+     332.76
+    ]
+   ]
+  },
+  {
+   "i": 56,
+   "scene": 5,
+   "text": "Perhaps a future theory of quantum gravity will reveal something completely unexpected.",
+   "t0": 333.772,
+   "t1": 339.627,
+   "wt": [
+    [
+     "Perhaps",
+     333.72
+    ],
+    [
+     "a",
+     334.0
+    ],
+    [
+     "future",
+     334.22
+    ],
+    [
+     "theory",
+     334.52
+    ],
+    [
+     "of",
+     334.96
+    ],
+    [
+     "quantum",
+     335.3
+    ],
+    [
+     "gravity",
+     335.66
+    ],
+    [
+     "will",
+     336.2
+    ],
+    [
+     "reveal",
+     336.86
+    ],
+    [
+     "something",
+     337.22
+    ],
+    [
+     "completely",
+     337.78
+    ],
+    [
+     "unexpected.",
+     338.5
+    ]
+   ]
+  },
+  {
+   "i": 57,
+   "scene": 5,
+   "text": "There are also unanswered questions about what happens to information that falls into a black hole.",
+   "t0": 340.077,
+   "t1": 346.785,
+   "wt": [
+    [
+     "There",
+     339.94
+    ],
+    [
+     "are",
+     340.22
+    ],
+    [
+     "also",
+     340.38
+    ],
+    [
+     "unanswered",
+     340.8
+    ],
+    [
+     "questions",
+     341.46
+    ],
+    [
+     "about",
+     342.08
+    ],
+    [
+     "what",
+     342.82
+    ],
+    [
+     "happens",
+     343.06
+    ],
+    [
+     "to",
+     343.4
+    ],
+    [
+     "information",
+     343.7
+    ],
+    [
+     "that",
+     344.22
+    ],
+    [
+     "falls",
+     345.02
+    ],
+    [
+     "into",
+     345.38
+    ],
+    [
+     "a",
+     345.74
+    ],
+    [
+     "black",
+     345.96
+    ],
+    [
+     "hole.",
+     346.22
+    ]
+   ]
+  },
+  {
+   "i": 58,
+   "scene": 5,
+   "text": "This is known as the black hole information paradox.",
+   "t0": 347.235,
+   "t1": 351.042,
+   "wt": [
+    [
+     "This",
+     347.1
+    ],
+    [
+     "is",
+     347.4
+    ],
+    [
+     "known",
+     347.6
+    ],
+    [
+     "as",
+     347.92
+    ],
+    [
+     "the",
+     348.56
+    ],
+    [
+     "black",
+     348.72
+    ],
+    [
+     "hole",
+     349.0
+    ],
+    [
+     "information",
+     349.34
+    ],
+    [
+     "paradox.",
+     350.1
+    ]
+   ]
+  },
+  {
+   "i": 59,
+   "scene": 5,
+   "text": "Scientists continue to investigate it because it touches some of the deepest questions in physics.",
+   "t0": 351.492,
+   "t1": 357.962,
+   "wt": [
+    [
+     "Scientists",
+     351.92
+    ],
+    [
+     "continue",
+     352.04
+    ],
+    [
+     "to",
+     352.76
+    ],
+    [
+     "investigate",
+     353.08
+    ],
+    [
+     "it",
+     353.6
+    ],
+    [
+     "because",
+     354.16
+    ],
+    [
+     "it",
+     354.62
+    ],
+    [
+     "touches",
+     354.82
+    ],
+    [
+     "some",
+     355.18
+    ],
+    [
+     "of",
+     355.52
+    ],
+    [
+     "the",
+     355.7
+    ],
+    [
+     "deepest",
+     355.84
+    ],
+    [
+     "questions",
+     356.2
+    ],
+    [
+     "in",
+     356.72
+    ],
+    [
+     "physics.",
+     357.32
+    ]
+   ]
+  },
+  {
+   "i": 60,
+   "scene": 6,
+   "text": "Black holes are not simply objects that destroy everything around them.",
+   "t0": 359.562,
+   "t1": 364.328,
+   "wt": [
+    [
+     "Black",
+     359.66
+    ],
+    [
+     "holes",
+     359.78
+    ],
+    [
+     "are",
+     360.12
+    ],
+    [
+     "not",
+     360.7
+    ],
+    [
+     "simply",
+     360.86
+    ],
+    [
+     "objects",
+     361.32
+    ],
+    [
+     "that",
+     361.82
+    ],
+    [
+     "destroy",
+     362.42
+    ],
+    [
+     "everything",
+     362.86
+    ],
+    [
+     "around",
+     363.52
+    ],
+    [
+     "them.",
+     363.92
+    ]
+   ]
+  },
+  {
+   "i": 61,
+   "scene": 6,
+   "text": "They are natural laboratories that challenge our understanding of space, time, gravity and reality itself.",
+   "t0": 364.778,
+   "t1": 372.192,
+   "wt": [
+    [
+     "They",
+     364.74
+    ],
+    [
+     "are",
+     364.9
+    ],
+    [
+     "natural",
+     365.04
+    ],
+    [
+     "laboratories",
+     365.5
+    ],
+    [
+     "that",
+     366.06
+    ],
+    [
+     "challenge",
+     366.64
+    ],
+    [
+     "our",
+     367.04
+    ],
+    [
+     "understanding",
+     367.3
+    ],
+    [
+     "of",
+     367.82
+    ],
+    [
+     "space,",
+     368.14
+    ],
+    [
+     "time,",
+     369.18
+    ],
+    [
+     "gravity",
+     370.06
+    ],
+    [
+     "and",
+     370.74
+    ],
+    [
+     "reality",
+     370.8
+    ],
+    [
+     "itself.",
+     371.3
+    ]
+   ]
+  },
+  {
+   "i": 62,
+   "scene": 6,
+   "text": "They show us that the universe can behave in ways that seem impossible from our everyday perspective.",
+   "t0": 372.642,
+   "t1": 379.568,
+   "wt": [
+    [
+     "They",
+     372.62
+    ],
+    [
+     "show",
+     372.78
+    ],
+    [
+     "us",
+     373.08
+    ],
+    [
+     "that",
+     373.42
+    ],
+    [
+     "the",
+     373.88
+    ],
+    [
+     "universe",
+     374.06
+    ],
+    [
+     "can",
+     374.44
+    ],
+    [
+     "behave",
+     374.74
+    ],
+    [
+     "in",
+     375.14
+    ],
+    [
+     "ways",
+     375.44
+    ],
+    [
+     "that",
+     375.74
+    ],
+    [
+     "seem",
+     376.34
+    ],
+    [
+     "impossible",
+     376.66
+    ],
+    [
+     "from",
+     377.24
+    ],
+    [
+     "our",
+     377.94
+    ],
+    [
+     "everyday",
+     378.16
+    ],
+    [
+     "perspective.",
+     378.62
+    ]
+   ]
+  },
+  {
+   "i": 63,
+   "scene": 6,
+   "text": "And perhaps the most fascinating question isn't what happens when something enters a black hole.",
+   "t0": 380.018,
+   "t1": 386.487,
+   "wt": [
+    [
+     "And",
+     380.0
+    ],
+    [
+     "perhaps",
+     380.14
+    ],
+    [
+     "the",
+     380.46
+    ],
+    [
+     "most",
+     380.7
+    ],
+    [
+     "fascinating",
+     380.96
+    ],
+    [
+     "question",
+     381.6
+    ],
+    [
+     "isn't",
+     382.2
+    ],
+    [
+     "what",
+     382.94
+    ],
+    [
+     "happens",
+     383.18
+    ],
+    [
+     "when",
+     383.58
+    ],
+    [
+     "something",
+     384.32
+    ],
+    [
+     "enters",
+     384.7
+    ],
+    [
+     "a",
+     385.24
+    ],
+    [
+     "black",
+     385.68
+    ],
+    [
+     "hole.",
+     385.92
+    ]
+   ]
+  },
+  {
+   "i": 64,
+   "scene": 6,
+   "text": "It's whether the universe has secrets that even our greatest scientific theories cannot yet explain.",
+   "t0": 386.937,
+   "t1": 393.546,
+   "wt": [
+    [
+     "It's",
+     386.88
+    ],
+    [
+     "whether",
+     387.1
+    ],
+    [
+     "the",
+     387.34
+    ],
+    [
+     "universe",
+     387.54
+    ],
+    [
+     "has",
+     387.96
+    ],
+    [
+     "secrets",
+     388.28
+    ],
+    [
+     "that",
+     388.76
+    ],
+    [
+     "even",
+     389.46
+    ],
+    [
+     "our",
+     389.76
+    ],
+    [
+     "greatest",
+     389.96
+    ],
+    [
+     "scientific",
+     390.42
+    ],
+    [
+     "theories",
+     391.06
+    ],
+    [
+     "cannot",
+     391.8
+    ],
+    [
+     "yet",
+     392.42
+    ],
+    [
+     "explain.",
+     392.7
+    ]
+   ]
+  },
+  {
+   "i": 65,
+   "scene": 6,
+   "text": "So, if you had the chance to observe a black hole from a safe distance, would you?",
+   "t0": 393.996,
+   "t1": 398.799,
+   "wt": [
+    [
+     "So,",
+     393.86
+    ],
+    [
+     "if",
+     394.24
+    ],
+    [
+     "you",
+     394.52
+    ],
+    [
+     "had",
+     394.66
+    ],
+    [
+     "the",
+     394.82
+    ],
+    [
+     "chance",
+     394.96
+    ],
+    [
+     "to",
+     395.24
+    ],
+    [
+     "observe",
+     395.52
+    ],
+    [
+     "a",
+     395.92
+    ],
+    [
+     "black",
+     396.12
+    ],
+    [
+     "hole",
+     396.36
+    ],
+    [
+     "from",
+     396.66
+    ],
+    [
+     "a",
+     396.88
+    ],
+    [
+     "safe",
+     397.04
+    ],
+    [
+     "distance,",
+     397.28
+    ],
+    [
+     "would",
+     398.2
+    ],
+    [
+     "you?",
+     398.38
+    ]
+   ]
+  },
+  {
+   "i": 66,
+   "scene": 6,
+   "text": "Or would you rather stay as far away as possible?",
+   "t0": 399.599,
+   "t1": 402.819,
+   "wt": [
+    [
+     "Or",
+     399.46
+    ],
+    [
+     "would",
+     399.76
+    ],
+    [
+     "you",
+     399.96
+    ],
+    [
+     "rather",
+     400.16
+    ],
+    [
+     "stay",
+     400.4
+    ],
+    [
+     "as",
+     400.86
+    ],
+    [
+     "far",
+     401.26
+    ],
+    [
+     "away",
+     401.58
+    ],
+    [
+     "as",
+     401.92
+    ],
+    [
+     "possible?",
+     402.22
+    ]
+   ]
+  },
+  {
+   "i": 67,
+   "scene": 6,
+   "text": "Let me know in the comments.",
+   "t0": 403.619,
+   "t1": 405.603,
+   "wt": [
+    [
+     "Let",
+     403.52
+    ],
+    [
+     "me",
+     403.84
+    ],
+    [
+     "know",
+     403.98
+    ],
+    [
+     "in",
+     404.3
+    ],
+    [
+     "the",
+     404.76
+    ],
+    [
+     "comments.",
+     404.92
+    ]
+   ]
+  }
+ ]
+}

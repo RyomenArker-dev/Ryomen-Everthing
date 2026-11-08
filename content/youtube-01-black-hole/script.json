@@ -1,0 +1,119 @@
+[
+ {
+  "n": 1,
+  "title": "The hook",
+  "visual": "A tiny spaceship approaches an enormous black hole. Glowing orange matter spirals around its dark centre. Slowly zoom towards the event horizon.",
+  "lines": [
+   "Imagine travelling through space when suddenly, you encounter something so powerful that not even light can escape it.",
+   "A black hole.",
+   "You might think you would instantly disappear. But what if I told you that falling into a black hole could be even stranger than simply being destroyed?",
+   "Time would behave differently. Light would bend around you. And depending on the size of the black hole, the experience could be dramatically different.",
+   "So, what would actually happen if you fell into one?",
+   "Let's find out."
+  ]
+ },
+ {
+  "n": 2,
+  "title": "What is a black hole?",
+  "visual": "A massive star burns brightly, runs out of fuel, and collapses under gravity.",
+  "lines": [
+   "A black hole is a region of space where gravity becomes so incredibly strong that nothing, not even light, can escape once it crosses a particular boundary.",
+   "But black holes don't simply appear out of nowhere.",
+   "Some form when extremely massive stars run out of the fuel supporting them against gravity.",
+   "The star's core collapses under its own weight, compressing enormous amounts of matter into an incredibly small region.",
+   "The result can be a black hole.",
+   "And here's something fascinating.",
+   "A black hole isn't necessarily a cosmic vacuum cleaner. From a sufficient distance, its gravity behaves like the gravity of any other object with the same mass.",
+   "You could theoretically orbit one without falling inside.",
+   "The real danger begins when you get too close."
+  ]
+ },
+ {
+  "n": 3,
+  "title": "Approaching the event horizon",
+  "visual": "A spaceship approaches a glowing accretion disk. Stars behind the black hole appear distorted into rings.",
+  "lines": [
+   "As you approach a black hole, something extraordinary happens.",
+   "Its gravity bends the path of light.",
+   "This phenomenon is called gravitational lensing.",
+   "The stars behind the black hole appear distorted, stretched and sometimes duplicated into strange glowing rings.",
+   "You are approaching a boundary known as the event horizon.",
+   "Think of it as the point of no return.",
+   "Once you cross it, escaping would require travelling faster than light, something our current understanding of physics does not allow.",
+   "But here's the strange part.",
+   "If someone watched you falling from a safe distance, they wouldn't experience your journey the way you do.",
+   "They would see your light becoming increasingly redshifted and dimmer.",
+   "You would appear to slow down as you approached the event horizon, eventually becoming practically invisible.",
+   "But from your own perspective, you would cross the event horizon in finite time.",
+   "You might not even notice the exact moment you cross it."
+  ]
+ },
+ {
+  "n": 4,
+  "title": "Spaghettification",
+  "visual": "A human silhouette is stretched vertically by gravitational forces, shown through a scientific animation.",
+  "lines": [
+   "Now comes the terrifying part.",
+   "The difference in gravitational force between your head and feet can become enormous.",
+   "Your feet, being slightly closer to the black hole, experience stronger gravity than your head.",
+   "This difference is called a tidal force.",
+   "It can stretch your body vertically while compressing it horizontally.",
+   "Scientists call this phenomenon spaghettification.",
+   "Yes, that's actually the scientific nickname.",
+   "In a smaller black hole, these forces could become fatal before you even reach the event horizon.",
+   "But surprisingly, a supermassive black hole can be different.",
+   "Because its event horizon is much larger, the tidal forces at that boundary can be relatively weaker.",
+   "You could theoretically cross the event horizon of a sufficiently massive black hole without immediately noticing anything unusual.",
+   "But that doesn't mean you would survive the journey.",
+   "Eventually, the tidal forces would become devastating."
+  ]
+ },
+ {
+  "n": 5,
+  "title": "What happens to time?",
+  "visual": "A clock floats near a black hole. Its hands appear slow while a spaceship travels towards the centre.",
+  "lines": [
+   "Black holes also reveal something extraordinary about time.",
+   "According to Einstein's theory of general relativity, gravity affects the passage of time.",
+   "The stronger the gravitational field, the more slowly time passes relative to a distant observer.",
+   "Imagine you are falling towards a black hole while your friend watches from far away.",
+   "Your friend would see your clock running increasingly slowly as you approach the event horizon.",
+   "But you wouldn't feel your own time slowing down.",
+   "Your heartbeat would seem normal. Your thoughts would continue. Your clock would tick normally from your perspective.",
+   "This is one of the strangest consequences of relativity.",
+   "Time isn't experienced at exactly the same rate everywhere in the universe."
+  ]
+ },
+ {
+  "n": 6,
+  "title": "What lies inside?",
+  "visual": "The event horizon disappears into darkness. An abstract representation of curved spacetime leads towards a glowing mathematical singularity.",
+  "lines": [
+   "So, what happens after crossing the event horizon?",
+   "According to classical general relativity, everything inside eventually moves towards a region called the singularity.",
+   "A singularity is where our mathematical description predicts that density and spacetime curvature become infinite.",
+   "But there's a problem.",
+   "Our current theories of gravity and quantum mechanics don't fit together perfectly under these extreme conditions.",
+   "This means we don't have a complete understanding of what truly happens at the centre of a black hole.",
+   "Perhaps a future theory of quantum gravity will reveal something completely unexpected.",
+   "There are also unanswered questions about what happens to information that falls into a black hole.",
+   "This is known as the black hole information paradox.",
+   "Scientists continue to investigate it because it touches some of the deepest questions in physics."
+  ]
+ },
+ {
+  "n": 7,
+  "title": "The ending",
+  "visual": "The black hole slowly shrinks into the distance. The camera pulls back to reveal billions of galaxies.",
+  "lines": [
+   "Black holes are not simply objects that destroy everything around them.",
+   "They are natural laboratories that challenge our understanding of space, time, gravity and reality itself.",
+   "They show us that the universe can behave in ways that seem impossible from our everyday perspective.",
+   "And perhaps the most fascinating question isn't what happens when something enters a black hole.",
+   "It's whether the universe has secrets that even our greatest scientific theories cannot yet explain.",
+   "So, if you had the chance to observe a black hole from a safe distance, would you?",
+   "Or would you rather stay as far away as possible?",
+   "Let me know in the comments."
+  ]
+ }
+]
