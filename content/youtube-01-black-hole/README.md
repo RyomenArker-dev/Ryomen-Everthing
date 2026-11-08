@@ -23,7 +23,8 @@ A long-form YouTube documentary (16:9, 1920×1080, 30 fps, about 6 min 52 s) mad
 - Whisper transcript of the narration against the script: 846 of 846 words, with only the spelling variants "traveling" and "center".
 - Asset audit: CLEAN (the page loads and embeds nothing).
 - Text-collision check: CLEAN across 4,130 sampled frames.
-- Final-video checks (see the delivery message): Whisper on the MP4, and sound sync at each chapter cut.
+- Final video: Whisper transcribed the MP4 as 846 of 846 words. All 6 chapter cuts land within 16 ms of their sound; the low chapter swells into chapters 2 and 3 are 0.1–0.8 dB over the 6 dB sudden-jump limit, accepted as deliberate transitions. Levels peak at -2.1 dB.
+- To rebuild after regenerating the voice, convert first: `ffmpeg -i voiceover/vo.wav voiceover/vo.flac`, then run `./make_video.sh`.
 
 ## Making the other six scripts
 Use `docs/prompts/cinematic-documentary-video.md` in any Claude session, or ask Claude Code here.
