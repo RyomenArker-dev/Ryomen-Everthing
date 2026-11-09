@@ -84,3 +84,6 @@ content/**/*.cues.json
 content/youtube-*/**/*.mp4
 content/youtube-*/*.mp4
 content/youtube-*/voiceover/*.wav
+
+# ---- Private personal data (voice samples etc.) — never committed ----
+private/
