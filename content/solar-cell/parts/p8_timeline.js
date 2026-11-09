@@ -72,11 +72,9 @@ caption(SC_T.circuit + 0.2, SC_T.circuitEnd - 0.2, 'Current flows', 'Electrons l
 // labels on the cut (the layers are drawn thicker than real: gaps.md)
 const scYL = SC_Y0 + 0.58;   // inside the view (it spans ≈ Y0+0.44 … Y0+0.76)
 tag(SC_T.arrive + 0.4, SC_T.leave - 0.3, scU(V3(SC_ZF, scYL - 0.08, -0.007)), 'n-type silicon', '');
-tag(SC_T.arrive + 0.5, SC_T.leave - 0.3, scU(V3(SC_ZF, scYL - 0.08, -0.105)), 'p-type silicon', '');
-tag(SC_T.arrive + 0.6, SC_T.leave - 0.3, scU(V3(SC_ZF, SC_Y0 + 0.76, -0.019)), 'Junction field', '');
+tag(SC_T.arrive + 0.5, SC_T.leave - 0.3, scU(V3(SC_ZF, scYL - 0.08, -0.105)), 'p-type silicon · layers not to scale', '');
 tag(SC_T.arrive + 0.7, SC_T.leave - 0.3, scU(V3(SC_CUTX, SC_FINGER_Y, 0.02)), 'Silver finger', '');
 tag(SC_T.arrive + 0.8, SC_T.leave - 0.3, scU(V3(SC_ZF, scYL - 0.08, -0.166)), 'Aluminium contact', '', 'below');
-tag(SC_T.arrive + 1.0, SC_T.leave - 0.3, scU(V3(SC_ZF, SC_Y0 + 0.7, -0.06)), 'Layers drawn thicker', '', 'hyp');
 tag(SC_T.circuit + 0.5, SC_T.circuitEnd - 0.3, () => SC_CABLES[0].curve.getPointAt(0.62).add(V3(0, 8, 0)), 'Electron flow', '');
 
 const RULER = { min: 0.2, max: 2000, title: ['Field of view', ''],

@@ -105,7 +105,9 @@ SECTION_MAT.onBeforeCompile = sh => {
     float inSi = smoothstep(saw - aa, saw + aa, d);
     if (inSi < 0.02) discard;
     vec3 arc = vec3(0.11, 0.17, 0.48), nSi = vec3(0.50, 0.56, 0.66), pSi = vec3(0.36, 0.40, 0.47), dep = vec3(0.28, 0.30, 0.37), al = vec3(0.70, 0.71, 0.72);
-    float g1 = vnoise(vLoc * 9000.0), g2 = vnoise(vLoc * 2600.0 + 3.0);
+    // grain resolved on screen (≥ ~2 px per feature); it fades to its mean as it gets smaller (no sub-pixel shimmer — QA flicker)
+    float gf1 = clamp(1.0 - fwidth(vLoc.y * 700.0) * 2.0, 0.0, 1.0), gf2 = clamp(1.0 - fwidth(vLoc.y * 260.0) * 2.0, 0.0, 1.0);
+    float g1 = mix(0.5, vnoise(vLoc * 700.0), gf1), g2 = mix(0.5, vnoise(vLoc * 260.0 + 3.0), gf2);
     vec3 c = mix(arc, nSi, smoothstep(saw + ${SC_LAYER.arc.toFixed(4)} - aa, saw + ${SC_LAYER.arc.toFixed(4)} + aa, d));
     c = mix(c, dep, smoothstep(${SC_LAYER.dep0.toFixed(4)} - aa, ${SC_LAYER.dep0.toFixed(4)} + aa, d));
     c = mix(c, pSi, smoothstep(${SC_LAYER.dep1.toFixed(4)} - aa, ${SC_LAYER.dep1.toFixed(4)} + aa, d));
