@@ -456,26 +456,28 @@ const CELL_TEX = (() => {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
 })();
 
-const BACK_TEX = (() => { const c = scCanvas(512, 512, (g, W, H) => { g.fillStyle = '#8c9094'; g.fillRect(0, 0, W, H);
+const BACK_TEX = (() => { const c = scCanvas(512, 512, (g, W, H) => { g.fillStyle = '#c9cdd1'; g.fillRect(0, 0, W, H);
     for (let k = 0; k < 6000; k++) { const x = scRnd() * W, y = scRnd() * H; g.fillStyle = `rgba(${scRnd() > 0.5 ? '255,255,255' : '0,0,0'},${0.05 + scRnd() * 0.07})`; g.fillRect(x, y, 1 + scRnd() * 3, 1); } });
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(220, 440); t.anisotropy = 4; return t; })();
 /* ---------- materials ---------- */
 const SC_MAT = {
-  cell: new THREE.MeshPhysicalMaterial({ map: CELL_TEX, roughness: 0.38, metalness: 0.0, clearcoat: 0.25, clearcoatRoughness: 0.35, specularIntensity: 0.45 }),
+  cell: new THREE.MeshPhysicalMaterial({ map: CELL_TEX, roughness: 0.38, metalness: 0.0, clearcoat: 0.12, clearcoatRoughness: 0.4, specularIntensity: 0.28 }),
   cellEdge: new THREE.MeshStandardMaterial({ color: 0x3a3f48, roughness: 0.6, metalness: 0.3 }),
-  backsheet: new THREE.MeshStandardMaterial({ map: BACK_TEX, color: 0xb4b8bc, roughness: 0.9, side: THREE.DoubleSide }),
-  glass: new THREE.MeshPhysicalMaterial({ color: 0x0a0f18, transparent: true, opacity: 0.16, roughness: 0.3, metalness: 0, clearcoat: 0.55, clearcoatRoughness: 0.32, specularIntensity: 0.3, side: THREE.DoubleSide, depthWrite: false }),
+  backsheet: new THREE.MeshStandardMaterial({ map: BACK_TEX, color: 0xa9adb2, roughness: 0.9, side: THREE.DoubleSide }),
+  glass: new THREE.MeshPhysicalMaterial({ color: 0x0a0f18, transparent: true, opacity: 0.16, roughness: 0.3, metalness: 0, clearcoat: 0.55, clearcoatRoughness: 0.32, specularIntensity: 0.15, side: THREE.DoubleSide, depthWrite: false }),
   alu: new THREE.MeshStandardMaterial({ color: 0xb8bcc2, roughness: 0.48, metalness: 1.0 }),
   aluDark: new THREE.MeshStandardMaterial({ color: 0x8d939b, roughness: 0.45, metalness: 1.0 }),
-  rubber: new THREE.MeshStandardMaterial({ color: 0x15171a, roughness: 0.62, metalness: 0.0 }),
+  rubber: new THREE.MeshPhysicalMaterial({ color: 0x23262b, roughness: 0.42, metalness: 0.0, sheen: 0.4, sheenColor: new THREE.Color(0.5, 0.55, 0.6) }),
+  rubberRed: new THREE.MeshPhysicalMaterial({ color: 0x9c2219, roughness: 0.42, metalness: 0.0, sheen: 0.3, sheenColor: new THREE.Color(1.0, 0.6, 0.55) }),
+  eva: new THREE.MeshPhysicalMaterial({ color: 0xdfe8ef, transparent: true, opacity: 0.22, roughness: 0.6, depthWrite: false, side: THREE.DoubleSide }),
   plastic: new THREE.MeshStandardMaterial({ color: 0x1d2024, roughness: 0.5, metalness: 0.0 }),
   brass: new THREE.MeshStandardMaterial({ color: 0xc9a25a, roughness: 0.32, metalness: 1.0 }),
   silver: new THREE.MeshStandardMaterial({ color: 0xdfe3e9, roughness: 0.38, metalness: 0.45 }),
 };
-SC_MAT.backsheet.userData.thin = true; SC_MAT.glass.userData.thin = true; SC_MAT.glass.userData.passable = true;
+SC_MAT.backsheet.userData.thin = true; SC_MAT.eva.userData.thin = true; SC_MAT.eva.userData.passable = true; SC_MAT.glass.userData.thin = true; SC_MAT.glass.userData.passable = true;
 
-/* ---------- 71 ordinary cells (one definition), the hero cell at the lower right corner ---------- */
-const SC_HERO = { c: 5, r: 0 };
+/* ---------- 71 ordinary cells (one definition), the hero cell one in from the lower right corner ---------- */
+const SC_HERO = { c: 4, r: 1 };
 const scCellCenter = (c, r) => V3((c - (SC_COLS - 1) / 2) * SC_PITCH, (r - (SC_ROWS - 1) / 2) * SC_PITCH, 0);
 const SC_CELL_MATS = [SC_MAT.cellEdge, SC_MAT.cellEdge, SC_MAT.cellEdge, SC_MAT.cellEdge, SC_MAT.cell, SC_MAT.cellEdge];   // +x −x +y −y +z −z
 const SC_CELLS = new THREE.InstancedMesh(new THREE.BoxGeometry(SC_CELL, SC_CELL, SC_TW).translate(0, 0, -SC_TW / 2), SC_CELL_MATS, SC_COLS * SC_ROWS - 1);
@@ -522,13 +524,13 @@ const SC_HERO_CELL = new THREE.Group(); SC_HERO_CELL.name = 'one silicon cell';
 PANEL.add(SC_HERO_CELL);
 // the silver finger that the cut crosses (3D only near the notch; elsewhere the texture's line, too thin to tell apart)
 const SC_FINGER_Y = SC_Y0 + SC_FINGER_Y0 + SC_FACTS.finger.pitch * 0 + 0.0;    // the cell's first finger row
-const SC_FINGER = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2.4, 32, 1, false, 0, Math.PI).rotateZ(Math.PI / 2).rotateX(-Math.PI / 2)
-  .scale(1, SC_FACTS.finger.w / 2, 0.018).translate(SC_CUTX - 1.2, SC_FINGER_Y, 0), SC_MAT.silver);
-SC_FINGER.name = 'silver finger'; PANEL.add(SC_FINGER);
-// the finger's cross-section on the cut face (so the cut shows metal, not a hollow)
-const SC_FINGER_CAP = new THREE.Mesh(new THREE.CircleGeometry(1, 32, 0, Math.PI).rotateY(Math.PI / 2).rotateX(-Math.PI / 2 * 0)
-  .scale(1, SC_FACTS.finger.w / 2, 0.018).translate(SC_CUTX + 0.0003, SC_FINGER_Y, 0), SC_MAT.silver);
-PANEL.add(SC_FINGER_CAP);
+const SC_FINGER = (() => { const hw = SC_FACTS.finger.w / 2, h = 0.018, pts = [];
+  for (let i = 0; i <= 24; i++) { const a = Math.PI * i / 24; pts.push(new THREE.Vector2(hw * Math.cos(a) * (1 + 0.12 * Math.sin(a)), h * Math.pow(Math.sin(a), 0.8))); }   // a printed paste line: flat foot, rounded top
+  const g = new THREE.ExtrudeGeometry(new THREE.Shape(pts), { depth: 2.4, bevelEnabled: false, curveSegments: 24 });
+  g.applyMatrix4(new THREE.Matrix4().makeBasis(V3(0, 1, 0), V3(0, 0, 1), V3(1, 0, 0))).translate(SC_CUTX - 2.4, SC_FINGER_Y, 0.0);   // shape (y, z), extruded along x up to the cut
+  const m = new THREE.Mesh(g, SC_MAT.silver); m.name = 'silver finger'; return m; })();
+PANEL.add(SC_FINGER);
+
 
 /* ---------- the rest of the module: backsheet, glass, aluminium frame, mount ---------- */
 const SC_BACK = new THREE.Mesh(new THREE.PlaneGeometry(SC_HALF_W * 2, SC_HALF_H * 2).translate(0, 0, -0.8), SC_MAT.backsheet); SC_BACK.name = 'backsheet'; PANEL.add(SC_BACK);
@@ -552,7 +554,7 @@ const SC_MOUNT = new THREE.Group(); SC_MOUNT.name = 'mount'; universe.add(SC_MOU
 /* ---------- the cable from the module's corner to a bulb on the ground ---------- */
 const SC_BULB_POS = V3(980, 0, 1240);
 const SC_BULB = new THREE.Group(); SC_BULB.name = 'bulb'; SC_BULB.position.copy(SC_BULB_POS); universe.add(SC_BULB);
-{ const lathe = (pts, mat, seg = 64) => new THREE.Mesh(new THREE.LatheGeometry(pts.map(([r, y]) => new THREE.Vector2(r, y)), seg), mat);
+{ const lathe = (pts, mat, seg = 96) => new THREE.Mesh(new THREE.LatheGeometry(pts.map(([r, y]) => new THREE.Vector2(r, y)), seg), mat);
   const base = new THREE.Mesh(new RoundedBoxGeometry(110, 16, 110, 4, 6), SC_MAT.plastic); base.position.y = 8; SC_BULB.add(base);
   SC_BULB.add(lathe([[0, 16], [22, 16], [24, 18], [24, 52], [21, 58], [0, 58]], SC_MAT.plastic));                       // socket body
   const thread = []; for (let i = 0; i <= 48; i++) { const y = 58 + i * 0.5; thread.push([13.2 + 0.9 * Math.abs(Math.sin(i / 48 * Math.PI * 6)), y]); }
@@ -560,37 +562,47 @@ const SC_BULB = new THREE.Group(); SC_BULB.name = 'bulb'; SC_BULB.position.copy(
   // a frosted A-shape bulb: neck, shoulder, round dome (mm, from the screw base up)
   const env = [[12, 83], [13, 90], [15, 99], [19, 109], [24.5, 119], [28.8, 130], [31.2, 142], [31.8, 153], [30.6, 164], [27.2, 174], [21.5, 183], [13.5, 190], [6, 193.4], [0, 194.2]];
   const glow = new THREE.MeshStandardMaterial({ color: 0xfff1dc, emissive: new THREE.Color(1.0, 0.68, 0.34), emissiveIntensity: 1.25, roughness: 0.55 });
-  const bulb = lathe(env, glow); bulb.name = 'glowing bulb'; SC_BULB.add(bulb); }
+  const envS = new THREE.SplineCurve(env.map(([r, y]) => new THREE.Vector2(r, y))).getPoints(90).map(v => [Math.max(0, v.x), v.y]); envS[envS.length - 1][0] = 0;
+  const bulb = lathe(envS, glow); bulb.name = 'glowing bulb'; SC_BULB.add(bulb); }
 const SC_BULB_LIGHT = new THREE.PointLight(0xffc27a, 900, 0, 2); SC_BULB_LIGHT.position.set(0, 140, 0); SC_BULB.add(SC_BULB_LIGHT);
+const SC_JBOX = new THREE.Mesh(new RoundedBoxGeometry(130, 90, 26, 3, 4), SC_MAT.plastic);
+SC_JBOX.position.copy(V3(SC_HALF_W - 300, -SC_HALF_H + 230, -0.8 - 13)); SC_JBOX.name = 'junction box'; PANEL.add(SC_JBOX);
 const SC_CABLES = []; const SC_WIRE = new THREE.Group(); SC_WIRE.name = 'cable'; universe.add(SC_WIRE);
-for (const s of [-1, 1]) {
-  const p0 = scU(V3(SC_HALF_W + 26, -SC_HALF_H + 40 + s * 14, -22)), corner = scU(V3(SC_HALF_W + 70, -SC_HALF_H - 40, -60));
-  const pts = [p0, p0.clone().add(V3(40, -10, 10)), corner, V3(corner.x + 40, 9, corner.z + 120), V3(SC_BULB_POS.x - 120 + s * 6, 9, SC_BULB_POS.z - 40 + s * 14),
-    V3(SC_BULB_POS.x - 55, 9, SC_BULB_POS.z + s * 10), V3(SC_BULB_POS.x - 24, 22, SC_BULB_POS.z + s * 8)];
+for (const s of [-1, 1]) {    // s = −1: the black (−) cable, electrons out to the bulb; s = +1: the red (+) cable, electrons back to the module
+  const p0 = scU(V3(SC_HALF_W - 300 + s * 32, -SC_HALF_H + 185, -14)), p1 = scU(V3(SC_HALF_W - 300 + s * 34, -SC_HALF_H + 120, -60));
+  const pts = [p0, p1, V3(p1.x + 40 + s * 10, 280, p1.z + 170), V3(p1.x + 120 + s * 12, 9, p1.z + 330), V3(SC_BULB_POS.x - 150 + s * 8, 9, SC_BULB_POS.z - 60 + s * 16),
+    V3(SC_BULB_POS.x - 60, 9, SC_BULB_POS.z + s * 12), V3(SC_BULB_POS.x - 24, 22, SC_BULB_POS.z + s * 9)];
   const curve = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
-  const m = new THREE.Mesh(new THREE.TubeGeometry(curve, 320, 4.2, 14, false), SC_MAT.rubber); SC_WIRE.add(m); SC_CABLES.push({ curve, dir: s });
+  const m = new THREE.Mesh(new THREE.TubeGeometry(curve, 320, 4.2, 14, false), s > 0 ? SC_MAT.rubberRed : SC_MAT.rubber); SC_WIRE.add(m); SC_CABLES.push({ curve, dir: s });
 }
-// electrons as small blue beads riding along each conductor (a symbol of the current): out through one cable, back through the other
+// electrons as blue beads riding along each conductor (a symbol of the current): out through the black cable, back through the red one
 const SC_E_MAT = new THREE.MeshBasicMaterial({ color: new THREE.Color(0.35, 0.65, 1.0).multiplyScalar(2.2) });
-const SC_BEADS = new THREE.InstancedMesh(new THREE.SphereGeometry(2.6, 16, 12), SC_E_MAT, 2 * 28); SC_BEADS.name = 'electron flow'; universe.add(SC_BEADS);
+const SC_BEAD_N = 16;
+const SC_BEADS = new THREE.InstancedMesh(new THREE.SphereGeometry(4.6, 16, 12), SC_E_MAT, 2 * SC_BEAD_N); SC_BEADS.name = 'electron flow'; universe.add(SC_BEADS);
+// sunlight: streaks of light falling along the sun's direction onto the module (a symbol; none near the cell the camera dives into)
+const SC_SUNDIR = V3(0.55, 0.62, 0.56).normalize();
+const SC_RAY_N = 150, SC_RAYS = new THREE.InstancedMesh(new THREE.CapsuleGeometry(1.1, 120, 4, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.84, 0.56).multiplyScalar(1.15), transparent: true, opacity: 0.42, depthWrite: false, blending: THREE.AdditiveBlending }), SC_RAY_N);
+SC_RAYS.name = 'sunlight'; universe.add(SC_RAYS);
+const SC_RAY_SEEDS = (() => { const r = mulberry32(31), out = []; while (out.length < SC_RAY_N) { const lx = (r() * 2 - 1) * (SC_HALF_W - 20), ly = (r() * 2 - 1) * (SC_HALF_H - 20);
+    if (Math.hypot(lx - (SC_HC.x + SC_CELL / 2), ly - (SC_HC.y - SC_CELL / 2)) < 420) continue; out.push({ p: scU(V3(lx, ly, 4)), ph: r() }); } return out; })();
 
 /* ---------- the charges in the cut (symbols, in front of the cut face) ---------- */
-const SC_ZF = SC_CUTX + 0.004;                                                       // 4 µm in front of the cut face
+const SC_ZF = SC_CUTX + 0.011;                                                       // in front of the cut face (clear of the larger symbols)
 const scL = (y, z) => scU(V3(SC_ZF, y, z));
 const SC_SYM = new THREE.Group(); SC_SYM.name = 'charges and field'; PANEL.add(SC_SYM);
 { const pm = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.62, 0.25).multiplyScalar(1.3) }), mm = new THREE.MeshBasicMaterial({ color: new THREE.Color(0.45, 0.7, 1.0).multiplyScalar(1.3) });
-  const bar = (w, h, m) => new THREE.Mesh(new THREE.BoxGeometry(0.0004, w, h), m);
-  for (let k = 0; k < 9; k++) { const y = SC_Y0 + 0.08 + k * 0.13;
+  const bar = (w, h, m) => new THREE.Mesh(new THREE.BoxGeometry(0.0004, w * 2.2, h * 2.2), m);
+  for (let k = 0; k < 9; k++) { const y = SC_Y0 + 0.06 + k * 0.13;
     const plus = new THREE.Group(); plus.add(bar(0.006, 0.0012, pm), bar(0.0012, 0.006, pm)); plus.position.set(SC_ZF, y, -SC_LAYER.dep0 - 0.0028); SC_SYM.add(plus);   // fixed + ions (n side)
     const minus = bar(0.006, 0.0012, mm); minus.position.set(SC_ZF, y + 0.065, -SC_LAYER.dep1 + 0.0028); SC_SYM.add(minus);                                        // fixed − ions (p side)
     // the built-in field, from the n side to the p side: a small amber arrow between the ions
     const am = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.78, 0.32).multiplyScalar(1.6) });
-    const shaft = new THREE.Mesh(new THREE.BoxGeometry(0.0004, 0.0014, 0.0075), am); shaft.position.set(SC_ZF, y + 0.032, -0.0175); SC_SYM.add(shaft);
-    const head = new THREE.Mesh(new THREE.ConeGeometry(0.0026, 0.0045, 3).rotateX(Math.PI), am); head.position.set(SC_ZF, y + 0.032, -0.0232); SC_SYM.add(head); } }
+    const shaft = new THREE.Mesh(new THREE.BoxGeometry(0.0004, 0.003, 0.0075), am); shaft.position.set(SC_ZF, y + 0.032, -0.0175); SC_SYM.add(shaft);
+    const head = new THREE.Mesh(new THREE.ConeGeometry(0.0055, 0.0055, 3).rotateX(Math.PI), am); head.position.set(SC_ZF, y + 0.032, -0.0232); SC_SYM.add(head); } }
 // the photon, the electron (filled blue) and the hole (an orange ring) of the one event the film follows
-const SC_PHOTON = new THREE.Mesh(new THREE.CapsuleGeometry(0.0016, 0.012, 6, 12), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.92, 0.6).multiplyScalar(3.0) }));
-const SC_ELEC = new THREE.Mesh(new THREE.SphereGeometry(0.0034, 20, 14), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.35, 0.65, 1.0).multiplyScalar(2.4) }));
-const SC_HOLE = new THREE.Mesh(new THREE.TorusGeometry(0.003, 0.0009, 10, 28).rotateY(Math.PI / 2), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.55, 0.2).multiplyScalar(2.2) }));
+const SC_PHOTON = new THREE.Mesh(new THREE.CapsuleGeometry(0.0038, 0.026, 6, 12), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.92, 0.6).multiplyScalar(3.0) }));
+const SC_ELEC = new THREE.Mesh(new THREE.SphereGeometry(0.0085, 24, 16), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.35, 0.65, 1.0).multiplyScalar(2.4) }));
+const SC_HOLE = new THREE.Mesh(new THREE.TorusGeometry(0.0075, 0.002, 12, 32).rotateY(Math.PI / 2), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.55, 0.2).multiplyScalar(2.2) }));
 SC_PHOTON.name = 'photon'; SC_ELEC.name = 'electron'; SC_HOLE.name = 'hole'; PANEL.add(SC_PHOTON, SC_ELEC, SC_HOLE);
 
 /* ---------- light: a low warm sun, sky fill, and a studio-like environment for the glass and metal ---------- */
@@ -600,7 +612,7 @@ function scEnv() {
     vertexShader: 'varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
     fragmentShader: 'varying vec3 vD; void main(){ float y = vD.y; vec3 c = mix(vec3(0.02, 0.022, 0.03), vec3(0.06, 0.08, 0.13), smoothstep(-0.1, 0.5, y)); gl_FragColor = vec4(c, 1.0); }' })));
   const panel = (w, h, pos, col) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: col, side: THREE.DoubleSide })); m.position.set(...pos); m.lookAt(0, 0, 0); env.add(m); };
-  panel(30, 18, [55, 38, 60], new THREE.Color(1.9, 1.4, 0.95));    // the sun's broad reflection
+  panel(30, 18, [55, 38, 60], new THREE.Color(1.15, 0.85, 0.58));    // the sun's broad reflection
   panel(80, 10, [0, 70, -30], new THREE.Color(0.22, 0.3, 0.48));    // sky strip
   panel(10, 50, [-60, 20, 20], new THREE.Color(0.28, 0.31, 0.38));  // cool fill
   const pm = new THREE.PMREMGenerator(renderer); const t = pm.fromScene(env, 0.02).texture; pm.dispose(); return t;
@@ -687,19 +699,19 @@ function resizePost(W, H, pr) {
   RESIZE_HOOKS.forEach(f => f(W, H, pr));
 }
 /* =====================================================================================
-   8. TIMELINE — one continuous camera: the module in low sun (hook) → a steady dive into the corner cell and its cut-away
-   notch → the photon event at the p-n junction (key) → a steady pull-back to the cable and the lit bulb (key) → back to the
+   8. TIMELINE — one continuous camera: the module in low sun (hook) → a steady dive, looking straight down on one cell's silver
+   fingers and busbars, then tilting into its cut-away notch → the photon event at the p-n junction (key) → a steady pull-back to the cable and the lit bulb (key) → back to the
    opening view. Played: hook ×2, transit ×8, key ×2, return ×3 → ≈ 19.7 s (kickoff 15–20 s).
    ===================================================================================== */
 const SC_T = {
-  hookEnd: 5.6, arrive: 37.6, leave: 45.8, circuit: 75.0, circuitEnd: 82.2,
+  hookEnd: 5.0, arrive: 37.0, leave: 45.2, circuit: 78.4, circuitEnd: 85.2,
 };
-const LOOP_T = 88.7;
+const LOOP_T = 91.7;
 const scPanelCenter = scU(V3(0, 0, 0));
 const scHeroCenter = scU(SC_HC);
 const scNotch = scU(V3(SC_CUTX, SC_FINGER_Y, -0.075));
 const scCorner = scU(V3(SC_HALF_W, -SC_HALF_H, 0));
-const scCircuit = scCorner.clone().lerp(SC_BULB_POS.clone().add(V3(0, 90, 0)), 0.32);   // nearer the corner: the pull-back's aim travels less (QA pace)
+const scCircuit = scCorner.clone().lerp(SC_BULB_POS.clone().add(V3(0, 90, 0)), 0.05);   // nearer the corner: the pull-back's aim travels less (QA pace)
 // the opening view aims a little toward the corner cell, so the dive's aim has less far to travel (QA pace: ≤ 1.5 views/s)
 const scHookT = scPanelCenter.clone().lerp(scNotch, 0.4);
 
@@ -708,41 +720,45 @@ const scHookT = scPanelCenter.clone().lerp(scNotch, 0.4);
 const SC_DIR_A = eyeDir('panel', 28, -28), SC_UP_A = V3(0, 1, 0);
 const SC_DIR_B = eyeDir('face', 0, 10), SC_UP_B = scDir(V3(0, 0, 1));
 const SC_DIR_C = eyeDir('world', 42, 20), SC_UP_C = V3(0, 1, 0);
-const SC_DIR_OVER = eyeDir('face', 0, 62);      // high above the cut while leaving it, clear of the frame
 let scKeyN = 0;
 function scKey(t, T, field, dir, up, o = {}) {        // a key looking along `dir` with `up`, through a frame made for it
   const back = dir.clone().normalize(), right = up.clone().cross(back).normalize(), u2 = back.clone().cross(right).normalize();
   const name = 'sck' + (scKeyN++); CAMFRAMES[name] = { right, up: u2, back };
   return key(t, T, field, { ...o, frame: name, yaw: 0, pitch: 0 });
 }
+function scSlerpLater(d, f) { return scSlerp(d, SC_DIR_B, f); }
 const scSlerp = (a, b, f) => { const q = new THREE.Quaternion().setFromUnitVectors(a.clone().normalize(), b.clone().normalize()); return a.clone().applyQuaternion(new THREE.Quaternion().slerp(q, f)).normalize(); };
+const SC_DIR_TOP = scSlerpLater(eyeDir('panel', 10, -14), 0.3);    // down on the cell (its fingers and busbars), already turning toward the cut
 
 // the hook: a slow push on the module
 scKey(0.0, scHookT, 1700, SC_DIR_A, SC_UP_A, { at: 0.4 });
 scKey(SC_T.hookEnd, scHookT, 1600, SC_DIR_A, SC_UP_A, { at: 0.4, flow: false });
 // the dive: the view narrows at a steady rate (geometric fields at even times) while the aim slides from the module's centre to
 // the hero cell and its notch, and the direction turns from the opening view to the cut face
-{ const n = 8, F0 = 1600, F1 = 0.36;
+{ const n = 9, F0 = 1600, F1 = 0.215;
   for (let k = 1; k <= n; k++) {
     const f = k / n, t = SC_T.hookEnd + (SC_T.arrive - SC_T.hookEnd) * f, field = F0 * Math.pow(F1 / F0, f);
     // the aim moves in step with the zoom (linear in the field): its sweep stays ≈ zoom rate × distance / field span
     const T = scNotch.clone().lerp(scHookT, (field - F1) / (F0 - F1));
-    const turn = smoother(clamp01((f - 0.1) / 0.85));
-    scKey(t, T, field, scSlerp(SC_DIR_A, SC_DIR_B, turn), scSlerp(SC_UP_A, SC_UP_B, turn), { at: lerp(0.4, 0.42, f), flow: k < n });
+    // first down onto the cell (an even turn while the field narrows to ~12 cm), then an even tilt into the cut face
+    const g = Math.log(F0 / field) / Math.log(F0 / F1), gs = 0.3;
+    const dir = g < gs ? scSlerp(SC_DIR_A, SC_DIR_TOP, g / gs) : scSlerp(SC_DIR_TOP, SC_DIR_B, (g - gs) / (1 - gs));
+    const up = scSlerp(SC_UP_A, SC_UP_B, smoother(clamp01((g - 0.2) / 0.8)));
+    scKey(t, T, field, dir, up, { at: lerp(0.4, 0.42, f), flow: k < n });
   } }
 // the stop at the junction: a very slow push while the photon event plays
-scKey(SC_T.leave, scNotch, 0.31, scSlerp(SC_DIR_B, SC_DIR_C, 0.0), SC_UP_B, { at: 0.42, flow: false });
-// the pull-back: out of the notch, over the frame, to the cable and the bulb
-{ const n = 7, F0 = 0.31, F1 = 540;
+scKey(SC_T.leave, scNotch, 0.195, scSlerp(SC_DIR_B, SC_DIR_C, 0.0), SC_UP_B, { at: 0.42, flow: false });
+// the pull-back: out of the notch, up over the panel, to the cable and the bulb
+{ const n = 7, F0 = 0.195, F1 = 860;
   for (let k = 1; k <= n; k++) {
     const f = k / n, t = SC_T.leave + (SC_T.circuit - SC_T.leave) * f, field = F0 * Math.pow(F1 / F0, f);
     const T = scNotch.clone().lerp(scCircuit, (field - F0) / (F1 - F0));
     // one even turn from the cut face to the circuit view, lifted over the frame in the middle (no fast swing — QA pace ≤ 45°/s)
-    const dir = scSlerp(SC_DIR_B, SC_DIR_C, f).addScaledVector(SC_UP_B, 0.38 * Math.sin(Math.PI * f)).normalize();
+    const dir = scSlerp(SC_DIR_B, SC_DIR_C, f).addScaledVector(SC_UP_B, 0.3 * Math.sin(Math.PI * f)).normalize();
     const up = scSlerp(SC_UP_B, SC_UP_C, f);
-    scKey(t, T, field, dir, up, { at: lerp(0.42, 0.4, f), flow: k < n });
+    scKey(t, T, field, dir, up, { at: lerp(0.42, 0.36, f), flow: k < n });
   } }
-scKey(SC_T.circuitEnd, scCircuit, 510, scSlerp(SC_DIR_C, SC_DIR_A, 0.04), SC_UP_C, { at: 0.4, flow: false });
+scKey(SC_T.circuitEnd, scCircuit, 820, scSlerp(SC_DIR_C, SC_DIR_A, 0.04), SC_UP_C, { at: 0.36, flow: false });
 // the way back to the opening pose (= the first key)
 scKey(LOOP_T, scHookT, 1700, SC_DIR_A, SC_UP_A, { at: 0.4, flow: false });
 
@@ -753,33 +769,32 @@ beat(SC_T.leave, SC_T.circuit, 'transit', 'Out to the circuit');
 beat(SC_T.circuit, SC_T.circuitEnd, 'key', 'The current lights the bulb');
 beat(SC_T.circuitEnd, LOOP_T, 'return', 'Back to the module');
 
-caption(0.3, 5.5, 'How a solar cell works', '', '', PANEL);
+caption(0.3, 4.9, 'How a solar cell works', '', '', PANEL);
 caption(SC_T.arrive + 0.2, SC_T.leave - 0.2, 'Light frees electrons', 'A field sweeps them out', '', SC_HERO_CELL);
 caption(SC_T.circuit + 0.2, SC_T.circuitEnd - 0.2, 'Current flows', 'Electrons light the bulb', '', [SC_BULB, SC_WIRE]);
 
-// labels on the cut (the layers are drawn thicker than real: gaps.md)
-const scYL = SC_Y0 + 0.58;   // inside the view (it spans ≈ Y0+0.44 … Y0+0.76)
-tag(SC_T.arrive + 0.4, SC_T.leave - 0.3, scU(V3(SC_ZF, scYL - 0.08, -0.007)), 'n-type silicon', '');
-tag(SC_T.arrive + 0.5, SC_T.leave - 0.3, scU(V3(SC_ZF, scYL - 0.08, -0.105)), 'p-type silicon · layers not to scale', '');
-tag(SC_T.arrive + 0.7, SC_T.leave - 0.3, scU(V3(SC_CUTX, SC_FINGER_Y, 0.02)), 'Silver finger', '');
-tag(SC_T.arrive + 0.8, SC_T.leave - 0.3, scU(V3(SC_ZF, scYL - 0.08, -0.166)), 'Aluminium contact', '', 'below');
-tag(SC_T.circuit + 0.5, SC_T.circuitEnd - 0.3, () => SC_CABLES[0].curve.getPointAt(0.62).add(V3(0, 8, 0)), 'Electron flow', '');
+// labels on the cut (the layers are drawn thicker than real: gaps.md); they leave one after another as the camera starts to move
+const scYL = SC_Y0 + 0.555;   // inside the view (it spans ≈ Y0+0.50 … Y0+0.70)
+tag(SC_T.arrive + 0.4, SC_T.leave + 0.3, scU(V3(SC_ZF, scYL, -0.007)), 'n-type silicon', '');
+tag(SC_T.arrive + 0.5, SC_T.leave + 0.6, scU(V3(SC_ZF, scYL, -0.105)), 'p-type silicon · layers not to scale', '');
+tag(SC_T.arrive + 0.7, SC_T.leave + 0.9, scU(V3(SC_CUTX, SC_FINGER_Y, 0.02)), 'Silver finger', '');
+tag(SC_T.arrive + 0.8, SC_T.leave + 1.2, scU(V3(SC_ZF, scYL, -0.166)), 'Aluminium contact', '', 'below');
+tag(SC_T.circuit + 0.5, SC_T.circuitEnd - 0.3, () => SC_CABLES[0].curve.getPointAt(0.55).add(V3(0, 8, 0)), 'Electrons out (−)', '');
+tag(SC_T.circuit + 0.7, SC_T.circuitEnd - 0.3, () => SC_CABLES[1].curve.getPointAt(0.8).add(V3(0, 8, 0)), 'and back (+)', '', 'below');
 
-const RULER = { min: 0.2, max: 2000, title: ['Field of view', ''],
-  fmt: v => v < 1 ? `≈ ${Math.round(v * 1000)} µm` : v < 10 ? `≈ ${v.toFixed(1)} mm` : v < 1000 ? `≈ ${Math.round(v / 10)} cm` : `≈ ${(v / 1000).toFixed(1)} m`,
-  ticks: [[0.3, '0.3 mm'], [3, '3 mm'], [30, '3 cm'], [300, '30 cm'], [1500, '1.5 m']] };
+const RULER = null;   // no field-of-view ruler: its text crowded the cut and the panel
 
 // the one event the film follows (panel-local mm, in front of the cut face): photon in → pair → electron to the finger, hole to the aluminium
 const SC_E = { t0: SC_T.arrive + 0.5, abs: SC_T.arrive + 2.0, end: SC_T.leave - 0.5 };
-const SC_ABS = [SC_ZF, SC_Y0 + 0.47, -0.07];
-const SC_PH0 = [SC_ZF, SC_Y0 + 0.28, 0.36];
+const SC_ABS = [SC_ZF, SC_Y0 + 0.545, -0.07];
+const SC_PH0 = [SC_ZF, SC_Y0 + 0.43, 0.32];
 const SC_PH_DIR = V3(0, SC_ABS[1] - SC_PH0[1], SC_ABS[2] - SC_PH0[2]).normalize();
-const SC_FLASH = new THREE.Mesh(new THREE.SphereGeometry(0.008, 20, 14), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.9, 0.6).multiplyScalar(2.0), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+const SC_FLASH = new THREE.Mesh(new THREE.SphereGeometry(0.011, 24, 16), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.0, 0.9, 0.6).multiplyScalar(2.0), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
 PANEL.add(SC_FLASH);
-const scElec = tau => tween(tau, [[SC_E.abs, SC_ABS], [SC_E.abs + 0.9, [SC_ZF, SC_ABS[1], -0.032]], [SC_E.abs + 1.5, [SC_ZF, SC_ABS[1] + 0.02, -0.009]],
-  [SC_E.abs + 2.6, [SC_ZF, SC_FINGER_Y, -0.004]], [SC_E.abs + 3.2, [SC_ZF, SC_FINGER_Y, 0.006]], [SC_E.end, [SC_CUTX - 0.02, SC_FINGER_Y, 0.006]]]);
+const scElec = tau => tween(tau, [[SC_E.abs, SC_ABS], [SC_E.abs + 0.9, [SC_ZF, SC_ABS[1], -0.032]], [SC_E.abs + 1.5, [SC_ZF, SC_ABS[1] + 0.025, -0.009]],
+  [SC_E.abs + 2.6, [SC_ZF, SC_FINGER_Y, -0.004]], [SC_E.abs + 3.2, [SC_ZF, SC_FINGER_Y, 0.006]], [SC_E.end, [SC_CUTX - 0.03, SC_FINGER_Y, 0.006]]]);
 const scHole = tau => tween(tau, [[SC_E.abs, SC_ABS], [SC_E.abs + 0.9, [SC_ZF, SC_ABS[1] - 0.01, -0.105]], [SC_E.abs + 2.6, [SC_ZF, SC_ABS[1] - 0.02, -0.158]],
-  [SC_E.end, [SC_CUTX - 0.02, SC_ABS[1] - 0.02, -0.158]]]);
+  [SC_E.end, [SC_CUTX - 0.03, SC_ABS[1] - 0.02, -0.158]]]);
 
 const WARMUP_TAUS = [0, 20, 39, 42, 60, 74];
 const scM = new THREE.Matrix4(), scQ = new THREE.Quaternion();
@@ -801,11 +816,22 @@ function applyScene(tau, tp, field) {
   if (born) { SC_ELEC.position.set(...scElec(tau)); SC_HOLE.position.set(...scHole(tau)); }
   // electrons along the cable: out through one conductor, back through the other, two whole cycles per loop
   let i = 0;
-  for (const c of SC_CABLES) for (let k = 0; k < 28; k++) {
-    const u0 = (k / 28 + (c.dir > 0 ? 1 : -1) * 2 * tp / LOOP) % 1, u = 0.04 + 0.92 * ((u0 + 1) % 1);
-    const p = c.curve.getPointAt(u).add(V3(0, 4.4, 0)); scM.makeTranslation(p.x, p.y, p.z); SC_BEADS.setMatrixAt(i++, scM);
+  for (const c of SC_CABLES) for (let k = 0; k < SC_BEAD_N; k++) {
+    const u0 = (k / SC_BEAD_N + (c.dir < 0 ? 1 : -1) * 2 * tp / LOOP) % 1, u = 0.04 + 0.92 * ((u0 + 1) % 1);    // black (−): toward the bulb; red (+): back
+    const p = c.curve.getPointAt(u).add(V3(0, 5.5, 0)); scM.makeTranslation(p.x, p.y, p.z); SC_BEADS.setMatrixAt(i++, scM);
   }
   SC_BEADS.instanceMatrix.needsUpdate = true;
+  // sunlight streaks: six whole cycles per loop; each fades in far from the panel and is absorbed at the glass; any that would pass
+  // close to the lens fade (camera state, not time)
+  const travel = 1500, up = V3(0, 1, 0);
+  scQ.setFromUnitVectors(up, SC_SUNDIR);
+  for (let k = 0; k < SC_RAY_N; k++) {
+    const r = SC_RAY_SEEDS[k], ph = (r.ph + 6 * tp / LOOP) % 1, pos = r.p.clone().addScaledVector(SC_SUNDIR, travel * (1 - ph) + 60);
+    const near = smoother(clamp01((pos.distanceTo(CAM_POS) - 0.15 * CAM.D) / (0.35 * CAM.D)));
+    const s = smoother(clamp01(ph / 0.3)) * near * smoother(range(field, 30, 140));   // only in the wide views
+    scM.compose(pos, scQ, V3(s, s, s)); SC_RAYS.setMatrixAt(k, scM);
+  }
+  SC_RAYS.instanceMatrix.needsUpdate = true;
 }
 
 /* =====================================================================================
