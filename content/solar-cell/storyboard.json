@@ -1,0 +1,91 @@
+{
+ "version": 2,
+ "title": "How a solar cell makes electricity (15–20 s test)",
+ "summary": "From a sunlit solar panel, the camera dives into the silicon to see a photon free an electron at the p-n junction, then pulls back to the current lighting a bulb, and loops.",
+ "format": {
+  "aspect": "9x16",
+  "length": "15-20",
+  "langs": "en"
+ },
+ "scenes": [
+  {
+   "id": "s1",
+   "name": "Sunlit solar panel",
+   "beat": "hook",
+   "seconds": 3.0,
+   "field": 2.5,
+   "sees": "A solar panel of dark blue cells in low warm sunlight",
+   "caption": {
+    "title": "How a solar cell makes electricity",
+    "line": "",
+    "second": ""
+   },
+   "camera": "slow push-in toward one cell",
+   "facts": [
+    {
+     "text": "72-cell module",
+     "source": "UNSW PV-Manufacturing"
+    }
+   ],
+   "illustrative": ""
+  },
+  {
+   "id": "s2",
+   "name": "Photon at the junction",
+   "beat": "key",
+   "seconds": 7.3,
+   "field": 0.0002,
+   "sees": "A photon enters the silicon, frees an electron and a hole, and the junction's field pulls them apart",
+   "caption": {
+    "title": "A photon frees an electron",
+    "line": "The junction's field pushes it out",
+    "second": ""
+   },
+   "camera": "continuous dive through the cell surface into the junction, then hold",
+   "facts": [
+    {
+     "text": "Si band gap 1.12 eV",
+     "source": "Ioffe"
+    },
+    {
+     "text": "field from n-side to p-side",
+     "source": "LibreTexts"
+    }
+   ],
+   "illustrative": "layers not to scale; charges symbolic"
+  },
+  {
+   "id": "s3",
+   "name": "Current lights a bulb",
+   "beat": "key",
+   "seconds": 6.5,
+   "field": 0.6,
+   "sees": "Pulling back, a wire from the cell carries the current to a glowing bulb",
+   "caption": {
+    "title": "Current flows",
+    "line": "Electrons run through the wire to the bulb",
+    "second": ""
+   },
+   "camera": "steady pull-back to the circuit",
+   "facts": [],
+   "illustrative": ""
+  },
+  {
+   "id": "s4",
+   "name": "Back to the panel",
+   "beat": "return",
+   "seconds": 2.5,
+   "sees": "The view settles back on the panel",
+   "caption": {
+    "title": "",
+    "line": "",
+    "second": ""
+   },
+   "camera": "pull back to the opening pose",
+   "facts": [],
+   "illustrative": ""
+  }
+ ],
+ "open": [],
+ "estimate": 19.3
+}
