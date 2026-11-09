@@ -17,4 +17,3 @@ approved by the owner before use (CLAUDE.md S6). Never write keys here.
 | Kokoro (ONNX) | Free offline text-to-speech fallback | Free, open source | — | Used once, not installed permanently | Reinstall per session if needed |
 | fal.ai | Talking-head video generation (`talking-head` skill) | Paid | Owner | Not approved | Only with owner approval (S6) and consent (S10) |
 | Remotion | Video rendering in some motion skills | Free for individuals/small teams; company licence above that — check current terms | Owner | Not installed | Installed per project, with approval |
-| MuAPI (api.muapi.ai) | AI image/video generation (used by the Open-Generative app) | Paid, prepaid USD balance | Owner | Key connected 2026-11-09; balance $0.00; **no spending approved yet** | Key stored only as a cloud-environment network secret (`x-api-key`). Account has web-safety filtering enforced. Each paid generation needs owner approval (S6). |
