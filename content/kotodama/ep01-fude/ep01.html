@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KOTODAMA EP01 — The Brush</title>
+<style>
+  @font-face { font-family: 'ArchivoBlack'; src: url('fonts/archivo-black.woff2') format('woff2'); }
+  @font-face { font-family: 'NotoSerifJP'; src: url('fonts/noto-serif-jp-ep01.woff2') format('woff2'); font-weight: 900; }
+  html, body { margin: 0; padding: 0; background: #000; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920" aria-label="KOTODAMA Episode 1 - The Brush"></canvas>
+<script>
+'use strict';
+const W = 1080, H = 1920, CX = W / 2, CY = H / 2;
+const FPS = 30, DUR = 30;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const easeOutExpo = u => u >= 1 ? 1 : 1 - Math.pow(2, -10 * u);
+const easeInExpo = u => u <= 0 ? 0 : Math.pow(2, 10 * (u - 1));
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, u) => a + (b - a) * u;
+
+// ---------- palette (series bible) ----------
+const PAPER = '#e8ddc8', INKBG = '#121008', VERM = '#c3272b', GOLD = '#c9a227', GLOW = '#bcd8e8';
+
+// ---------- music grid (mirrors synth.js) ----------
+const BEAT = 0.375, BAR = 1.5, DROP = 15.0;
+const kicks = [0, 1.5];
+for (const t0 of [3.0, 4.5, 6.0, 7.5, 9.0]) kicks.push(t0, t0 + 1.125);
+kicks.push(10.5, 11.25, 12.0, 12.75, 13.5, 13.875, 14.25, 14.625);
+for (let b = 0; b < 6; b++) { const t0 = DROP + b * BAR; kicks.push(t0, t0 + BEAT * 1.75, t0 + BEAT * 2.5); }
+kicks.push(24.0, 25.5);
+const snares = [];
+for (const t0 of [3.0, 4.5, 6.0, 7.5, 9.0]) snares.push(t0 + 0.75);
+snares.push(14.25, 14.4375, 14.625, 14.8125);
+for (let b = 0; b < 6; b++) { const t0 = DROP + b * BAR; snares.push(t0 + BEAT, t0 + BEAT * 3); }
+snares.push(24.75, 26.25);
+function pulse(t, times, decay) {
+  let v = 0;
+  for (const k of times) { const d = t - k; if (d >= 0) v = Math.max(v, Math.exp(-d * decay)); }
+  return v;
+}
+
+// ---------- precomputed ----------
+const grainTiles = [];
+(function () {
+  for (let k = 0; k < 4; k++) {
+    const g = document.createElement('canvas'); g.width = 270; g.height = 480;
+    const gc = g.getContext('2d'), im = gc.createImageData(270, 480);
+    const r = mulberry32(300 + k);
+    for (let i = 0; i < im.data.length; i += 4) {
+      const v = r() * 255 | 0;
+      im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255;
+    }
+    gc.putImageData(im, 0, 0); grainTiles.push(g);
+  }
+})();
+// paper stains (static)
+const stains = [];
+{ const r = mulberry32(42); for (let i = 0; i < 7; i++) stains.push({ x: r() * W, y: r() * H, rr: 140 + r() * 320, a: 0.03 + r() * 0.04 }); }
+// falling ink dust
+const dust = [];
+{ const r = mulberry32(55); for (let i = 0; i < 120; i++) dust.push({ x: r(), y: r(), s: 0.3 + r(), sz: 1 + r() * 2.6, tw: 0.4 + r() * 0.6 }); }
+// splat shapes cache: seed -> path points
+function splatPts(seedN, spikes) {
+  const r = mulberry32(seedN), pts = [];
+  const n = spikes || 14;
+  for (let i = 0; i < n; i++) pts.push(0.55 + r() * 0.75);
+  return pts;
+}
+const splatCache = {};
+function inkSplat(x, y, rad, seedN, alpha, color) {
+  if (alpha <= 0.01 || rad <= 0.5) return;
+  const key = seedN | 0;
+  if (!splatCache[key]) splatCache[key] = { m: splatPts(seedN, 14), drops: (() => { const r = mulberry32(seedN + 7), d = []; for (let i = 0; i < 6; i++) d.push({ a: r() * 6.283, d: 1.1 + r() * 0.9, s: 0.08 + r() * 0.16 }); return d; })() };
+  const sh = splatCache[key];
+  ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color || PAPER;
+  ctx.translate(x, y); ctx.beginPath();
+  const n = sh.m.length;
+  for (let i = 0; i <= n; i++) {
+    const a0 = (i % n) / n * Math.PI * 2;
+    const rr2 = rad * sh.m[i % n];
+    const px = Math.cos(a0) * rr2, py = Math.sin(a0) * rr2;
+    i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+  }
+  ctx.closePath(); ctx.fill();
+  for (const d of sh.drops) {
+    ctx.beginPath(); ctx.arc(Math.cos(d.a) * rad * d.d, Math.sin(d.a) * rad * d.d, rad * d.s, 0, 7); ctx.fill();
+  }
+  ctx.restore();
+}
+
+// ---------- shared drawing ----------
+function paperBg() {
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#15120a'); g.addColorStop(0.5, INKBG); g.addColorStop(1, '#0b0906');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  for (const s of stains) {
+    const sg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.rr);
+    sg.addColorStop(0, 'rgba(232,221,200,' + s.a + ')'); sg.addColorStop(1, 'rgba(232,221,200,0)');
+    ctx.fillStyle = sg; ctx.fillRect(s.x - s.rr, s.y - s.rr, s.rr * 2, s.rr * 2);
+  }
+}
+function grain(frame, alpha) {
+  const tile = grainTiles[frame % 4];
+  ctx.globalAlpha = alpha; ctx.globalCompositeOperation = 'overlay';
+  for (let x = 0; x < W; x += 270) for (let y = 0; y < H; y += 480) ctx.drawImage(tile, x, y);
+  ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+}
+function vignette(a) {
+  const g = ctx.createRadialGradient(CX, CY, H * 0.26, CX, CY, H * 0.72);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,' + a + ')');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+}
+function flash(color, a) {
+  if (a <= 0.003) return;
+  ctx.fillStyle = color; ctx.globalAlpha = clamp(a, 0, 1);
+  ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1;
+}
+function fallingDust(t, inten, color) {
+  for (const p of dust) {
+    const y = ((p.y + t * 0.03 * p.s) % 1.05) * H;
+    const x = p.x * W + Math.sin(t * p.s + p.y * 9) * 20;
+    ctx.globalAlpha = 0.3 * p.tw * inten;
+    ctx.fillStyle = color || PAPER;
+    ctx.beginPath(); ctx.arc(x, y, p.sz, 0, 7); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+function text(str, x, y, size, font, color, alpha, spacing, glow, glowColor) {
+  if (alpha <= 0.01) return;
+  ctx.save();
+  ctx.font = '400 ' + size + 'px ' + font;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.globalAlpha = alpha;
+  if (spacing) ctx.letterSpacing = spacing + 'px';
+  if (glow) { ctx.shadowColor = glowColor || color; ctx.shadowBlur = glow; }
+  ctx.fillStyle = color; ctx.fillText(str, x, y);
+  ctx.restore();
+}
+// brush reveal: sweep with ragged edge + echo misregistration + edge splats
+function brushReveal(str, x, y, size, font, color, u, vertical, echo) {
+  if (u <= 0) return;
+  u = clamp(u, 0, 1);
+  ctx.save();
+  const wHalf = size * (vertical ? 0.75 : str.length * 0.62);
+  const hHalf = size * (vertical ? 0.8 : 0.8);
+  const r = mulberry32((u * 60 | 0) + 17);
+  if (vertical) {
+    const edge = y - hHalf + u * hHalf * 2 + (r() - 0.5) * 14;
+    ctx.beginPath(); ctx.rect(x - wHalf, y - hHalf, wHalf * 2, edge - (y - hHalf)); ctx.clip();
+  } else {
+    const edge = x - wHalf + u * wHalf * 2 + (r() - 0.5) * 14;
+    ctx.beginPath(); ctx.rect(x - wHalf, y - hHalf, edge - (x - wHalf), hHalf * 2); ctx.clip();
+  }
+  ctx.font = '400 ' + size + 'px ' + font;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  if (echo) {
+    ctx.globalAlpha = 0.33; ctx.fillStyle = VERM; ctx.fillText(str, x - echo, y + echo * 0.6);
+    ctx.globalAlpha = 0.25; ctx.fillStyle = GOLD; ctx.fillText(str, x + echo, y - echo * 0.6);
+  }
+  ctx.globalAlpha = 1; ctx.fillStyle = color;
+  ctx.shadowColor = color; ctx.shadowBlur = 18;
+  ctx.fillText(str, x, y);
+  ctx.restore();
+  // leading splats at the wipe edge
+  if (u < 1) {
+    const r2 = mulberry32((u * 90 | 0) + 31);
+    for (let i = 0; i < 3; i++) {
+      const px = vertical ? x + (r2() - 0.5) * wHalf * 1.6 : x - wHalf + u * wHalf * 2;
+      const py = vertical ? y - hHalf + u * hHalf * 2 : y + (r2() - 0.5) * hHalf * 1.6;
+      inkSplat(px, py, 8 + r2() * 20, (u * 50 | 0) * 3 + i, 0.5, color);
+    }
+  }
+}
+function renSilhouette(x, y, s, alpha, whiteU, t) {
+  if (alpha <= 0.01) return;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.globalAlpha = alpha;
+  // rim glow
+  const rg = ctx.createRadialGradient(0, -40, 0, 0, -40, 420);
+  rg.addColorStop(0, 'rgba(188,216,232,0.1)'); rg.addColorStop(1, 'rgba(188,216,232,0)');
+  ctx.fillStyle = rg; ctx.fillRect(-420, -460, 840, 880);
+  // brush carried across the back (behind the body)
+  ctx.strokeStyle = '#0a0806'; ctx.lineWidth = 20; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(-190, 230); ctx.lineTo(200, -125); ctx.stroke();
+  const tg = ctx.createRadialGradient(212, -136, 0, 212, -136, 64);
+  tg.addColorStop(0, GLOW); tg.addColorStop(1, 'rgba(188,216,232,0)');
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  ctx.fillStyle = tg; ctx.beginPath(); ctx.arc(212, -136, 56 + Math.sin(t * 5) * 6, 0, 7); ctx.fill();
+  ctx.restore();
+  ctx.fillStyle = '#060504';
+  // body (jacket)
+  ctx.beginPath();
+  ctx.moveTo(-150, 320); ctx.lineTo(-125, 40); ctx.quadraticCurveTo(-118, -36, -64, -58);
+  ctx.lineTo(64, -58); ctx.quadraticCurveTo(118, -36, 125, 40); ctx.lineTo(150, 320);
+  ctx.closePath(); ctx.fill();
+  // head + spiky anime hair, swept to the right
+  ctx.beginPath(); ctx.arc(0, -130, 74, 0, 7); ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(-76, -140);
+  ctx.lineTo(-62, -216); ctx.lineTo(-38, -176);
+  ctx.lineTo(-20, -248); ctx.lineTo(0, -182);
+  ctx.lineTo(26, -238); ctx.lineTo(40, -176);
+  ctx.lineTo(68, -208); ctx.lineTo(76, -140);
+  ctx.closePath(); ctx.fill();
+  // the white streak (cost of the first word) — one spike pales
+  if (whiteU > 0.01) {
+    ctx.fillStyle = 'rgba(232,221,200,' + clamp(whiteU, 0, 1) * 0.5 + ')';
+    ctx.beginPath();
+    ctx.moveTo(-28, -176); ctx.lineTo(-18, -242); ctx.lineTo(-10, -182);
+    ctx.closePath(); ctx.fill();
+  }
+  // rim light on the brush-glow side
+  ctx.strokeStyle = 'rgba(188,216,232,0.28)'; ctx.lineWidth = 6; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(0, -130, 74, -0.9, 0.7); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(64, -58); ctx.quadraticCurveTo(118, -36, 125, 40); ctx.stroke();
+  ctx.restore();
+}
+function skyline(baseY, alpha) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = '#080605';
+  const r = mulberry32(77);
+  let x = -20;
+  while (x < W + 20) {
+    const bw = 70 + r() * 130, bh = 120 + r() * 420;
+    ctx.fillRect(x, baseY - bh, bw, bh + 400);
+    // windows
+    ctx.fillStyle = 'rgba(201,162,39,0.35)';
+    for (let i = 0; i < 5; i++) if (r() > 0.55) ctx.fillRect(x + 10 + r() * (bw - 26), baseY - bh + 14 + r() * (bh - 40), 9, 13);
+    ctx.fillStyle = '#080605';
+    x += bw + 6 + r() * 30;
+  }
+  ctx.restore();
+}
+function rings(x, y, t0, t, color, n, speed, lw) {
+  ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < n; i++) {
+    const age = t - t0 - i * 0.12; if (age < 0) continue;
+    const R = age * speed; const a = clamp(1 - age / 1.0, 0, 1);
+    if (a <= 0) continue;
+    ctx.strokeStyle = color; ctx.globalAlpha = a * 0.6; ctx.lineWidth = lw * (1 - age * 0.5);
+    ctx.beginPath(); ctx.arc(x, y, R, 0, 7); ctx.stroke();
+  }
+  ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+}
+
+// ---------- scenes ----------
+function sLogo(t) { // 0 - 3.0
+  paperBg();
+  fallingDust(t, 0.5);
+  brushReveal('言霊', CX, CY - 260, 300, 'NotoSerifJP', PAPER, t / 0.9, false, 0);
+  text('KOTODAMA', CX, CY - 20, 92, 'ArchivoBlack', PAPER, clamp((t - 0.8) / 0.5, 0, 1), 26, 0);
+  // seal stamp slams on the kick at 1.5
+  if (t > 1.5) {
+    const su = clamp((t - 1.5) / 0.25, 0, 1);
+    const sc = lerp(1.8, 1.0, easeOutExpo(su));
+    ctx.save(); ctx.translate(CX, CY + 250); ctx.scale(sc, sc); ctx.globalAlpha = clamp(su * 2, 0, 1);
+    ctx.fillStyle = VERM;
+    ctx.beginPath(); ctx.roundRect(-95, -95, 190, 190, 18); ctx.fill();
+    ctx.font = '400 120px NotoSerifJP'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = PAPER; ctx.fillText('筆', 0, 8);
+    ctx.restore();
+    if (su > 0.9) inkSplat(CX + 130, CY + 330, 26, 912, 0.5, VERM);
+  }
+  text('EPISODE 01 — THE BRUSH', CX, CY + 460, 40, 'ArchivoBlack', 'rgba(232,221,200,0.75)', clamp((t - 1.9) / 0.5, 0, 1), 10, 0);
+  vignette(0.5); grain(t * 30 | 0, 0.06);
+  flash(PAPER, pulse(t, [0], 8) * 0.12);
+}
+function sIntro(t) { // 3.0 - 7.5
+  const u = (t - 3.0) / 4.5;
+  paperBg();
+  // paper moon
+  const mg = ctx.createRadialGradient(860, 1020, 0, 860, 1020, 200);
+  mg.addColorStop(0, 'rgba(232,221,200,0.15)'); mg.addColorStop(0.75, 'rgba(232,221,200,0.09)'); mg.addColorStop(1, 'rgba(232,221,200,0)');
+  ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(860, 1020, 200, 0, 7); ctx.fill();
+  skyline(1500, 1);
+  renSilhouette(CX, 1290, 1.0, clamp(u * 2.5, 0, 1), 0, t);
+  fallingDust(t, 0.8);
+  text('REN KUROGANE', CX, 330, 72, 'ArchivoBlack', PAPER, clamp(u * 3 - 0.2, 0, 1), 14, 0);
+  text('PAINTS SIGNS', CX, 430, 52, 'ArchivoBlack', 'rgba(232,221,200,0.85)', clamp(u * 3 - 0.55, 0, 1), 10, 0);
+  text('NOBODY READS.', CX, 510, 52, 'ArchivoBlack', 'rgba(232,221,200,0.85)', clamp(u * 3 - 0.8, 0, 1), 10, 0);
+  text('黒鉄 蓮', W - 140, 760, 76, 'NotoSerifJP', 'rgba(232,221,200,0.5)', clamp(u * 2 - 0.3, 0, 1), 8, 0);
+  vignette(0.55); grain(t * 30 | 0, 0.055);
+  flash(PAPER, pulse(t, kicks, 11) * 0.05);
+}
+function sSign(t) { // 7.5 - 10.5
+  const u = (t - 7.5) / 3.0;
+  paperBg();
+  fallingDust(t, 0.4);
+  // sign board
+  ctx.save(); ctx.translate(CX, CY - 240);
+  ctx.fillStyle = '#0a0806'; ctx.strokeStyle = 'rgba(232,221,200,0.4)'; ctx.lineWidth = 6;
+  ctx.beginPath(); ctx.roundRect(-330, -190, 660, 380, 10); ctx.fill(); ctx.stroke();
+  ctx.font = '400 220px NotoSerifJP'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = PAPER; ctx.fillText('黒', -140, 10);
+  // the unfinished second character — half painted, a drip from the last stroke
+  ctx.save(); ctx.beginPath(); ctx.rect(30, -140, 240, 150); ctx.clip();
+  ctx.fillStyle = 'rgba(232,221,200,0.85)'; ctx.fillText('鉄', 140, 10);
+  ctx.restore();
+  ctx.strokeStyle = 'rgba(232,221,200,0.5)'; ctx.lineWidth = 8; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(140, 16); ctx.lineTo(140, 16 + clamp(u * 3, 0, 1) * 120); ctx.stroke();
+  ctx.restore();
+  text('HIS GRANDFATHER\'S LAST SIGN', CX, CY + 160, 46, 'ArchivoBlack', PAPER, clamp(u * 3, 0, 1), 8, 0);
+  text('WAS NEVER FINISHED.', CX, CY + 240, 46, 'ArchivoBlack', 'rgba(232,221,200,0.85)', clamp(u * 3 - 0.3, 0, 1), 8, 0);
+  // flatlining pulse
+  const py = CY + 430;
+  ctx.strokeStyle = 'rgba(195,39,43,0.9)'; ctx.lineWidth = 5; ctx.lineCap = 'round';
+  ctx.beginPath();
+  const flat = clamp(u * 1.6 - 0.35, 0, 1);
+  for (let x = 0; x <= 640; x += 4) {
+    const ph = ((x / 640) * 2 - (t - 7.5) * 0.9) % 1;
+    let yv = 0;
+    const amp = (1 - flat);
+    if (ph > 0.42 && ph < 0.47) yv = -60 * amp;
+    else if (ph >= 0.47 && ph < 0.52) yv = 40 * amp;
+    const px = CX - 320 + x;
+    x ? ctx.lineTo(px, py + yv) : ctx.moveTo(px, py + yv);
+  }
+  ctx.stroke();
+  if (flat >= 1) text('— — —', CX, py - 50, 34, 'ArchivoBlack', 'rgba(195,39,43,0.8)', 1, 16, 0);
+  vignette(0.58); grain(t * 30 | 0, 0.055);
+  flash(PAPER, pulse(t, kicks, 11) * 0.05);
+}
+function sDiscovery(t) { // 10.5 - 15.0 (build)
+  const u = (t - 10.5) / 4.5;
+  const r = mulberry32((t * 977 | 0));
+  const sh = 9 * u * u;
+  ctx.save(); ctx.translate((r() - 0.5) * sh, (r() - 0.5) * sh);
+  paperBg();
+  fallingDust(t, 0.5);
+  // wooden box
+  ctx.save(); ctx.translate(CX, CY + 60);
+  ctx.fillStyle = '#0a0806'; ctx.strokeStyle = 'rgba(232,221,200,0.35)'; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.roundRect(-260, -110, 520, 240, 8); ctx.fill(); ctx.stroke();
+  // vermilion seal straps cracking
+  ctx.fillStyle = VERM;
+  ctx.fillRect(-42, -130, 84, 280);
+  ctx.save(); ctx.rotate(Math.PI / 2); ctx.fillRect(-42, -280, 84, 560); ctx.restore();
+  // cracks appear with build kicks
+  const cracks = clamp(((t - 11.25) / 3.3) * 5 | 0, 0, 5);
+  ctx.strokeStyle = '#0a0806'; ctx.lineWidth = 7; ctx.lineCap = 'round';
+  const ck = [[-30, -90, 20, -30], [30, 10, -16, 60], [-36, 90, 30, 130], [-230, -20, -150, 16], [150, -8, 236, 30]];
+  for (let i = 0; i < cracks; i++) {
+    ctx.beginPath(); ctx.moveTo(ck[i][0], ck[i][1]);
+    ctx.quadraticCurveTo((ck[i][0] + ck[i][2]) / 2 + 14, (ck[i][1] + ck[i][3]) / 2, ck[i][2], ck[i][3]);
+    ctx.stroke();
+  }
+  // glow leaking out
+  const lg = ctx.createRadialGradient(0, 0, 0, 0, 0, 330);
+  lg.addColorStop(0, 'rgba(188,216,232,' + (0.12 + 0.3 * u) + ')'); lg.addColorStop(1, 'rgba(188,216,232,0)');
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.fillStyle = lg; ctx.fillRect(-330, -330, 660, 660);
+  ctx.restore();
+  // ink tendrils rising
+  ctx.strokeStyle = 'rgba(232,221,200,0.7)'; ctx.lineWidth = 8; ctx.lineCap = 'round';
+  const tn = clamp(u * 1.4, 0, 1);
+  for (let i = 0; i < 6; i++) {
+    const bx = CX - 150 + i * 60, ln = tn * (240 + i * 40);
+    ctx.beginPath(); ctx.moveTo(bx, CY - 60);
+    ctx.quadraticCurveTo(bx + Math.sin(t * 2 + i) * 50, CY - 60 - ln * 0.6, bx + Math.sin(t * 1.4 + i * 2) * 80, CY - 60 - ln);
+    ctx.stroke();
+  }
+  text('SEALED INSIDE IT:', CX, 420, 50, 'ArchivoBlack', PAPER, clamp(u * 3, 0, 1), 9, 0);
+  text('SOMETHING THAT WRITES BACK.', CX, 505, 50, 'ArchivoBlack', GLOW, clamp(u * 3 - 0.35, 0, 1), 7, 20, GLOW);
+  ctx.restore();
+  vignette(0.6); grain(t * 30 | 0, 0.06);
+  flash(PAPER, pulse(t, kicks, 12) * 0.07);
+  flash('#ffffff', easeInExpo(u) * 0.3);
+}
+function sDrop(t) { // 15.0 - 21.0 — the brush writes 筆
+  const u = (t - DROP) / 6.0;
+  const imp = pulse(t, [DROP], 5);
+  const r = mulberry32((t * 977 | 0));
+  const sh = 24 * imp + 5 * pulse(t, kicks, 12);
+  ctx.save(); ctx.translate((r() - 0.5) * sh, (r() - 0.5) * sh);
+  paperBg();
+  // ink storm swirl
+  ctx.globalCompositeOperation = 'lighter';
+  const rs = mulberry32(21);
+  for (let i = 0; i < 140; i++) {
+    const pa = rs() * 6.283, pd = rs(), ps = 0.5 + rs(), pz = 1 + rs() * 3;
+    const ang = pa + t * ps * 0.9;
+    const d = 180 + pd * 560 + Math.sin(t * ps * 2 + pa) * 40;
+    ctx.globalAlpha = clamp(0.5 - pd * 0.35, 0, 1) * clamp(u * 4, 0, 1);
+    ctx.fillStyle = (i % 9 === 0) ? GOLD : PAPER;
+    ctx.beginPath(); ctx.arc(CX + Math.cos(ang) * d, CY - 120 + Math.sin(ang) * d * 0.9, pz, 0, 7); ctx.fill();
+  }
+  ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  rings(CX, CY - 120, DROP + 0.1, t, GLOW, 4, 1400, 14);
+  rings(CX, CY - 120, DROP + 3.0, t, PAPER, 3, 1200, 10);
+  // the kanji brushes itself on, top to bottom
+  const echo = 5 + 10 * pulse(t, snares, 11);
+  brushReveal('筆', CX, CY - 110, 560, 'NotoSerifJP', PAPER, (t - DROP - 0.15) / 0.9, true, echo);
+  // splat bursts on drop kicks
+  for (let b = 0; b < 6; b++) {
+    const t0 = DROP + b * BAR;
+    for (const [idx, kt] of [[0, t0], [1, t0 + BEAT * 1.75], [2, t0 + BEAT * 2.5]]) {
+      const age = t - kt;
+      if (age > 0 && age < 0.5) {
+        const sr = mulberry32(b * 31 + idx * 7);
+        inkSplat(140 + sr() * 800, 300 + sr() * 1100, 30 + sr() * 50 * (1 + age), b * 100 + idx * 10, clamp(0.7 - age * 1.4, 0, 1), (b + idx) % 4 === 0 ? VERM : PAPER);
+      }
+    }
+  }
+  text('THE FIRST WORD', CX, CY + 480, 48, 'ArchivoBlack', PAPER, clamp(u * 2.5 - 0.35, 0, 1), 12, 0);
+  text('WRITES ITSELF.', CX, CY + 560, 48, 'ArchivoBlack', 'rgba(232,221,200,0.85)', clamp(u * 2.5 - 0.55, 0, 1), 12, 0);
+  ctx.restore();
+  vignette(0.5); grain(t * 30 | 0, 0.06);
+  flash('#ffffff', imp * 0.85);
+  flash(PAPER, pulse(t, snares, 12) * 0.1);
+}
+function sPrice(t) { // 21.0 - 24.0
+  const u = (t - 21.0) / 3.0;
+  paperBg();
+  fallingDust(-t * 0.6, 0.5); // dust drifts upward — something is wrong
+  // Ren small, from behind, at the bottom — the moment costs him
+  renSilhouette(CX, 1560, 0.9, 1, clamp(u * 2 - 0.3, 0, 1), t);
+  // one white hair strand drifts down across the frame
+  const fu = clamp(u * 1.4 - 0.1, 0, 1);
+  if (fu > 0) {
+    const sy = lerp(520, 1240, fu), sx = CX + Math.sin(fu * 5.2) * 130;
+    const rot = fu * 2.4;
+    ctx.save(); ctx.translate(sx, sy); ctx.rotate(rot);
+    ctx.strokeStyle = 'rgba(232,221,200,' + (0.9 - fu * 0.3) + ')';
+    ctx.lineWidth = 5; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-60, 0); ctx.quadraticCurveTo(0, -26, 62, 6); ctx.stroke();
+    ctx.restore();
+  }
+  text('EVERY WORD HAS A PRICE.', CX, 380, 54, 'ArchivoBlack', PAPER, clamp(u * 3, 0, 1), 7, 0);
+  brushReveal('A MEMORY.', CX, 520, 74, 'ArchivoBlack', VERM, u * 2.6 - 0.4, false, 0);
+  vignette(0.62); grain(t * 30 | 0, 0.06);
+  flash(PAPER, pulse(t, kicks, 11) * 0.06);
+  flash('#ffffff', pulse(t, snares, 12) * 0.05);
+}
+function sTease(t) { // 24.0 - 27.0
+  const u = (t - 24.0) / 3.0;
+  paperBg();
+  flash('#000000', 0.55);
+  // two ink-smear eyes
+  for (const sx of [-1, 1]) {
+    const x = CX + sx * 210, y = CY - 220;
+    inkSplat(x, y, 120, sx > 0 ? 501 : 502, clamp(u * 2, 0, 1) * 0.9, '#050403');
+    // glowing slit opens
+    const open = easeOutExpo(clamp(u * 2 - 0.4, 0, 1));
+    if (open > 0.02) {
+      ctx.save(); ctx.translate(x, y); ctx.scale(1, open);
+      const eg = ctx.createRadialGradient(0, 0, 0, 0, 0, 90);
+      eg.addColorStop(0, '#f3ead6'); eg.addColorStop(0.5, VERM); eg.addColorStop(1, 'rgba(195,39,43,0)');
+      ctx.fillStyle = eg; ctx.globalCompositeOperation = 'lighter';
+      ctx.beginPath(); ctx.moveTo(-100, 0); ctx.quadraticCurveTo(0, -56, 100, 0); ctx.quadraticCurveTo(0, 56, -100, 0); ctx.fill();
+      ctx.restore();
+    }
+  }
+  text('…AND SOMETHING ELSE', CX, CY + 160, 48, 'ArchivoBlack', 'rgba(232,221,200,0.9)', clamp(u * 2.4 - 0.2, 0, 1), 9, 0);
+  text('IS WRITING BACK.', CX, CY + 240, 48, 'ArchivoBlack', VERM, clamp(u * 2.4 - 0.45, 0, 1), 9, 18, VERM);
+  vignette(0.72); grain(t * 30 | 0, 0.07);
+  flash(PAPER, pulse(t, kicks, 11) * 0.04);
+}
+function sCard(t) { // 27.0 - 30.0
+  const u = (t - 27.0) / 3.0;
+  const imp = pulse(t, [27.0], 5);
+  paperBg();
+  fallingDust(t * 0.5, 0.35);
+  const sc = lerp(1.07, 1.0, easeOutExpo(clamp(u * 1.6, 0, 1)));
+  ctx.save(); ctx.translate(CX, CY); ctx.scale(sc, sc); ctx.translate(-CX, -CY);
+  text('NEXT', CX, CY - 500, 44, 'ArchivoBlack', 'rgba(232,221,200,0.7)', clamp(u * 3, 0, 1), 20, 0);
+  brushReveal('斬', CX, CY - 190, 360, 'NotoSerifJP', PAPER, u * 2 - 0.1, true, 4);
+  text('EPISODE 02 — CUT', CX, CY + 120, 58, 'ArchivoBlack', PAPER, clamp(u * 2.4 - 0.3, 0, 1), 10, 0);
+  // series sign-off
+  text('言霊', CX, CY + 400, 110, 'NotoSerifJP', 'rgba(232,221,200,0.8)', clamp(u * 2 - 0.5, 0, 1), 6, 0);
+  text('KOTODAMA', CX, CY + 510, 44, 'ArchivoBlack', 'rgba(232,221,200,0.6)', clamp(u * 2 - 0.65, 0, 1), 22, 0);
+  // seal
+  if (u > 0.55) {
+    ctx.save(); ctx.translate(CX + 330, CY + 440); ctx.globalAlpha = clamp((u - 0.55) * 4, 0, 1);
+    ctx.fillStyle = VERM; ctx.beginPath(); ctx.roundRect(-52, -52, 104, 104, 10); ctx.fill();
+    ctx.font = '400 64px NotoSerifJP'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = PAPER; ctx.fillText('筆', 0, 4);
+    ctx.restore();
+  }
+  ctx.restore();
+  vignette(0.6); grain(t * 30 | 0, 0.05);
+  flash('#ffffff', imp * 0.85);
+  flash('#000000', clamp((t - 29.0) / 0.85, 0, 1));
+}
+
+// ---------- master ----------
+function draw(t) {
+  t = clamp(t, 0, DUR - 0.0001);
+  ctx.clearRect(0, 0, W, H);
+  if (t < 3.0) sLogo(t);
+  else if (t < 7.5) sIntro(t);
+  else if (t < 10.5) sSign(t);
+  else if (t < 15.0) sDiscovery(t);
+  else if (t < 21.0) sDrop(t);
+  else if (t < 24.0) sPrice(t);
+  else if (t < 27.0) sTease(t);
+  else sCard(t);
+  // ink-cut accents on scene bar lines
+  for (const b of [3.0, 7.5, 10.5, 21.0, 24.0]) {
+    const p = pulse(t, [b], 15);
+    if (p > 0.05) { flash('#0a0806', p * 0.55); inkSplat(CX, CY, 420 * (1.2 - p), 777, p * 0.5, '#0a0806'); }
+  }
+}
+window.renderFrame = function (frame) { draw(frame / FPS); return true; };
+
+document.fonts.load('400 100px ArchivoBlack', 'KOTODAMA')
+  .then(() => document.fonts.load('400 100px NotoSerifJP', '言霊筆斬黒鉄蓮墨'))
+  .then(() => {
+    const q = new URLSearchParams(location.search).get('t');
+    draw(q !== null ? parseFloat(q) : 16.0);
+    window.__ready = true;
+  });
+</script>
+</body>
+</html>
