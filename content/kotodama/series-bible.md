@@ -106,6 +106,10 @@ real — but each word costs him one memory.
 - Every episode: intro (2 bars) → verse (5) → build (3) → drop (6) →
   breakdown (2) → outro (2 bars, final impact on bar 19).
 - Ep 12 (静) intentionally breaks the formula: silence until 27.0 s.
+- Narrator VO: Piper TTS `en_US-ryan-high`, identical voice every episode.
+  Sparse trailer-style lines (5–7 per episode), mixed with sidechain ducking;
+  each episode ends with "Next: <word>." Lines and timings live in the
+  episode's `script.md`.
 
 ## Production workflow (per episode)
 

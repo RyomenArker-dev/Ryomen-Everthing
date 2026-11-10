@@ -23,6 +23,23 @@ Drop at 15.0 s (bar 11). Final impact 27.0 s (bar 19).
 - 24.0–27.0 breakdown: half-time
 - 27.0–30.0 outro: impact, long 808, final pluck, fade from 29.2
 
+## Narration (VO)
+
+Voice: Piper TTS, `en_US-ryan-high` (free/open-source, offline; model from
+huggingface.co/rhasspy/piper-voices, not committed — ~120 MB). Same voice for
+all 20 episodes. Mixed over music with sidechain ducking
+(threshold 0.04, ratio 6), VO bus padded to 30 s.
+
+| Start | Line | length-scale |
+|---|---|---|
+| 3.3 | Ren Kurogane paints signs nobody reads. | 1.0 |
+| 7.7 | His grandfather's last sign was never finished. | 0.92 |
+| 11.0 | Sealed inside it... something that writes back. | 1.0 |
+| 16.3 | The first word... writes itself. | 1.0 |
+| 21.2 | Every word has a price. A memory. | 0.92 |
+| 24.3 | And something else... is writing back. | 1.0 |
+| 27.6 | Next: Cut. | 1.05 |
+
 ## Instagram caption (draft — owner posts manually, rule S2/S3)
 
 > He paints signs nobody reads. Tonight, one paints back. 🖌️
