@@ -17,3 +17,5 @@ approved by the owner before use (CLAUDE.md S6). Never write keys here.
 | Kokoro (ONNX) | Free offline text-to-speech fallback | Free, open source | — | Used once, not installed permanently | Reinstall per session if needed |
 | fal.ai | Talking-head video generation (`talking-head` skill) | Paid | Owner | Not approved | Only with owner approval (S6) and consent (S10) |
 | Remotion | Video rendering in some motion skills | Free for individuals/small teams; company licence above that — check current terms | Owner | Not installed | Installed per project, with approval |
+| Motion (formerly Framer Motion) | Web animations in `web/starter` | Free, MIT (Motion+ extras are paid, not used) | — | In use (v14.13.0 vendored) | No account needed |
+| 21st.dev (MCP) | UI component search, generation and logo search | Free allowance, paid plans beyond it, check current terms | Owner | Configured in `.mcp.json`, waiting for the owner's API key | Key only as a cloud-environment network secret for 21st.dev (header x-api-key). Ask before any paid use (S6) |

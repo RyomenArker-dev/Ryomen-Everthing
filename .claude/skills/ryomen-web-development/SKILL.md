@@ -41,5 +41,18 @@ Mobile-first · one `h1` · alt text · labelled inputs · visible focus · cont
 `<title>` + meta description + OG tags · `lang` attribute · no external trackers · images sized
 and lazy-loaded · `prefers-reduced-motion` respected.
 
+## Animation (Motion, formerly Framer Motion)
+- The starter ships Motion's plain-JS build (`web/starter/vendor/`) and `animations.js` (fade-up
+  entrances via `animate`, `inView`, `stagger`). Keep motion subtle and purposeful, and keep the
+  reduced-motion early exit. Content must be visible if JS fails.
+- For a React/Next.js client project, use `npm i motion` and `import { motion } from "motion/react"`
+  (ask before adding a build step). See `accessible-animation` and `micro-interaction` skills.
+
+## UI components (21st.dev)
+The `21st-dev` MCP server (`.mcp.json`) can search, generate and refine UI components and logos.
+It needs the owner's 21st.dev API key (network secret for `21st.dev`, header `x-api-key`) and uses
+21st.dev credits: free allowance, paid beyond it (S6, ask before paid use). Its output is React +
+Tailwind: convert it to plain HTML/CSS for the starter, and check licence, accessibility and contrast.
+
 ## Deeper skills
 `ui-ux-pro-max`, `ui-styling`, `design-system`, `schema`, `cro`, `seo-audit`.

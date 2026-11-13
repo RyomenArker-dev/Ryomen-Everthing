@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "21st-dev": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@0.2.3"],
+      "env": {
+        "NODE_USE_ENV_PROXY": "1",
+        "API_KEY_21ST": "${API_KEY_21ST:-replaced-by-cloud-proxy}"
+      }
+    }
+  }
+}
