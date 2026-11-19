@@ -1,0 +1,28 @@
+{
+  "title": "Type I to Type VII Civilisations",
+  "theme": "midnight",
+  "size": "16:9",
+  "voice": "af_heart",
+  "music": true,
+  "captions": "auto",
+  "defaults": "0.6",
+  "heard": {
+    "civilisation": [
+      "civilization"
+    ],
+    "Kardashev": [
+      "Kardeshev",
+      "cartish have"
+    ],
+    "Sagan's": [
+      "Sagin"
+    ],
+    "Galántai's": [
+      "Galantai"
+    ],
+    "Types": [
+      "Type"
+    ]
+  },
+  "watermark": false
+}
