@@ -55,6 +55,18 @@
       "skillPath": "skills/analytics/SKILL.md",
       "computedHash": "5ffac703d3668127f5aa01dc65f34a0dd8b6b1080d40931414bbdd896278eebb"
     },
+    "anidoodle": {
+      "source": "alexgreensh/anidoodle",
+      "sourceType": "github",
+      "skillPath": "skills/anidoodle/SKILL.md",
+      "computedHash": "bd841da8d500fe8934dcaaa2bdad7c13f1bd48120b59e9511d08b57e52f93900"
+    },
+    "animated-chart": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/animated-chart/SKILL.md",
+      "computedHash": "bcb0ab0200111a4921451babf249f9f0977553f1b771da4e584e60a4116f6739"
+    },
     "animated-infographic": {
       "source": "iart-ai/data-animation-skills",
       "sourceType": "github",
@@ -66,6 +78,12 @@
       "sourceType": "github",
       "skillPath": "skills/animation-principles/SKILL.md",
       "computedHash": "140b00a44e08aa7649fb1cce1c48670ff2e76f3889fbac0b5311cc5bb818d7b7"
+    },
+    "apple-launch-film": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/apple-launch-film/SKILL.md",
+      "computedHash": "4bb4cb31eb29b93faa8a3a86b05ecf1749f80fbbc4a6462ec72dc694b6cec8db"
     },
     "ascii-animation": {
       "source": "iart-ai/web-animation-skills",
@@ -91,17 +109,35 @@
       "skillPath": "skills/audiogram/SKILL.md",
       "computedHash": "fc86a13a622c0177a364de1ced4161c894ab5a141ec859ce0e6f436baeeb57ec"
     },
+    "bang-motion": {
+      "source": "bangtutorial/bang-motion",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "f052b13756a539a27676c20650d35deb8b77e7e4d0f9fe96f94ebf90bc0ad07a"
+    },
     "beat-sync-editing": {
       "source": "iart-ai/motion-design-skills",
       "sourceType": "github",
       "skillPath": "skills/beat-sync-editing/SKILL.md",
       "computedHash": "4089a0b65782c529ebd4fe9a576588fb51cf716573b4d683b0494e6554e61e03"
     },
+    "brand-intake": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/brand-intake/SKILL.md",
+      "computedHash": "aefe1a43dbb729d838fb125d97696c9eb26a7b59bbadda2ec991f45c7e650238"
+    },
     "brand-motion-guidelines": {
       "source": "iart-ai/freelance-motion-skills",
       "sourceType": "github",
       "skillPath": "skills/brand-motion-guidelines/SKILL.md",
       "computedHash": "50b10b1630764e7aa44eb1b6754711f3be4743d6cc6adf5c41872455d9f9c3b9"
+    },
+    "business-motion-film": {
+      "source": "echris6/motion-video-kit",
+      "sourceType": "github",
+      "skillPath": "business-motion-film/SKILL.md",
+      "computedHash": "8c1607d3a6c3ee96338c28ded0020b294b2cb896bbd455b948915e7504ce06dc"
     },
     "caption-animation": {
       "source": "iart-ai/tiktok-video-skills",
@@ -241,11 +277,35 @@
       "skillPath": "skills/events/SKILL.md",
       "computedHash": "f92f21a38255f8e472ef10286036543b53f08501750f01b66236c31a6a357c70"
     },
+    "explainer-default": {
+      "source": "Barty-Bart/motion-graphics",
+      "sourceType": "github",
+      "skillPath": "skills/explainer-default/SKILL.md",
+      "computedHash": "3bc6ba8076572a2fe72bdb3e77583a00bc3f4ce415b1efca35e52a621c2e958b"
+    },
+    "explainer-engaging": {
+      "source": "Barty-Bart/motion-graphics",
+      "sourceType": "github",
+      "skillPath": "skills/explainer-engaging/SKILL.md",
+      "computedHash": "f3c1b28523fa4e64ad9c2cd5629a8da93ed94ab0518b4e5ecb75b8994fdeb697"
+    },
+    "explainer-high-energy": {
+      "source": "Barty-Bart/motion-graphics",
+      "sourceType": "github",
+      "skillPath": "skills/explainer-high-energy/SKILL.md",
+      "computedHash": "0a2785c864d073fab977da2de93f065c374810df7697686ffe4516dd0fdee164"
+    },
     "explainer-video": {
       "source": "iart-ai/explainer-video-skills",
       "sourceType": "github",
       "skillPath": "skills/explainer-video/SKILL.md",
       "computedHash": "ab433063cdff431ee5d10d6ce8b4d2e1cb4b608fa6637c7d05d08580d1b1b08a"
+    },
+    "explainroo": {
+      "source": "vincentsch/explainroo",
+      "sourceType": "github",
+      "skillPath": "skills/explainroo/SKILL.md",
+      "computedHash": "526e043bce80e334b903281e7a885711a643a08d2e7d4d395e8e2de31b67a381"
     },
     "free-tools": {
       "source": "coreyhaines31/marketingskills",
@@ -319,6 +379,12 @@
       "skillPath": "skills/lead-magnets/SKILL.md",
       "computedHash": "807effccc03bff30812ef767e4c7831dd002e4ecf3fb7508504453a891409f22"
     },
+    "line-art-animation": {
+      "source": "JDhruv14/line-art-animation",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "5ef78ebff5e0cc11fdb8061945ccd9f17f185bcaf5a5f49f8de985c7ad536409"
+    },
     "link-building": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -330,6 +396,12 @@
       "sourceType": "github",
       "skillPath": "skills/logo-animation/SKILL.md",
       "computedHash": "3bba34771ff84fa7e68dc8026e195aab411a82b01091c9427fc8f3c8e48e7d99"
+    },
+    "loop-cover": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/loop-cover/SKILL.md",
+      "computedHash": "870d795aedaeda0a82984aa2881efa6910c91c119f89c8fb1956b09b592c7250"
     },
     "lottie-animation": {
       "source": "iart-ai/web-animation-skills",
@@ -348,6 +420,24 @@
       "sourceType": "github",
       "skillPath": "skills/manim/SKILL.md",
       "computedHash": "77265df7e909015ebd246ab23fee008b861e1042bb53e1bfc1a6b03a18ff2bd5"
+    },
+    "manim-composer": {
+      "source": "adithya-s-k/manim_skill",
+      "sourceType": "github",
+      "skillPath": "skills/manim-composer/SKILL.md",
+      "computedHash": "227f02dd3ea70c061cfa0aa7ac26b99f821a715e0dd3ebd72809387d192150e7"
+    },
+    "manimce-best-practices": {
+      "source": "adithya-s-k/manim_skill",
+      "sourceType": "github",
+      "skillPath": "skills/manimce-best-practices/SKILL.md",
+      "computedHash": "35c47843ca622f7203ed0be0d01275196743c3028530011c9346db6a675c9e6f"
+    },
+    "manimgl-best-practices": {
+      "source": "adithya-s-k/manim_skill",
+      "sourceType": "github",
+      "skillPath": "skills/manimgl-best-practices/SKILL.md",
+      "computedHash": "4bb524402452dd8025d4987e73932890944b66b763a4d3445342bf1f2b9613eb"
     },
     "map-animation": {
       "source": "iart-ai/map-animation-skills",
@@ -391,6 +481,18 @@
       "skillPath": "skills/micro-interaction/SKILL.md",
       "computedHash": "f236bc97a9f4c0e9c9a045d0b591e3ca6b6b2aeb26e42b661c15211f652ac131"
     },
+    "milestone-reveal": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/milestone-reveal/SKILL.md",
+      "computedHash": "dc405119801bf21c1a7b94926fe14a418d9af2edbf08984b39cb6053816437b1"
+    },
+    "model-showdown": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/model-showdown/SKILL.md",
+      "computedHash": "1a7bed62c369137127dc41e7bcbd7eabdb9264637376632d8fca7c69f70ed9b0"
+    },
     "motion-art-direction": {
       "source": "iart-ai/motion-design-skills",
       "sourceType": "github",
@@ -403,11 +505,59 @@
       "skillPath": "skills/motion-background/SKILL.md",
       "computedHash": "99a576ac6549791b410abbc48a18074fed9e7925cf3ee5392108c59ad9e25fa4"
     },
+    "motion-brief-writer": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-brief-writer/SKILL.md",
+      "computedHash": "b1c80180127b665c484c384e0dac79ac44f188e0543a16fcba772574976f593d"
+    },
+    "motion-broll": {
+      "source": "Barty-Bart/motion-graphics",
+      "sourceType": "github",
+      "skillPath": "skills/motion-broll/SKILL.md",
+      "computedHash": "cfdfa794f24c98b3e9934f546e6e3ea3897a31e7c1650a4921370aa7cbede1d3"
+    },
+    "motion-design": {
+      "source": "howseen-ai/claude-motion-design",
+      "sourceType": "github",
+      "skillPath": "skill/motion-design/SKILL.md",
+      "computedHash": "fe440ed32a74cd9c6bc1b3c00fba1c2cb439108e2f43edf96dd3d206f75af4ce"
+    },
+    "motion-effects": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-effects/SKILL.md",
+      "computedHash": "c633d9f6c91f660a7d6f113d4c4eb7e7837c2000c77dfebbc95706bb243d8968"
+    },
     "motion-pricing": {
       "source": "iart-ai/freelance-motion-skills",
       "sourceType": "github",
       "skillPath": "skills/motion-pricing/SKILL.md",
       "computedHash": "1eb6067a1bbc39cf10b0e5a4ee05ad579de84d6ee618b0ad0d346467ce0668c4"
+    },
+    "motion-prompt-writer": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-prompt-writer/SKILL.md",
+      "computedHash": "4853c9e930fd21e587d2488835810eeb199bc9746698d9d13ff0f31cf2659709"
+    },
+    "motionmaxxing": {
+      "source": "Tejashmakwana/motionmaxxing",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "bc16c67818337f628b07c45b4b6dcef1da88bdfd473bf9564dca1145e461fa86"
+    },
+    "newsletter-promo": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/newsletter-promo/SKILL.md",
+      "computedHash": "fc2e3a3535f284be18237b805f0fdf37d0552f7b5482bec41ddc2d3995716a9d"
+    },
+    "object-separation": {
+      "source": "Barty-Bart/motion-graphics",
+      "sourceType": "github",
+      "skillPath": "skills/object-separation/SKILL.md",
+      "computedHash": "cf500606c4bb4ddbc76c64b4e56bd2d5e3a74f2018605a62e5db697728d37adf"
     },
     "offers": {
       "source": "coreyhaines31/marketingskills",
@@ -450,6 +600,12 @@
       "sourceType": "github",
       "skillPath": "skills/photo-slideshow/SKILL.md",
       "computedHash": "ec1dc38355073f869c41d6eff2ae3a73323255392b31bcd99e7ff74a61044d55"
+    },
+    "pixel2motion": {
+      "source": "nolangz/pixel2motion",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "ec95984bae61715c10afbda8ebeac655075bbaaff825659e5e12449e6d7de305"
     },
     "popups": {
       "source": "coreyhaines31/marketingskills",
@@ -505,11 +661,101 @@
       "skillPath": "skills/public-relations/SKILL.md",
       "computedHash": "8720522c6aa738b590c05ff15b2db54354f55c7c253d77a3cdec745c44a33beb"
     },
+    "reel-export": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/reel-export/SKILL.md",
+      "computedHash": "780bc090aeb40ad173ecd406b465ff0b1019128c32c6b2c7257dc02354d46102"
+    },
+    "reference-to-motion": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/reference-to-motion/SKILL.md",
+      "computedHash": "2744b0979830ee1c2bae5e0a72d26801475c41728b5f690a4374e4e1dcdaccb7"
+    },
     "referrals": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/referrals/SKILL.md",
       "computedHash": "2f2480c93fbf8af8b7e2ca447d7ab18ae76329d3748c0e56906fa9e24add3743"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-best-practices/SKILL.md",
+      "computedHash": "b0607d99c217ef8555896c1b0d56ce9686e9036eae1e969d98721f4029b459e0"
+    },
+    "remotion-captions": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-captions/SKILL.md",
+      "computedHash": "86c22d02c30a5010cffe785c521f2569bc4e7a41a97b6ddb3ccf16239cd5b5f0"
+    },
+    "remotion-create": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-create/SKILL.md",
+      "computedHash": "3dd10548661785c40fe8af69b85e2b07da194e68b7c0bdaa5a16d64b123282e9"
+    },
+    "remotion-docs": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-docs/SKILL.md",
+      "computedHash": "9430e877a7f5e49f7865b5cc3950727866a4497e4d864275c566702fa70297c8"
+    },
+    "remotion-interactivity": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-interactivity/SKILL.md",
+      "computedHash": "1ea6c7fb743c5ba287d578268575c8d95077cc7c9ecc6d13397bbd140546625f"
+    },
+    "remotion-license": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-license/SKILL.md",
+      "computedHash": "993941539ba8d626b99e1f697dcb764df4d55ee1c51f6de4bd09660730cd4e78"
+    },
+    "remotion-maps": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-maps/SKILL.md",
+      "computedHash": "55b325e5eba689215cac233165175a9c7b43ef95ec71d825ec2bc57fb1de5953"
+    },
+    "remotion-markup": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-markup/SKILL.md",
+      "computedHash": "b8f985c223939fd4ca90ef1fa22dc6f4608943d8c3f87f630308dab018372068"
+    },
+    "remotion-multimedia": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-multimedia/SKILL.md",
+      "computedHash": "89f0ce7635f124239846e0853df50a7905a486ff8c3affe6717f030e7a4fdc3c"
+    },
+    "remotion-render": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-render/SKILL.md",
+      "computedHash": "cd0ef4a4bf79ff6da11c5154942ecd30ccffc4e135ca2ca5a9225cc8ef200a07"
+    },
+    "remotion-saas": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-saas/SKILL.md",
+      "computedHash": "51441e87b00a622bb3c6365ecc33b9527c063b1dd57292be8de96c2a72585e41"
+    },
+    "remotion-studio": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-studio/SKILL.md",
+      "computedHash": "879c733d860950fd153737ad4487212e26e6fdaa6c2d7c9aa1d7bff39060f196"
+    },
+    "remotion-upgrade": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-upgrade/SKILL.md",
+      "computedHash": "5472978b40e3429ba77e0b3b01dc910897447a240c0cf1d25fd6962be8236d04"
     },
     "remotion-video": {
       "source": "iart-ai/motion-design-skills",
@@ -589,6 +835,12 @@
       "skillPath": "skills/social/SKILL.md",
       "computedHash": "24f96b1f5cdc0645f11342abd115daf81b80698a3a4eaca8862b15cdb22aab98"
     },
+    "sound-effects": {
+      "source": "Barty-Bart/motion-graphics",
+      "sourceType": "github",
+      "skillPath": "skills/sound-effects/SKILL.md",
+      "computedHash": "fdeb92c2619b6abc8e27b13158c240f6f08b60c2349c7770efcea0bc868fee48"
+    },
     "soundtrack": {
       "source": "iart-ai/javascript-animation-skills",
       "sourceType": "github",
@@ -625,11 +877,23 @@
       "skillPath": "skills/text-message-animation/SKILL.md",
       "computedHash": "753d105c3d28eb1f6fda181de099f7c57f9c2f7449cea1878db184b66783a899"
     },
+    "text-to-lottie": {
+      "source": "diffusionstudio/lottie",
+      "sourceType": "github",
+      "skillPath": "skills/text-to-lottie/SKILL.md",
+      "computedHash": "5f28ffdcb6030f23c38cc1b8cce0edda8b95347ac469aa9f1951e11017eecd3b"
+    },
     "threejs-animation": {
       "source": "iart-ai/webgl-animation-skills",
       "sourceType": "github",
       "skillPath": "skills/threejs-animation/SKILL.md",
       "computedHash": "fc7bf12130f2996a2ab79c17b71381cc5f72581d4b46cc9663927c83b70ffe0e"
+    },
+    "title-sequence-3d": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/title-sequence-3d/SKILL.md",
+      "computedHash": "0b4c752943d8d0bddbfba0fcfe49965c167502c386d84aea2d6904b86c89f2dc"
     },
     "video": {
       "source": "coreyhaines31/marketingskills",
@@ -642,6 +906,12 @@
       "sourceType": "github",
       "skillPath": "skills/video-delivery-specs/SKILL.md",
       "computedHash": "f71afa0e1e95d06a50b13612eb444f8e7532a260cb591ff4c58714a3ea6bfda9"
+    },
+    "vox-explainer": {
+      "source": "charlie947/motion-graphics-skills",
+      "sourceType": "github",
+      "skillPath": "skills/vox-explainer/SKILL.md",
+      "computedHash": "0329bdabc642ddb27dd63400ad715327bef4d39bf462d0b108475eae5112cfdf"
     },
     "whiteboard-animation": {
       "source": "iart-ai/explainer-video-skills",

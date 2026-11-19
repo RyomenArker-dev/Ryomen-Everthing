@@ -77,6 +77,11 @@ Motion Skills (54 skills for motion graphics and video, e.g. `gsap-web`, `logo-a
 `short-form-video`, `remotion-video`, `kinetic-typography`). Video skills need ffmpeg and,
 for some, Remotion/Manim installed at use time (ask first, S6); `talking-head` and the
 ElevenLabs transcription option in `talking-head-b-roll` use **paid** APIs (S6) and S10 applies.
+A curated set of 45 skills from the `zhuyansen/awesome-claude-video-skills` catalog is also
+installed (see `docs/VIDEO-SKILLS.md`): Remotion's official `remotion-*` skills, `explainroo`,
+`motionmaxxing`, `pixel2motion`, `text-to-lottie`, `anidoodle`, `manim-*` and motion packs from
+Barty-Bart and charlie947. Several offer optional paid voice providers (ElevenLabs, OpenAI,
+Gemini): S6 applies.
 Our own skills are prefixed `ryomen-`. **Do not edit third-party skills** — they get
 overwritten on update. Customise behaviour in `ryomen-*` skills instead.
 
