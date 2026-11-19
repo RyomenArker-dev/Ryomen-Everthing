@@ -3,8 +3,12 @@
 Made on 2026-11-19 with the `explainroo` skill. Free local voice (Kokoro `af_heart`), music
 and sound effects by explainroo, every picture drawn in code. No paid services were used.
 
-- `out/` holds the rendered video, subtitles, chapters and cover after `explainroo render .`
-  (git-ignored by explainroo's own `.gitignore`; rebuild with the commands below).
+- `kardashev-scale.mp4`: 1920×1080, 108.5 s, loudness -14 LUFS. Ready for YouTube.
+- `kardashev-scale.srt` (subtitles), `chapters.txt` (paste into the YouTube description),
+  `cover.jpg` (thumbnail).
+- `explainroo verify` **passed**: narration 100% understood in the final mix, music about
+  14 dB under the voice. Not watched by a person yet.
+- `out/` and `build/` are explainroo's working folders and are git-ignored.
 - `script.md` is the narration, `scenes.js` the pictures, `video.json` the settings.
 
 Rebuild (explainroo is not installed in the repo):
