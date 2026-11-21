@@ -12,5 +12,6 @@
 1. Review last month's report and client news (from client only).
 2. Fill `templates/campaign-plan.md` calendar: dates, platform, format, topic, CTA.
 3. Draft captions (`ryomen-copywriting`) and asset briefs (`banner-design` / `design`).
-4. QA → client approval → owner schedules/publishes in the platform.
+4. QA → client approval → owner schedules/publishes in the platform, or approves each post for
+   `ryomen-instagram-publish` to publish through the Instagram API.
 5. Collect metrics at month end (owner exports) → `ryomen-report`.

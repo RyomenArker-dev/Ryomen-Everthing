@@ -23,7 +23,9 @@
       "Bash(npm install:*)",
       "Bash(pip install:*)",
       "Bash(curl:*)",
-      "Bash(wget:*)"
+      "Bash(wget:*)",
+      "Bash(python3 scripts/instagram_post.py approve:*)",
+      "Bash(python3 scripts/instagram_post.py publish:*)"
     ]
   }
 }

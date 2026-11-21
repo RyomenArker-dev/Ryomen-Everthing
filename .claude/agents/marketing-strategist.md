@@ -14,6 +14,7 @@ sized for small businesses with small budgets.
 - Monthly reports → `clients/<slug>/reports/` via `ryomen-report`
 
 ## Skills
+- `ryomen-instagram-publish`: approved Instagram posting (owner approves every post)
 - Primary: `ryomen-marketing-strategy`, `ryomen-report`
 - Depth (third-party): `seo-audit`, `ai-seo`, `schema`, `site-architecture`, `content-strategy`,
   `social`, `ads`, `ad-creative`, `emails`, `analytics`, `launch`, `marketing-plan`

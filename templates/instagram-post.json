@@ -1,0 +1,11 @@
+{
+  "type": "image",
+  "caption": "TODO: approved caption (max 2200 characters, 30 hashtags, 20 @mentions)",
+  "media": [
+    {
+      "kind": "image",
+      "url": "https://TODO-public-link-to/photo.jpg",
+      "alt_text": "TODO: describe the image for screen readers"
+    }
+  ]
+}
